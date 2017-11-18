@@ -1,8 +1,13 @@
 package com.soumya.wwdablu.zomatobuddy.viewadapter;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
+import android.support.annotation.DimenRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.soumya.wwdablu.zomatobuddy.R;
@@ -38,6 +43,9 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         notifyDataSetChanged();
     }
 
+    /*
+     * View Holder Class
+     */
     class CategoryViewHolder extends RecyclerView.ViewHolder {
 
         private CardRestaurantInfoBinding binder;
@@ -51,10 +59,25 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         void onBind(int position) {
 
             Restaurant restaurant = searchResponse.getRestaurants().get(position).getRestaurant();
-            binder.getCatCardViewModel().setFeatureImage(restaurant.getFeaturedImage());
             binder.getCatCardViewModel().setName(restaurant.getName());
             binder.getCatCardViewModel().setLocation(restaurant.getLocation().getAddress());
             binder.getCatCardViewModel().setCuisine(restaurant.getCuisines());
+            binder.getCatCardViewModel().setFeatureImage(restaurant.getFeaturedImage());
+        }
+    }
+
+    public static class CardDecorator extends RecyclerView.ItemDecoration {
+
+        private int margins;
+
+        public CardDecorator(Context context, @DimenRes int offset) {
+            margins = context.getResources().getDimensionPixelSize(offset);
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.set(margins, margins, margins, margins);
         }
     }
 }

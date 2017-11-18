@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
+import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.soumya.wwdablu.zomatobuddy.databinding.ActivityDashboardBinding;
 import com.soumya.wwdablu.zomatobuddy.model.LocationCoordinates;
 import com.soumya.wwdablu.zomatobuddy.model.categories.CategoryResponse;
@@ -74,6 +75,12 @@ public class DashboardActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        CacheDB.getInstance().purgeCache();
+        super.onBackPressed();
     }
 
     private ArrayList<DashboardPageAdapter.PageInfo> getTabHeaderInfos() {

@@ -1,18 +1,22 @@
 package com.soumya.wwdablu.zomatobuddy.model;
 
+import com.google.gson.Gson;
 import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
 import com.soumya.wwdablu.zomatobuddy.dagger.DaggerNetworkComponent;
 import com.soumya.wwdablu.zomatobuddy.dagger.NetworkModule;
+import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.soumya.wwdablu.zomatobuddy.model.search.SearchResponse;
 import com.soumya.wwdablu.zomatobuddy.network.ZomatoServiceApi;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SearchModel {
     
@@ -21,7 +25,6 @@ public class SearchModel {
 
     private @SearchTypes.SearchType String searchType;
     private DisposableObserver disposableObserver;
-    private SearchResponse searchResponse;
 
     public SearchModel(@SearchTypes.SearchType String searchType) {
 
@@ -43,25 +46,27 @@ public class SearchModel {
         //This returns the observable which will fire once an observer is subscribed with it
         return Observable.create(emitter -> {
 
-            //If the data is already present, then just use it
-            if(null != searchResponse) {
-                emitter.onNext(searchResponse);
-                emitter.onComplete();
-                return;
-            }
+            disposableObserver = Observable.defer(() -> Observable.create((ObservableOnSubscribe<String>) cacheEmitter -> {
 
-            disposableObserver = zomatoServiceApi.getCategorySearch(Double.toString(locationCoordinates.getLatitude()),
-                Double.toString(locationCoordinates.getLongitude()), searchType)
+                String data = CacheDB.getInstance().getFromCache(searchType);
+                cacheEmitter.onNext(data);
 
-                .subscribeOn(Schedulers.io())
+            })).flatMap(responseCache -> {
+
+                if(!"".equals(responseCache.trim())) {
+                    return Observable.just(new Gson().fromJson(responseCache, SearchResponse.class));
+                }
+
+                return zomatoServiceApi.getCategorySearch(Double.toString(locationCoordinates.getLatitude()),
+                        Double.toString(locationCoordinates.getLongitude()), searchType);
+
+            }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-
                 .subscribeWith(new DisposableObserver<SearchResponse>() {
-
                     @Override
                     public void onNext(SearchResponse searchResponse) {
 
-                        SearchModel.this.searchResponse = searchResponse;
+                        cacheSearchResponse(searchResponse);
                         emitter.onNext(searchResponse);
                     }
 
@@ -87,5 +92,28 @@ public class SearchModel {
         if(null != disposableObserver && !disposableObserver.isDisposed()) {
             disposableObserver.dispose();
         }
+    }
+
+    private void cacheSearchResponse(SearchResponse searchResponse) {
+
+        Observable.just(searchResponse)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribeWith(new DisposableObserver<SearchResponse>() {
+                @Override
+                public void onNext(SearchResponse response) {
+                    CacheDB.getInstance().cache(searchType, new Gson().toJson(searchResponse));
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Timber.e("Could not store the information in the cache for %s", searchType);
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
     }
 }

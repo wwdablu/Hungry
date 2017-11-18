@@ -35,9 +35,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/iv_restaurant_image"
-                    android:src="@drawable/default_card_bg"
+                    android:src="@drawable/default_food"
                     android:scaleType="centerCrop"
                     app:featureImage="@{catCardViewModel.featureImage}"
+                    app:cuisines="@{catCardViewModel.cuisine}"
                     android:contentDescription="@string/restaurant_image"
                     />
 

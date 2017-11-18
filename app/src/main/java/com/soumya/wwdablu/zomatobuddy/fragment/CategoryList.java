@@ -47,6 +47,8 @@ public class CategoryList extends Fragment implements CategoryViewModel.ISearchR
         //Setup the recycler view
         categoryRecyclerAdapter = new CategoryRecyclerAdapter();
         categorylistBinder.rvCategoryRestaurants.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        categorylistBinder.rvCategoryRestaurants.addItemDecoration(
+                new CategoryRecyclerAdapter.CardDecorator(getActivity(), R.dimen.card_margins));
         categorylistBinder.rvCategoryRestaurants.setAdapter(categoryRecyclerAdapter);
 
         return categorylistBinder.getRoot();
