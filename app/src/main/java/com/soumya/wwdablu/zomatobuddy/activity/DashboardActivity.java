@@ -1,5 +1,6 @@
 package com.soumya.wwdablu.zomatobuddy.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,44 +9,54 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
+import com.soumya.wwdablu.zomatobuddy.dagger.DaggerNetworkComponent;
+import com.soumya.wwdablu.zomatobuddy.dagger.NetworkModule;
 import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.soumya.wwdablu.zomatobuddy.databinding.ActivityDashboardBinding;
+import com.soumya.wwdablu.zomatobuddy.fragment.CategoryList;
 import com.soumya.wwdablu.zomatobuddy.model.LocationCoordinates;
 import com.soumya.wwdablu.zomatobuddy.model.categories.CategoryResponse;
+import com.soumya.wwdablu.zomatobuddy.model.restaurant.RestaurantResponse;
+import com.soumya.wwdablu.zomatobuddy.model.search.Restaurant;
+import com.soumya.wwdablu.zomatobuddy.network.ZomatoServiceApi;
 import com.soumya.wwdablu.zomatobuddy.viewadapter.DashboardPageAdapter;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-public class DashboardActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
+public class DashboardActivity extends AppCompatActivity implements CategoryList.IRestaurantAction {
 
     private static final int MAX_TABS = 3;
 
-    private LocationCoordinates locationCoordinates;
-    private CategoryResponse categoryResponse;
-
-    private FragmentStatePagerAdapter fragmentStatePagerAdapter;
     private ActivityDashboardBinding dashboardBinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         dashboardBinder = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
 
-
         //Fetch the data received from the splash screen
-        locationCoordinates = Parcels.unwrap(getIntent().getBundleExtra("data").getParcelable("location"));
-        categoryResponse = Parcels.unwrap(getIntent().getBundleExtra("data").getParcelable("categoryResponse"));
+        LocationCoordinates locationCoordinates = Parcels.unwrap(getIntent().getBundleExtra("data").getParcelable("location"));
+        CategoryResponse categoryResponse = Parcels.unwrap(getIntent().getBundleExtra("data").getParcelable("categoryResponse"));
 
         //Set the toolbar
         setSupportActionBar(dashboardBinder.toolbar);
 
         //Create the state pager adapter
-        fragmentStatePagerAdapter = new DashboardPageAdapter(getSupportFragmentManager(),
-                locationCoordinates, MAX_TABS, getTabHeaderInfos());
+        FragmentStatePagerAdapter fragmentStatePagerAdapter = new DashboardPageAdapter(getSupportFragmentManager(),
+                locationCoordinates, MAX_TABS, getTabHeaderInfos(), this);
 
         // Set up the ViewPager with the state pager adapter.
         dashboardBinder.container.setAdapter(fragmentStatePagerAdapter);
@@ -64,9 +75,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -81,6 +90,19 @@ public class DashboardActivity extends AppCompatActivity {
     public void onBackPressed() {
         CacheDB.getInstance().purgeCache();
         super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(String searchType, Restaurant restaurant) {
+
+        launchNextActivity(restaurant);
+    }
+
+    private void launchNextActivity(Restaurant restaurant) {
+        Timber.d(restaurant.getName());
+        Intent launchIntent = new Intent(this, RestaurantDetailsActivity.class);
+        launchIntent.putExtra("resid", restaurant.getId());
+        startActivity(launchIntent);
     }
 
     private ArrayList<DashboardPageAdapter.PageInfo> getTabHeaderInfos() {

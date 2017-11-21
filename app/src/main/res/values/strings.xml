@@ -12,4 +12,7 @@
     <string name="delivery">Delivery</string>
     <string name="dine_out">Dine-out</string>
     <string name="take_away">Take Away</string>
+    <string name="could_not_fetch_generic">Could not fetch the details. Please try again later.</string>
+    <string name="open_now">Open Now</string>
+    <string name="closed">Closed</string>
 </resources>

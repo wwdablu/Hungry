@@ -43,14 +43,17 @@ public class DashboardPageAdapter extends FragmentStatePagerAdapter {
     private int pageCount;
     private LocationCoordinates locationCoordinates;
     private ArrayList<PageInfo> pageInfoList;
+    private CategoryList.IRestaurantAction restaurantActionImpl;
 
     public DashboardPageAdapter(FragmentManager fm, LocationCoordinates locationCoordinates,
-                                int pageCount, ArrayList<PageInfo> pageInfoList) {
+                                int pageCount, ArrayList<PageInfo> pageInfoList,
+                                CategoryList.IRestaurantAction action) {
 
         super(fm);
         this.locationCoordinates = locationCoordinates;
         this.pageCount = pageCount;
         this.pageInfoList = pageInfoList;
+        this.restaurantActionImpl = action;
     }
 
     @Override
@@ -62,7 +65,8 @@ public class DashboardPageAdapter extends FragmentStatePagerAdapter {
         bundle.putParcelable(CategoryList.KEY_LOCATION_COORDINATE, Parcels.wrap(locationCoordinates));
         bundle.putString(CategoryList.KEY_SEARCH_TYPE, pageInfoList.get(position).getSearchType());
 
-        Fragment fragment = new CategoryList();
+        CategoryList fragment = new CategoryList();
+        fragment.setRestaurantAction(restaurantActionImpl);
         fragment.setArguments(bundle);
 
         return fragment;

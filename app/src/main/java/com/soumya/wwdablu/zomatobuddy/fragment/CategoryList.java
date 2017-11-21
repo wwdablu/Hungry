@@ -12,13 +12,19 @@ import android.view.ViewGroup;
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
 import com.soumya.wwdablu.zomatobuddy.databinding.FragmentCategorylistBinding;
+import com.soumya.wwdablu.zomatobuddy.model.search.Restaurant;
 import com.soumya.wwdablu.zomatobuddy.model.search.SearchResponse;
 import com.soumya.wwdablu.zomatobuddy.viewadapter.CategoryRecyclerAdapter;
 import com.soumya.wwdablu.zomatobuddy.viewmodel.CategoryViewModel;
 
 import org.parceler.Parcels;
 
-public class CategoryList extends Fragment implements CategoryViewModel.ISearchResult {
+public class CategoryList extends Fragment implements CategoryViewModel.ISearchResult,
+                CategoryRecyclerAdapter.IRestaurantAction {
+
+    public interface IRestaurantAction {
+        void onClick(@SearchTypes.SearchType String searchType, Restaurant restaurant);
+    }
 
     public static final String KEY_HEADER_TITLE = "headerTitle";
     public static final String KEY_HEADER_SUB_TITLE = "headerSubTitle";
@@ -27,6 +33,7 @@ public class CategoryList extends Fragment implements CategoryViewModel.ISearchR
 
     private FragmentCategorylistBinding categorylistBinder;
     private CategoryRecyclerAdapter categoryRecyclerAdapter;
+    private IRestaurantAction restaurantActionImpl;
 
     private CategoryViewModel categoryViewModel;
 
@@ -45,7 +52,7 @@ public class CategoryList extends Fragment implements CategoryViewModel.ISearchR
         categoryViewModel.setHeaderSubTitle(getArguments().getString(KEY_HEADER_SUB_TITLE));
 
         //Setup the recycler view
-        categoryRecyclerAdapter = new CategoryRecyclerAdapter();
+        categoryRecyclerAdapter = new CategoryRecyclerAdapter(this);
         categorylistBinder.rvCategoryRestaurants.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         categorylistBinder.rvCategoryRestaurants.addItemDecoration(
                 new CategoryRecyclerAdapter.CardDecorator(getActivity(), R.dimen.card_margins));
@@ -63,5 +70,19 @@ public class CategoryList extends Fragment implements CategoryViewModel.ISearchR
     public void onSearchComplete(SearchResponse searchResponse) {
         categorylistBinder.setCatViewModel(categoryViewModel);
         categoryRecyclerAdapter.setSearchResponse(searchResponse);
+    }
+
+    public void setRestaurantAction(IRestaurantAction action) {
+        this.restaurantActionImpl = action;
+    }
+
+    @Override
+    public void onClick(Restaurant restaurant) {
+
+        if(null == restaurantActionImpl) {
+            return;
+        }
+
+        restaurantActionImpl.onClick(getArguments().getString(KEY_SEARCH_TYPE), restaurant);
     }
 }

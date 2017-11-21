@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
+        <!-- Progress indicator till we receive the response -->
+        <include
+            layout="@layout/marge_progressbar"
+            android:id="@+id/merge_pb"
+            />
+
+        <!-- Section to display the header toolbar -->
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/abl_rest_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true"
+            android:visibility="visible"
+            >
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/ct_rest_details"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:background="@android:color/white"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="28dp"
+                app:expandedTitleMarginEnd="64dp"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:id="@+id/iv_rest_details_header"
+                    android:src="@drawable/default_food"
+                    android:scaleType="center"
+                    android:fitsSystemWindows="true"
+                    android:contentDescription="Restaurant Image"
+                    />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_rest_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_collapseMode="pin" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <!-- Displays the content of the restaurant -->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nsv_rest_details_container"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:visibility="gone"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_inner_container"
+                android:orientation="vertical"
+                >
+
+                <!-- Header card information -->
+                <include
+                    layout="@layout/card_restaurant_details_header"
+                    android:id="@+id/card_layout_rest_details_header"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_rest_details_actions"
+                    android:nestedScrollingEnabled="false"
+                    />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

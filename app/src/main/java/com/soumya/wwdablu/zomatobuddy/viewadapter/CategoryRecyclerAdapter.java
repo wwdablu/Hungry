@@ -4,6 +4,8 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.support.annotation.DimenRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -18,7 +20,16 @@ import com.soumya.wwdablu.zomatobuddy.viewmodel.CategoryCardViewModel;
 
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.CategoryViewHolder> {
 
+    public interface IRestaurantAction {
+        void onClick(Restaurant restaurant);
+    }
+
     private SearchResponse searchResponse;
+    private IRestaurantAction restaurantActionImpl;
+
+    public CategoryRecyclerAdapter(IRestaurantAction implementation) {
+        this.restaurantActionImpl = implementation;
+    }
 
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,6 +65,8 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
             super(binder.getRoot());
             this.binder = binder;
             this.binder.setCatCardViewModel(new CategoryCardViewModel());
+
+            this.binder.getRoot().setOnClickListener(clickListener);
         }
 
         void onBind(int position) {
@@ -64,6 +77,20 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
             binder.getCatCardViewModel().setCuisine(restaurant.getCuisines());
             binder.getCatCardViewModel().setFeatureImage(restaurant.getFeaturedImage());
         }
+
+        private View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Null guard check
+                if(null == restaurantActionImpl) {
+                    return;
+                }
+
+                restaurantActionImpl.onClick(searchResponse.getRestaurants().
+                        get(getAdapterPosition()).getRestaurant());
+            }
+        };
     }
 
     public static class CardDecorator extends RecyclerView.ItemDecoration {

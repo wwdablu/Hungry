@@ -70,16 +70,13 @@ public class NetworkModule {
     @Provides
     public Interceptor provideInterceptor() {
 
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
+        return chain -> {
 
-                Request modifiedRequest = chain.request().newBuilder()
-                        .addHeader("user-key", BuildConfig.ZOMATO_API_KEY)
-                        .build();
+            Request modifiedRequest = chain.request().newBuilder()
+                    .addHeader("user-key", BuildConfig.ZOMATO_API_KEY)
+                    .build();
 
-                return chain.proceed(modifiedRequest);
-            }
+            return chain.proceed(modifiedRequest);
         };
     }
 }
