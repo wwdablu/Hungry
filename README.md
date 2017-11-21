@@ -24,3 +24,9 @@ The Zomato API needs to be defined in the gradle.properties file. You can also m
 * Parceller  
 * Timber  
 * Hawk  
+
+**__Screenshot__**  
+
+![Screenshot](/screenshot/ZomatoBuddy_Usage.gif?raw=true "Sample")  
+
+> The free version of the API does not provide all the required information so the details screen is very bare minimum. But, this should give an idea about the usage of the application.  
