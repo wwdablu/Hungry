@@ -6,7 +6,7 @@ import android.databinding.ObservableField;
 
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
 import com.soumya.wwdablu.zomatobuddy.model.LocationCoordinates;
-import com.soumya.wwdablu.zomatobuddy.model.SearchModel;
+import com.soumya.wwdablu.zomatobuddy.model.RestaurantListModel;
 import com.soumya.wwdablu.zomatobuddy.model.search.SearchResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,7 +20,7 @@ public class CategoryViewModel extends BaseObservable {
         void onSearchComplete(SearchResponse searchResponse);
     }
 
-    private SearchModel searchModel;
+    private RestaurantListModel restaurantListModel;
     private ObservableField<String> headerTitle;
     private ObservableField<String> headerSubTitle;
 
@@ -31,10 +31,10 @@ public class CategoryViewModel extends BaseObservable {
         headerSubTitle = new ObservableField<>();
 
         //Set the type of the search
-        searchModel = new SearchModel(searchType);
+        restaurantListModel = new RestaurantListModel(searchType);
 
         //Search based on the location and search type
-        searchModel.search(locationCoordinates)
+        restaurantListModel.search(locationCoordinates)
             .observeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<SearchResponse>() {

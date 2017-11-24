@@ -2,6 +2,8 @@ package com.soumya.wwdablu.zomatobuddy.activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -40,6 +42,7 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
     private static final int MAX_TABS = 3;
 
     private ActivityDashboardBinding dashboardBinder;
+    private LocationCoordinates locationCoordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
         dashboardBinder = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
 
         //Fetch the data received from the splash screen
-        LocationCoordinates locationCoordinates = Parcels.unwrap(getIntent().getBundleExtra("data").getParcelable("location"));
+        locationCoordinates = Parcels.unwrap(getIntent().getBundleExtra("data").getParcelable("location"));
         CategoryResponse categoryResponse = Parcels.unwrap(getIntent().getBundleExtra("data").getParcelable("categoryResponse"));
 
         //Set the toolbar
@@ -63,6 +66,8 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
 
         dashboardBinder.container.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(dashboardBinder.tabs));
         dashboardBinder.tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(dashboardBinder.container));
+
+        dashboardBinder.tabs.setSelectedTabIndicatorColor(Color.YELLOW);
     }
 
 
@@ -76,14 +81,17 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
+        switch(item.getItemId()) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.menu_source_search:
+                launchSearchActivity();
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
@@ -102,7 +110,16 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
         Timber.d(restaurant.getName());
         Intent launchIntent = new Intent(this, RestaurantDetailsActivity.class);
         launchIntent.putExtra("resid", restaurant.getId());
+        launchIntent.putExtra("rName", restaurant.getName());
         startActivity(launchIntent);
+    }
+
+    private void launchSearchActivity() {
+
+        Timber.d("Launching search activity");
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+        searchIntent.putExtra("location", Parcels.wrap(locationCoordinates));
+        startActivity(searchIntent);
     }
 
     private ArrayList<DashboardPageAdapter.PageInfo> getTabHeaderInfos() {

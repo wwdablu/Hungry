@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -27,17 +28,24 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private ItemsAdapter adapter;
 
+    private String restaurantName;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        binder = DataBindingUtil.inflate(inflater, R.layout.fragment_restaurant_details, container, false);
+        binder = DataBindingUtil.inflate(inflater, R.layout.fragment_restaurant_details,
+                container, false);
+
+        //Get the name of the restaurant from the caller
+        restaurantName = getArguments().getString("rName");
 
         restaurantDetailsViewModel = new RestaurantDetailsViewModel(this);
         binder.cardLayoutRestDetailsHeader.setRestDetails(restaurantDetailsViewModel);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(binder.toolbarRestDetails);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        binder.ablRestDetails.addOnOffsetChangedListener(offsetChangeListener);
 
         binder.rvRestDetailsActions.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
@@ -110,6 +118,30 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
             startActivity(viewIntent);
         }
     }
+
+    private AppBarLayout.OnOffsetChangedListener offsetChangeListener = new AppBarLayout.OnOffsetChangedListener() {
+
+        boolean isShow = false;
+        int scrollRange = -1;
+        int visibleRange = 0;
+
+        @Override
+        public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+            if (scrollRange == -1) {
+                scrollRange = appBarLayout.getTotalScrollRange();
+                visibleRange = scrollRange / 4;
+            }
+
+            if(scrollRange + verticalOffset <= visibleRange && !isShow) {
+                binder.ctRestDetails.setTitle(restaurantName);
+                isShow = true;
+            } else if(scrollRange + verticalOffset > visibleRange && isShow) {
+                binder.ctRestDetails.setTitle(" ");
+                isShow = false;
+            }
+        }
+    };
 
     private void fetchRestaurantDetails() {
 

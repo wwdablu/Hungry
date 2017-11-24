@@ -22,10 +22,10 @@ public class RestaurantDetailsModel {
     private DisposableObserver disposableObserver;
     private RestaurantResponse restaurantResponse;
 
-    public RestaurantDetailsModel() {
+    public RestaurantDetailsModel(String baseUrl) {
 
         DaggerNetworkComponent.builder()
-            .networkModule(new NetworkModule(BuildConfig.ZOMATO_BASE_URL))
+            .networkModule(new NetworkModule(baseUrl))
             .build()
             .inject(this);
     }

@@ -15,4 +15,6 @@
     <string name="could_not_fetch_generic">Could not fetch the details. Please try again later.</string>
     <string name="open_now">Open Now</string>
     <string name="closed">Closed</string>
+    <string name="search">Search</string>
+    <string name="could_not_find_any_search_result_for_the_given_query">Could not find any search result for the given query.</string>
 </resources>

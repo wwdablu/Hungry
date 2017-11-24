@@ -22,15 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.DashboardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".activity.RestaurantDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+        <activity
+            android:name=".activity.RestaurantDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

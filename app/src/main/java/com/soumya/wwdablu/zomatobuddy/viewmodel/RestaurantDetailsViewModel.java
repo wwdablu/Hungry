@@ -7,9 +7,12 @@ import android.databinding.ObservableField;
 import android.graphics.Color;
 import android.widget.TextView;
 
+import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.model.RestaurantDetailsModel;
+import com.soumya.wwdablu.zomatobuddy.model.ReviewModel;
 import com.soumya.wwdablu.zomatobuddy.model.restaurant.RestaurantResponse;
+import com.soumya.wwdablu.zomatobuddy.model.reviews.ReviewResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
@@ -34,7 +37,7 @@ public class RestaurantDetailsViewModel extends BaseObservable {
 
     public RestaurantDetailsViewModel(IDetailsAction detailsAction) {
 
-        restaurantDetailsModel = new RestaurantDetailsModel();
+        restaurantDetailsModel = new RestaurantDetailsModel(BuildConfig.ZOMATO_BASE_URL);
         this.detailsAction = detailsAction;
 
         restaurantName = new ObservableField<>();
@@ -145,6 +148,11 @@ public class RestaurantDetailsViewModel extends BaseObservable {
         this.restaurantCuisines.set(cuisines);
     }
 
+
+    /*
+     * Method which is used to bind the information from the model to the view
+     * that is displayed to the user once the response if received from the WS
+     */
     private void bindData(RestaurantResponse restaurantResponse) {
 
         setRestaurantName(restaurantResponse.getName());

@@ -35,6 +35,10 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_margin="8dp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:text="@{restDetails.restaurantName}"
                 tools:text="Acme Restaurant"
                 />
@@ -46,6 +50,9 @@
                 android:textSize="16sp"
                 android:textColor="@android:color/darker_gray"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@{restDetails.restaurantLocation}"
                 tools:text="Acme County, ACME"
                 />
