@@ -1,7 +1,5 @@
 package com.soumya.wwdablu.zomatobuddy.database;
 
-import android.provider.BaseColumns;
-
 public final class DatabaseContract {
 
     public static final class ResponseCache {

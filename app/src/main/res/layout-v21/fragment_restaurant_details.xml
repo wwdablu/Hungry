@@ -44,7 +44,7 @@
                     android:src="@drawable/default_food"
                     android:scaleType="center"
                     android:fitsSystemWindows="true"
-                    android:contentDescription="@string/restaurant_image"
+                    android:contentDescription="Restaurant Image"
                     />
 
                 <android.support.v7.widget.Toolbar
@@ -85,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/rv_rest_details_actions"
+                    android:nestedScrollingEnabled="false"
                     />
 
             </LinearLayout>

@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/iv_rest_details_open_time"
                     android:src="@drawable/clock"
+                    android:contentDescription="Time Icon"
                     />
 
                 <TextView

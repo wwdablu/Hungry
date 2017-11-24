@@ -29,7 +29,7 @@
         <activity
             android:name=".activity.RestaurantDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity"/>
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package com.soumya.wwdablu.zomatobuddy.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,30 +10,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
-import com.soumya.wwdablu.zomatobuddy.dagger.DaggerNetworkComponent;
-import com.soumya.wwdablu.zomatobuddy.dagger.NetworkModule;
 import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.soumya.wwdablu.zomatobuddy.databinding.ActivityDashboardBinding;
 import com.soumya.wwdablu.zomatobuddy.fragment.CategoryList;
 import com.soumya.wwdablu.zomatobuddy.model.LocationCoordinates;
 import com.soumya.wwdablu.zomatobuddy.model.categories.CategoryResponse;
-import com.soumya.wwdablu.zomatobuddy.model.restaurant.RestaurantResponse;
 import com.soumya.wwdablu.zomatobuddy.model.search.Restaurant;
-import com.soumya.wwdablu.zomatobuddy.network.ZomatoServiceApi;
 import com.soumya.wwdablu.zomatobuddy.viewadapter.DashboardPageAdapter;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class DashboardActivity extends AppCompatActivity implements CategoryList.IRestaurantAction {

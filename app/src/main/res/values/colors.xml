@@ -4,10 +4,6 @@
     <color name="colorPrimaryDark">#ab202d</color>
     <color name="colorAccent">#cb202d</color>
 
-    <color name="actvityBg">#f4f4f2</color>
-    <color name="somewhatBlack">#2d2d2d</color>
-
-    <color name="pureWhite">#FFFFFF</color>
     <color name="pureBlack">#000000</color>
 
 </resources>

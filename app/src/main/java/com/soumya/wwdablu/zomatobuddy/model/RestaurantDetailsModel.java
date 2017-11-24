@@ -1,6 +1,5 @@
 package com.soumya.wwdablu.zomatobuddy.model;
 
-import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.dagger.DaggerNetworkComponent;
 import com.soumya.wwdablu.zomatobuddy.dagger.NetworkModule;
 import com.soumya.wwdablu.zomatobuddy.model.restaurant.RestaurantResponse;

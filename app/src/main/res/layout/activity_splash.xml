@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/pureWhite"
+        android:textColor="@android:color/white"
         />
 
 </FrameLayout>

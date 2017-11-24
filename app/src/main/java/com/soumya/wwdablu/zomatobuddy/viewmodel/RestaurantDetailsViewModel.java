@@ -10,9 +10,7 @@ import android.widget.TextView;
 import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.model.RestaurantDetailsModel;
-import com.soumya.wwdablu.zomatobuddy.model.ReviewModel;
 import com.soumya.wwdablu.zomatobuddy.model.restaurant.RestaurantResponse;
-import com.soumya.wwdablu.zomatobuddy.model.reviews.ReviewResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
@@ -89,13 +87,13 @@ public class RestaurantDetailsViewModel extends BaseObservable {
 
     public void clean() {
 
-        if(null == disposableObserver && !disposableObserver.isDisposed()) {
+        if(null != disposableObserver && !disposableObserver.isDisposed()) {
             disposableObserver.dispose();
         }
     }
 
     @BindingAdapter("resolveDeliveryInfo")
-    public static final void resolveRestaurantDeliveryingInfo(TextView textView, int isDeliveringNow) {
+    public static void resolveRestaurantDeliveryingInfo(TextView textView, int isDeliveringNow) {
 
         textView.setText(0 == isDeliveringNow ? textView.getContext().getString(R.string.open_now)
                 : textView.getContext().getString(R.string.closed));

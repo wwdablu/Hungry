@@ -7,7 +7,7 @@
         android:id="@+id/menu_source_search"
         android:icon="@drawable/ic_search"
         android:orderInCategory="110"
-        android:contentDescription="Performs the search operation"
+        android:contentDescription="@string/performs_the_search_operation"
         app:showAsAction="always"
         />
 
