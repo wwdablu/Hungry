@@ -45,7 +45,7 @@ The Zomato API needs to be defined in the gradle.properties file. You can also m
 
 **__Changelog__**  
 
-06 - Added share feature with UI tweaks. Added powered by Zomato text to show API usage.
+06 - Added share feature with UI tweaks. Added powered by Zomato text to show API usage.  
 05 - Lint and defect fixes  
 04 - Addition of reviews  
 03 - Addition of search feature  
