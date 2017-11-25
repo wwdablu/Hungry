@@ -1,12 +1,22 @@
 package com.soumya.wwdablu.zomatobuddy.model.reviews;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
-public class ReviewResponse{
+
+public class ReviewResponse {
+
+	@SerializedName("reviews_start")
 	private int reviewsStart;
+
+	@SerializedName("user_reviews")
 	private List<UserReviewsItem> userReviews;
-	private String respondToReviewsViaZomatoDashboard;
+
+	@SerializedName("reviews_shown")
 	private int reviewsShown;
+
+	@SerializedName("reviews_count")
 	private int reviewsCount;
 
 	public void setReviewsStart(int reviewsStart){
@@ -25,14 +35,6 @@ public class ReviewResponse{
 		return userReviews;
 	}
 
-	public void setRespondToReviewsViaZomatoDashboard(String respondToReviewsViaZomatoDashboard){
-		this.respondToReviewsViaZomatoDashboard = respondToReviewsViaZomatoDashboard;
-	}
-
-	public String getRespondToReviewsViaZomatoDashboard(){
-		return respondToReviewsViaZomatoDashboard;
-	}
-
 	public void setReviewsShown(int reviewsShown){
 		this.reviewsShown = reviewsShown;
 	}
@@ -48,4 +50,15 @@ public class ReviewResponse{
 	public int getReviewsCount(){
 		return reviewsCount;
 	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"ReviewResponse{" +
+			"reviews_start = '" + reviewsStart + '\'' + 
+			",user_reviews = '" + userReviews + '\'' + 
+			",reviews_shown = '" + reviewsShown + '\'' + 
+			",reviews_count = '" + reviewsCount + '\'' + 
+			"}";
+		}
 }

@@ -3,6 +3,7 @@ package com.soumya.wwdablu.zomatobuddy.dagger;
 import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.network.ZomatoServiceApi;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -10,9 +11,11 @@ import dagger.Provides;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @Module
 public class NetworkModule {
@@ -50,6 +53,12 @@ public class NetworkModule {
 
     @Singleton
     @Provides
+    public ScalarsConverterFactory provideScalarConverterFactory() {
+        return ScalarsConverterFactory.create();
+    }
+
+    @Singleton
+    @Provides
     public RxJava2CallAdapterFactory provideRxCallAdapterFactory() {
         return RxJava2CallAdapterFactory.create();
     }
@@ -60,6 +69,7 @@ public class NetworkModule {
 
         return new OkHttpClient.Builder()
                 .addInterceptor(provideInterceptor())
+                .addInterceptor(provideHttpLogginInterceptor())
                 .build();
     }
 
@@ -75,5 +85,15 @@ public class NetworkModule {
 
             return chain.proceed(modifiedRequest);
         };
+    }
+
+    @Singleton
+    @Provides
+    public HttpLoggingInterceptor provideHttpLogginInterceptor() {
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        return loggingInterceptor;
     }
 }

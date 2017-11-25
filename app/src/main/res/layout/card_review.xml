@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_review_container"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="4dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_review_container"
+            >
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rb_rating"
+                android:max="5"
+                android:stepSize="0.5"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="8dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_rating_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginStart="16sp"
+                android:layout_marginEnd="16sp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_below="@id/rb_rating"
+                tools:text="Fantastic!!!"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_review_date"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:textColor="@android:color/black"
+                android:layout_below="@id/tv_rating_text"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                tools:text="One month ago"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_reviewer_name"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_below="@id/tv_rating_text"
+                android:layout_toStartOf="@id/tv_review_date"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="God's Kitchen"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_review_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_below="@id/tv_reviewer_name"
+                android:paddingBottom="8dp"
+                tools:text="Restaurant review."
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

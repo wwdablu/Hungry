@@ -1,15 +1,38 @@
 package com.soumya.wwdablu.zomatobuddy.model.reviews;
 
+import com.google.gson.annotations.SerializedName;
+
+
 public class Review{
+
+	@SerializedName("rating_color")
 	private String ratingColor;
+
+	@SerializedName("review_time_friendly")
 	private String reviewTimeFriendly;
+
+	@SerializedName("rating_text")
 	private String ratingText;
+
+	@SerializedName("comments_count")
 	private int commentsCount;
-	private int rating;
+
+	@SerializedName("rating")
+	private double rating;
+
+	@SerializedName("review_text")
 	private String reviewText;
+
+	@SerializedName("id")
 	private String id;
+
+	@SerializedName("user")
 	private User user;
+
+	@SerializedName("timestamp")
 	private int timestamp;
+
+	@SerializedName("likes")
 	private int likes;
 
 	public void setRatingColor(String ratingColor){
@@ -44,11 +67,11 @@ public class Review{
 		return commentsCount;
 	}
 
-	public void setRating(int rating){
+	public void setRating(double rating){
 		this.rating = rating;
 	}
 
-	public int getRating(){
+	public double getRating(){
 		return rating;
 	}
 
@@ -91,4 +114,21 @@ public class Review{
 	public int getLikes(){
 		return likes;
 	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"Review{" + 
+			"rating_color = '" + ratingColor + '\'' + 
+			",review_time_friendly = '" + reviewTimeFriendly + '\'' + 
+			",rating_text = '" + ratingText + '\'' + 
+			",comments_count = '" + commentsCount + '\'' + 
+			",rating = '" + rating + '\'' + 
+			",review_text = '" + reviewText + '\'' + 
+			",id = '" + id + '\'' + 
+			",user = '" + user + '\'' + 
+			",timestamp = '" + timestamp + '\'' + 
+			",likes = '" + likes + '\'' + 
+			"}";
+		}
 }

@@ -1,12 +1,29 @@
 package com.soumya.wwdablu.zomatobuddy.model.reviews;
 
+import com.google.gson.annotations.SerializedName;
+
+
 public class User{
+
+	@SerializedName("profile_deeplink")
 	private String profileDeeplink;
+
+	@SerializedName("profile_image")
 	private String profileImage;
+
+	@SerializedName("profile_url")
 	private String profileUrl;
+
+	@SerializedName("foodie_color")
 	private String foodieColor;
+
+	@SerializedName("name")
 	private String name;
+
+	@SerializedName("foodie_level_num")
 	private int foodieLevelNum;
+
+	@SerializedName("foodie_level")
 	private String foodieLevel;
 
 	public void setProfileDeeplink(String profileDeeplink){
@@ -64,4 +81,18 @@ public class User{
 	public String getFoodieLevel(){
 		return foodieLevel;
 	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"User{" + 
+			"profile_deeplink = '" + profileDeeplink + '\'' + 
+			",profile_image = '" + profileImage + '\'' + 
+			",profile_url = '" + profileUrl + '\'' + 
+			",foodie_color = '" + foodieColor + '\'' + 
+			",name = '" + name + '\'' + 
+			",foodie_level_num = '" + foodieLevelNum + '\'' + 
+			",foodie_level = '" + foodieLevel + '\'' + 
+			"}";
+		}
 }

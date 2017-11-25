@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.databinding.FragmentRestaurantDetailsBinding;
 import com.soumya.wwdablu.zomatobuddy.viewadapter.ItemsAdapter;
+import com.soumya.wwdablu.zomatobuddy.viewadapter.ReviewAdapter;
 import com.soumya.wwdablu.zomatobuddy.viewmodel.RestaurantDetailsViewModel;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
     private FragmentRestaurantDetailsBinding binder;
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private ItemsAdapter adapter;
+    private ReviewAdapter reviewAdapter;
 
     private String restaurantName;
 
@@ -47,12 +50,16 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
 
         binder.ablRestDetails.addOnOffsetChangedListener(offsetChangeListener);
 
+        //Restaurant Details
         binder.rvRestDetailsActions.setLayoutManager(new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL));
         binder.rvRestDetailsActions.addItemDecoration(new ItemsAdapter.ItemDecorate(getActivity(), R.dimen.card_margins));
 
         adapter = new ItemsAdapter(restaurantDetailsViewModel, this);
         binder.rvRestDetailsActions.setAdapter(adapter);
+
+        //Restaurant Reviews
+        binder.rvReviewList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return binder.getRoot();
     }
@@ -75,6 +82,12 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        reviewAdapter.clean();
+    }
+
+    @Override
     public void onSuccess() {
 
         //Display the information
@@ -83,6 +96,10 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
         binder.mergePb.pbRestDetailsProgress.setVisibility(View.GONE);
         binder.ablRestDetails.setVisibility(View.VISIBLE);
         binder.nsvRestDetailsContainer.setVisibility(View.VISIBLE);
+
+        //Now get and display the review information
+        reviewAdapter = new ReviewAdapter(getArguments().getString("resid"));
+        binder.rvReviewList.setAdapter(reviewAdapter);
     }
 
     @Override

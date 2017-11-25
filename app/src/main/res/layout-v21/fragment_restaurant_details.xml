@@ -9,7 +9,7 @@
         android:fitsSystemWindows="true"
         >
 
-        <!-- Progress indicator till we receive the response -->
+        <!-- Progress indicator till we receive reviewResponseonse -->
         <include
             layout="@layout/merge_progressbar"
             android:id="@+id/merge_pb"
@@ -85,6 +85,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/rv_rest_details_actions"
+                    android:nestedScrollingEnabled="false"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_review_header"
+                    android:text="@string/reviews"
+                    android:textSize="14sp"
+                    android:textStyle="bold|italic"
+                    android:layout_margin="8dp"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_review_list"
                     android:nestedScrollingEnabled="false"
                     />
 

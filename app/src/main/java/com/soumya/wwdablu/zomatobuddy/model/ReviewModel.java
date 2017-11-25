@@ -18,7 +18,7 @@ public class ReviewModel {
     @Inject
     ZomatoServiceApi zomatoServiceApi;
 
-    private ReviewResponse reviewResponse;
+    private ReviewResponse reviewReviewResponse;
     private DisposableObserver disposableObserver;
 
     public ReviewModel(String baseUrl) {
@@ -35,8 +35,8 @@ public class ReviewModel {
 
         return Observable.create(emitter -> {
 
-            if(null != reviewResponse) {
-                emitter.onNext(reviewResponse);
+            if(null != reviewReviewResponse) {
+                emitter.onNext(reviewReviewResponse);
                 emitter.onComplete();
                 return;
             }
@@ -46,9 +46,9 @@ public class ReviewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<ReviewResponse>() {
                     @Override
-                    public void onNext(ReviewResponse reviewResponse) {
-                        ReviewModel.this.reviewResponse = reviewResponse;
-                        emitter.onNext(reviewResponse);
+                    public void onNext(ReviewResponse reviewReviewResponse) {
+                        ReviewModel.this.reviewReviewResponse = reviewReviewResponse;
+                        emitter.onNext(reviewReviewResponse);
                     }
 
                     @Override
