@@ -1,29 +1,76 @@
 package com.soumya.wwdablu.zomatobuddy.model.restaurant;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
+
 public class RestaurantResponse{
+
+	@SerializedName("offers")
 	private List<Object> offers;
+
+	@SerializedName("has_online_delivery")
 	private int hasOnlineDelivery;
+
+	@SerializedName("apikey")
 	private String apikey;
+
+	@SerializedName("has_table_booking")
 	private int hasTableBooking;
+
+	@SerializedName("thumb")
 	private String thumb;
+
+	@SerializedName("average_cost_for_two")
 	private int averageCostForTwo;
+
+	@SerializedName("menu_url")
 	private String menuUrl;
+
+	@SerializedName("is_delivering_now")
 	private int isDeliveringNow;
+
+	@SerializedName("deeplink")
 	private String deeplink;
+
+	@SerializedName("price_range")
 	private int priceRange;
+
+	@SerializedName("switch_to_order_menu")
 	private int switchToOrderMenu;
+
+	@SerializedName("featured_image")
 	private String featuredImage;
+
+	@SerializedName("url")
 	private String url;
+
+	@SerializedName("cuisines")
 	private String cuisines;
+
+	@SerializedName("R")
 	private R R;
+
+	@SerializedName("events_url")
 	private String eventsUrl;
+
+	@SerializedName("name")
 	private String name;
+
+	@SerializedName("location")
 	private Location location;
+
+	@SerializedName("currency")
 	private String currency;
+
+	@SerializedName("id")
 	private String id;
+
+	@SerializedName("photos_url")
 	private String photosUrl;
+
+	@SerializedName("user_rating")
 	private UserRating userRating;
 
 	public void setOffers(List<Object> offers){
@@ -201,4 +248,33 @@ public class RestaurantResponse{
 	public UserRating getUserRating(){
 		return userRating;
 	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"RestaurantResponse{" + 
+			"offers = '" + offers + '\'' + 
+			",has_online_delivery = '" + hasOnlineDelivery + '\'' + 
+			",apikey = '" + apikey + '\'' + 
+			",has_table_booking = '" + hasTableBooking + '\'' + 
+			",thumb = '" + thumb + '\'' + 
+			",average_cost_for_two = '" + averageCostForTwo + '\'' + 
+			",menu_url = '" + menuUrl + '\'' + 
+			",is_delivering_now = '" + isDeliveringNow + '\'' + 
+			",deeplink = '" + deeplink + '\'' + 
+			",price_range = '" + priceRange + '\'' + 
+			",switch_to_order_menu = '" + switchToOrderMenu + '\'' + 
+			",featured_image = '" + featuredImage + '\'' + 
+			",url = '" + url + '\'' + 
+			",cuisines = '" + cuisines + '\'' + 
+			",R = '" + R + '\'' + 
+			",events_url = '" + eventsUrl + '\'' + 
+			",name = '" + name + '\'' + 
+			",location = '" + location + '\'' + 
+			",currency = '" + currency + '\'' + 
+			",id = '" + id + '\'' + 
+			",photos_url = '" + photosUrl + '\'' + 
+			",user_rating = '" + userRating + '\'' + 
+			"}";
+		}
 }

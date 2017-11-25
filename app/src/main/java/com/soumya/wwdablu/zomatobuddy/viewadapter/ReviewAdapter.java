@@ -20,7 +20,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     private ReviewModel reviewModel;
     private DisposableObserver<ReviewResponse> disposableObserver;
-    private ReviewResponse reviewReviewResponse;
+    private ReviewResponse reviewResponse;
 
     public ReviewAdapter(final String resId) {
 
@@ -31,8 +31,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<ReviewResponse>() {
                 @Override
-                public void onNext(ReviewResponse reviewResponse) {
-                    reviewReviewResponse = reviewResponse;
+                public void onNext(ReviewResponse response) {
+                    reviewResponse = response;
                     notifyDataSetChanged();
                 }
 
@@ -63,7 +63,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     @Override
     public int getItemCount() {
-        return null == reviewReviewResponse ? 0 : reviewReviewResponse.getUserReviews().size();
+        return null == reviewResponse ? 0 : reviewResponse.getUserReviews().size();
     }
 
     public void clean() {
@@ -84,7 +84,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
         void onBind(int position) {
 
-            Review review = reviewReviewResponse.getUserReviews().get(position).getReview();
+            Review review = reviewResponse.getUserReviews().get(position).getReview();
 
             binder.rbRating.setRating(((float) review.getRating()));
             binder.tvRatingText.setText(review.getRatingText());

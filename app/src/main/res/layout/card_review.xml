@@ -24,6 +24,7 @@
                 android:id="@+id/rb_rating"
                 android:max="5"
                 android:stepSize="0.5"
+                android:isIndicator="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="8dp"

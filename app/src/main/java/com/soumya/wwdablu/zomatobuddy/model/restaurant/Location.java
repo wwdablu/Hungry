@@ -1,14 +1,35 @@
 package com.soumya.wwdablu.zomatobuddy.model.restaurant;
 
+import com.google.gson.annotations.SerializedName;
+
+
 public class Location{
+
+	@SerializedName("zipcode")
 	private String zipcode;
+
+	@SerializedName("address")
 	private String address;
+
+	@SerializedName("city")
 	private String city;
+
+	@SerializedName("locality_verbose")
 	private String localityVerbose;
+
+	@SerializedName("latitude")
 	private String latitude;
+
+	@SerializedName("locality")
 	private String locality;
+
+	@SerializedName("country_id")
 	private int countryId;
+
+	@SerializedName("city_id")
 	private int cityId;
+
+	@SerializedName("longitude")
 	private String longitude;
 
 	public void setZipcode(String zipcode){
@@ -82,4 +103,20 @@ public class Location{
 	public String getLongitude(){
 		return longitude;
 	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"Location{" + 
+			"zipcode = '" + zipcode + '\'' + 
+			",address = '" + address + '\'' + 
+			",city = '" + city + '\'' + 
+			",locality_verbose = '" + localityVerbose + '\'' + 
+			",latitude = '" + latitude + '\'' + 
+			",locality = '" + locality + '\'' + 
+			",country_id = '" + countryId + '\'' + 
+			",city_id = '" + cityId + '\'' + 
+			",longitude = '" + longitude + '\'' + 
+			"}";
+		}
 }
