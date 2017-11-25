@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -61,30 +64,45 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
         //Restaurant Reviews
         binder.rvReviewList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        //This has option menu
+        setHasOptionsMenu(true);
+
         return binder.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         fetchRestaurantDetails();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        restaurantDetailsViewModel.clean();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         reviewAdapter.clean();
+        restaurantDetailsViewModel.clean();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_rest_details, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.menu_share:
+                showShareOptionMenu();
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
     }
 
     @Override
@@ -151,11 +169,16 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
             }
 
             if(scrollRange + verticalOffset <= visibleRange && !isShow) {
+
                 binder.ctRestDetails.setTitle(restaurantName);
                 isShow = true;
+                binder.toolbarRestDetails.getMenu().findItem(R.id.menu_share).setVisible(true);
+
             } else if(scrollRange + verticalOffset > visibleRange && isShow) {
+
                 binder.ctRestDetails.setTitle(" ");
                 isShow = false;
+                binder.toolbarRestDetails.getMenu().findItem(R.id.menu_share).setVisible(false);
             }
         }
     };
@@ -168,8 +191,8 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
 
     private void handleErrorResponse() {
 
-        Toast.makeText(getActivity(), R.string.could_not_fetch_generic, Toast.LENGTH_SHORT)
-                .show();
+        Toast.makeText(getActivity(), R.string.could_not_fetch_generic,
+                Toast.LENGTH_SHORT).show();
     }
 
     private ArrayList<ItemsAdapter.ItemInfo> getItems() {
@@ -181,5 +204,13 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
         arrayList.add(new ItemsAdapter.ItemInfo("Zomato App", R.drawable.link_icon));
 
         return arrayList;
+    }
+
+    private void showShareOptionMenu() {
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, restaurantDetailsViewModel.getWebsiteUrl());
+        shareIntent.setType("text/plain");
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_rest_info)));
     }
 }

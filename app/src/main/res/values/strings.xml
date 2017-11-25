@@ -13,4 +13,7 @@
     <string name="could_not_find_any_search_result_for_the_given_query">Could not find any search result for the given query.</string>
     <string name="performs_the_search_operation">Performs the search operation</string>
     <string name="reviews">Reviews</string>
+    <string name="share">Share</string>
+    <string name="share_rest_info">Share restaurant information</string>
+    <string name="powered_by_zomato_api">Powered by Zomato</string>
 </resources>
