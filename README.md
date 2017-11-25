@@ -34,14 +34,6 @@ The Zomato API needs to be defined in the gradle.properties file. You can also m
 * Parceler  
 * Timber  
 
-**__Changelog__**  
-
-01 - Initial checkin
-02 - Addition of details screen
-03 - Addition of search feature
-04 - Addition of reviews
-05 - Lint and defect fixes
-
 
 **__Screenshot__**  
 
@@ -49,4 +41,13 @@ The Zomato API needs to be defined in the gradle.properties file. You can also m
 
 > The free version of the API does not provide all the required information so the details screen is very bare minimum. But, this should give an idea about the usage of the application.  
 
+
+
+**__Changelog__**  
+
+01 - Initial checkin  
+02 - Addition of details screen  
+03 - Addition of search feature  
+04 - Addition of reviews  
+05 - Lint and defect fixes  
 
