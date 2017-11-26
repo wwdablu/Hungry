@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -132,12 +133,12 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(Throwable e) {
-
+                    finish();
                 }
 
                 @Override
                 public void onComplete() {
-                    launchNextScreen();
+                    confirmUserAction();
                 }
             });
     }
@@ -160,5 +161,15 @@ public class SplashActivity extends AppCompatActivity {
 
         startActivity(dashboardIntent);
         finish();
+    }
+
+    private void confirmUserAction() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+            .setTitle("ATTENTION")
+            .setMessage(R.string.notify_user)
+            .setPositiveButton("I Agree", (dialogInterface, i) -> launchNextScreen())
+            .setNegativeButton("Exit", (dialogInterface, i) -> finish());
+        builder.create().show();
     }
 }

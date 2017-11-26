@@ -1,5 +1,6 @@
 package com.soumya.wwdablu.zomatobuddy.model;
 
+import com.soumya.wwdablu.zomatobuddy.common.Analytics;
 import com.soumya.wwdablu.zomatobuddy.dagger.DaggerNetworkComponent;
 import com.soumya.wwdablu.zomatobuddy.dagger.NetworkModule;
 import com.soumya.wwdablu.zomatobuddy.model.search.SearchResponse;
@@ -47,6 +48,10 @@ public class SearchModel {
                 @Override
                 public void onNext(SearchResponse searchResponse) {
                     emitter.onNext(searchResponse);
+
+                    //Analytics information
+                    Analytics.setUserAction(Analytics.EVENT_SEARCH, Analytics.PARAM_SEARCH_TERM,
+                            searchText);
                 }
 
                 @Override

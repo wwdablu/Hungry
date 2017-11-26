@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zomato Buddy</string>
+    <string name="app_name">Z Buddy</string>
     <string name="OK">OK</string>
 
     <string name="restaurant_image">Restaurant Image</string>
@@ -16,4 +16,9 @@
     <string name="share">Share</string>
     <string name="share_rest_info">Share restaurant information</string>
     <string name="powered_by_zomato_api">Powered by Zomato</string>
+
+    <string name="notify_user">The application uses basic Zomato API to display information.
+        This application is intended only for the purpose of learning. Also note, that this application may or may not work for you based on the API usage limit.
+        The application also captures analytics information about the application usage. No personal information is captured.
+        Continue if you agree or else please exit.</string>
 </resources>

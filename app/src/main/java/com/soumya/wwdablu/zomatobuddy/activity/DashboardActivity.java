@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.soumya.wwdablu.zomatobuddy.R;
+import com.soumya.wwdablu.zomatobuddy.common.Analytics;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
 import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.soumya.wwdablu.zomatobuddy.databinding.ActivityDashboardBinding;
@@ -57,6 +58,11 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
         dashboardBinder.tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(dashboardBinder.container));
 
         dashboardBinder.tabs.setSelectedTabIndicatorColor(Color.YELLOW);
+
+        //Analytics information
+        Analytics.setAnalyiticsFor("DemoUser");
+        Analytics.setCurrentScreen(this, "Dashboard");
+        Analytics.setUserAction(Analytics.EVENT_APP_START, Analytics.PARAM_APP_START, "DemoUser");
     }
 
 

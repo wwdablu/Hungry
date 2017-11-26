@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.soumya.wwdablu.zomatobuddy.R;
+import com.soumya.wwdablu.zomatobuddy.common.Analytics;
 import com.soumya.wwdablu.zomatobuddy.fragment.Search;
 import com.soumya.wwdablu.zomatobuddy.model.search.Restaurant;
 
@@ -29,6 +30,9 @@ public class SearchActivity extends AppCompatActivity implements Search.ISearchA
         getSupportFragmentManager().beginTransaction()
             .add(R.id.fl_search_activity, fragment, FTAG_SEARCH_FRAGMENT)
             .commit();
+
+        //Analytics information
+        Analytics.setCurrentScreen(this, "Search Activity");
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.soumya.wwdablu.zomatobuddy;
 
 import android.app.Application;
 
-import com.orhanobut.hawk.Hawk;
+import com.soumya.wwdablu.zomatobuddy.common.Analytics;
 import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -22,7 +22,8 @@ public class ZomatoBuddyApplication extends Application {
         //Init the CacheDB
         CacheDB.init(this);
 
-        Hawk.init(this).build();
+        //Init analytics
+        Analytics.init(this);
 
         if(BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree() {
