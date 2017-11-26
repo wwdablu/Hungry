@@ -6,7 +6,7 @@ This is a restaurant search engine by using the **Zomato API**. It displays the 
 
 The Zomato API needs to be defined in the gradle.properties file. You can also modify the default location to use incase the user did not provide the permission for the geolocation.  
 
-**__Features__**  
+**__Information__**  
 
 * Top 20 restaurants  
   This displays the list of 20 restaurants in the location in three categories. We can click on them to dislay their results.  
@@ -45,9 +45,10 @@ The Zomato API needs to be defined in the gradle.properties file. You can also m
 
 **__Changelog__**  
 
-01 - Initial checkin  
-02 - Addition of details screen  
-03 - Addition of search feature  
-04 - Addition of reviews  
+06 - Added share feature with UI tweaks. Added powered by Zomato text to show API usage.  
 05 - Lint and defect fixes  
+04 - Addition of reviews  
+03 - Addition of search feature  
+02 - Addition of details screen  
+01 - Initial checkin  
 
