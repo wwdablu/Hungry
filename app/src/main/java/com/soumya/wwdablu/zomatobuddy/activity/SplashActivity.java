@@ -50,12 +50,13 @@ public class SplashActivity extends AppCompatActivity {
             .networkModule(new NetworkModule(BuildConfig.ZOMATO_BASE_URL))
             .build()
             .inject(this);
+
+        confirmUserAction();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        requestLocationAccess();
     }
 
     @Override
@@ -138,7 +139,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onComplete() {
-                    confirmUserAction();
+                    launchNextScreen();
                 }
             });
     }
@@ -168,7 +169,7 @@ public class SplashActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
             .setTitle("ATTENTION")
             .setMessage(R.string.notify_user)
-            .setPositiveButton("I Agree", (dialogInterface, i) -> launchNextScreen())
+            .setPositiveButton("I Agree", (dialogInterface, i) -> requestLocationAccess())
             .setNegativeButton("Exit", (dialogInterface, i) -> finish());
         builder.create().show();
     }

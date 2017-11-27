@@ -25,13 +25,7 @@ public class ZomatoBuddyApplication extends Application {
         //Init analytics
         Analytics.init(this);
 
-        if(BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree() {
-                @Override
-                protected String createStackElementTag(StackTraceElement element) {
-                    return super.createStackElementTag(element) + "[" + element.getLineNumber() + "]";
-                }
-            });
-        }
+        //Init debug version of Timber tree
+        Timber.plant(new BuddyDebugTree());
     }
 }

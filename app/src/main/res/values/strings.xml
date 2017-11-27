@@ -20,5 +20,6 @@
     <string name="notify_user">The application uses basic Zomato API to display information.
         This application is intended only for the purpose of learning. Also note, that this application may or may not work for you based on the API usage limit.
         The application also captures analytics information about the application usage. No personal information is captured.
+        Application requires location access or else it defaults to Las Vegas.
         Continue if you agree or else please exit.</string>
 </resources>
