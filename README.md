@@ -6,6 +6,9 @@ This is a restaurant search engine by using the **Zomato API**. It displays the 
 
 The Zomato API needs to be defined in the gradle.properties file. You can also modify the default location to use incase the user did not provide the permission for the geolocation.  
 
+This application has been deployed into Google Play Store:  
+https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=en  
+
 **__Information__**  
 
 * Top 20 restaurants  
