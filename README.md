@@ -57,7 +57,7 @@ https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=
 
 **__Changelog__**  
 
-08 - Ability to mark restaurants as favourite. UI fixes.
+08 - Ability to mark restaurants as favourite. UI fixes.  
 07 - Added Firebase Analytics (current screen and log event - search term)  
 06 - Added share feature with UI tweaks. Added powered by Zomato text to show API usage.  
 05 - Lint and defect fixes  
