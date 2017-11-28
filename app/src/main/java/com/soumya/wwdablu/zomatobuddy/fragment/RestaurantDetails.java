@@ -20,11 +20,14 @@ import android.widget.Toast;
 
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.databinding.FragmentRestaurantDetailsBinding;
+import com.soumya.wwdablu.zomatobuddy.model.Favourites;
+import com.soumya.wwdablu.zomatobuddy.model.favourite.FavouriteData;
 import com.soumya.wwdablu.zomatobuddy.viewadapter.ItemsAdapter;
 import com.soumya.wwdablu.zomatobuddy.viewadapter.ReviewAdapter;
 import com.soumya.wwdablu.zomatobuddy.viewmodel.RestaurantDetailsViewModel;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class RestaurantDetails extends Fragment implements RestaurantDetailsViewModel.IDetailsAction,
                 ItemsAdapter.IIteamAction {
@@ -96,6 +99,14 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
 
             case R.id.menu_share:
                 showShareOptionMenu();
+                break;
+
+            case R.id.menu_fav:
+                Favourites.addFavourite(restaurantDetailsViewModel.getRestaurantId(),
+                        restaurantDetailsViewModel.getRestaurantName().get(),
+                        restaurantDetailsViewModel.getRestaurantLocation().get(),
+                        restaurantDetailsViewModel.getRestaurantCuisines().get(),
+                        callbackStatus);
                 break;
 
             default:
@@ -173,12 +184,14 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
                 binder.ctRestDetails.setTitle(restaurantName);
                 isShow = true;
                 binder.toolbarRestDetails.getMenu().findItem(R.id.menu_share).setVisible(true);
+                binder.toolbarRestDetails.getMenu().findItem(R.id.menu_fav).setVisible(true);
 
             } else if(scrollRange + verticalOffset > visibleRange && isShow) {
 
                 binder.ctRestDetails.setTitle(" ");
                 isShow = false;
                 binder.toolbarRestDetails.getMenu().findItem(R.id.menu_share).setVisible(false);
+                binder.toolbarRestDetails.getMenu().findItem(R.id.menu_fav).setVisible(false);
             }
         }
     };
@@ -213,4 +226,23 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
         shareIntent.setType("text/plain");
         startActivity(Intent.createChooser(shareIntent, getString(R.string.share_rest_info)));
     }
+
+    private Favourites.ITransactionStatus callbackStatus = new Favourites.ITransactionStatus() {
+
+        @Override
+        public void onSuccess() {
+            Toast.makeText(getActivity(), R.string.rest_fav_marked, Toast.LENGTH_SHORT).show();
+            binder.toolbarRestDetails.getMenu().findItem(R.id.menu_fav).setIcon(R.drawable.ic_heart);
+        }
+
+        @Override
+        public void onError() {
+            Toast.makeText(getActivity(), R.string.rest_fav_cannot_marked, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onFavListRetrieved(LinkedList<FavouriteData> favouriteDataList) {
+            //Not applicable for this screen
+        }
+    };
 }

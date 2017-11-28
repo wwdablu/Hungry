@@ -3,11 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+    <item android:id="@+id/menu_fav"
+        android:title="@string/favourites"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_heart_outline"
+        app:showAsAction="ifRoom"
+        android:visible="false"
+        />
+
     <item android:id="@+id/menu_share"
         android:title="@string/share"
-        android:orderInCategory="100"
+        android:orderInCategory="110"
         android:icon="@drawable/ic_share"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:visible="false"
         />
 

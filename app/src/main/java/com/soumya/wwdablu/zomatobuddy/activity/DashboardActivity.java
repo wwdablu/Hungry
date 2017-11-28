@@ -29,7 +29,7 @@ import timber.log.Timber;
 
 public class DashboardActivity extends AppCompatActivity implements CategoryList.IRestaurantAction {
 
-    private static final int MAX_TABS = 3;
+    private static final int MAX_TABS = 4;
 
     private ActivityDashboardBinding dashboardBinder;
     private LocationCoordinates locationCoordinates;
@@ -137,6 +137,12 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
                 "Grab food to-go",
                 "Delivery restaurants",
                 SearchTypes.SEARCH_TAKE_AWAY
+        ));
+
+        pageInfos.add(new DashboardPageAdapter.PageInfo(
+                "Favourites",
+                "Favourite restaurants",
+                SearchTypes.SEARCH_FAVOURITE
         ));
 
         return pageInfos;

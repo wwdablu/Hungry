@@ -80,6 +80,10 @@ public class RestaurantDetailsModel {
         return restaurantResponse.getDeeplink();
     }
 
+    public String getRestaurantId() {
+        return restaurantResponse.getId();
+    }
+
     public void clean() {
 
         if (null != disposableObserver && !disposableObserver.isDisposed()) {

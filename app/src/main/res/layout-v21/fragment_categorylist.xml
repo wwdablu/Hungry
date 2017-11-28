@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_powered_by"
-                android:drawableStart="@drawable/ic_heart"
+                android:drawableStart="@drawable/ic_red_heart"
                 android:text="@string/powered_by_zomato_api"
                 android:textSize="16sp"
                 android:layout_gravity="center_horizontal"

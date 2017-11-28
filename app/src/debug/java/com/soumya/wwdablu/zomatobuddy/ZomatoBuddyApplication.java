@@ -6,6 +6,7 @@ import com.soumya.wwdablu.zomatobuddy.common.Analytics;
 import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.squareup.leakcanary.LeakCanary;
 
+import io.realm.Realm;
 import timber.log.Timber;
 
 public class ZomatoBuddyApplication extends Application {
@@ -24,6 +25,9 @@ public class ZomatoBuddyApplication extends Application {
 
         //Init analytics
         Analytics.init(this);
+
+        //Realm init
+        Realm.init(this);
 
         //Init debug version of Timber tree
         Timber.plant(new BuddyDebugTree());

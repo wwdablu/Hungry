@@ -5,6 +5,7 @@ import android.app.Application;
 import com.soumya.wwdablu.zomatobuddy.common.Analytics;
 import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 
+import io.realm.Realm;
 import timber.log.Timber;
 
 public class ZomatoBuddyApplication extends Application {
@@ -18,6 +19,9 @@ public class ZomatoBuddyApplication extends Application {
 
         //Init analytics
         Analytics.init(this);
+
+        //Realm init
+        Realm.init(this);
 
         //Timber init with release tree
         Timber.plant(new BuddyReleaseTree());

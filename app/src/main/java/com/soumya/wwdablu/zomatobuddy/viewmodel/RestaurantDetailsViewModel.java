@@ -85,6 +85,10 @@ public class RestaurantDetailsViewModel extends BaseObservable {
         return restaurantDetailsModel.getZomatoLink();
     }
 
+    public String getRestaurantId() {
+        return  restaurantDetailsModel.getRestaurantId();
+    }
+
     public void clean() {
 
         if(null != disposableObserver && !disposableObserver.isDisposed()) {

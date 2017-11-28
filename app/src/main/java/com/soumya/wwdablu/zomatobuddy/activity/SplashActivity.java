@@ -170,7 +170,8 @@ public class SplashActivity extends AppCompatActivity {
             .setTitle("ATTENTION")
             .setMessage(R.string.notify_user)
             .setPositiveButton("I Agree", (dialogInterface, i) -> requestLocationAccess())
-            .setNegativeButton("Exit", (dialogInterface, i) -> finish());
+            .setNegativeButton("Exit", (dialogInterface, i) -> finish())
+            .setCancelable(false);
         builder.create().show();
     }
 }

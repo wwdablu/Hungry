@@ -22,4 +22,7 @@
         The application also captures analytics information about the application usage. No personal information is captured.
         Application requires location access or else it defaults to Las Vegas.
         Continue if you agree or else please exit.</string>
+    <string name="favourites">Favourites</string>
+    <string name="rest_fav_marked">Restaurant marked as favourite.</string>
+    <string name="rest_fav_cannot_marked">Restaurant could not be marked as favourite.</string>
 </resources>
