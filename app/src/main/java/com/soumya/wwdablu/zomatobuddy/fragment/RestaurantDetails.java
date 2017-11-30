@@ -51,7 +51,8 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
         //Get the name of the restaurant from the caller
         restaurantName = getArguments().getString("rName");
 
-        String cuisine = getArguments().getString("rCuisine").split(",")[0];
+        String cuisine = getArguments().getString("rCuisine");
+        cuisine = cuisine.split(",")[0];
         binder.ivRestDetailsHeader.setImageDrawable(ContextCompat.getDrawable(binder.ivRestDetailsHeader.getContext(),
                 DefaultCuisineImage.getCuisineImage(cuisine)));
 
@@ -111,10 +112,12 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
 
                 if(restaurantDetailsViewModel.isFavouriteRestaurant()) {
 
-                    Favourites.removeFavourite(restaurantDetailsViewModel.getRestaurantId(), callbackStatus);
+                    restaurantDetailsViewModel.removeFavourite(restaurantDetailsViewModel
+                            .getRestaurantId(), callbackStatus);
 
                 } else {
-                    Favourites.addFavourite(restaurantDetailsViewModel.getRestaurantId(),
+
+                    restaurantDetailsViewModel.addFavourite(restaurantDetailsViewModel.getRestaurantId(),
                             restaurantDetailsViewModel.getRestaurantName().get(),
                             restaurantDetailsViewModel.getRestaurantLocation().get(),
                             restaurantDetailsViewModel.getRestaurantCuisines().get(),

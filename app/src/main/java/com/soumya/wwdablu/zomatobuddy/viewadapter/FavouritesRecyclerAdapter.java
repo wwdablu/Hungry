@@ -108,6 +108,7 @@ public class FavouritesRecyclerAdapter extends RecyclerView.Adapter<FavouritesRe
                     Restaurant restaurant = new Restaurant();
                     restaurant.setName(data.getResName());
                     restaurant.setId(data.getResId());
+                    restaurant.setCuisines(data.getResCuisines());
 
                     restaurantAction.onClick(restaurant);
                 }

@@ -102,6 +102,16 @@ public class RestaurantDetailsViewModel extends BaseObservable {
         return this.isFavourite;
     }
 
+    public void addFavourite(String id, String name, String loc, String cuisine, Favourites.ITransactionStatus status) {
+        Favourites.addFavourite(id, name, loc, cuisine, status);
+        isFavourite = true;
+    }
+
+    public void removeFavourite(String id, Favourites.ITransactionStatus status) {
+        Favourites.removeFavourite(id, status);
+        isFavourite = false;
+    }
+
     public void clean() {
 
         if(null != disposableObserver && !disposableObserver.isDisposed()) {
