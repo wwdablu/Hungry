@@ -9,6 +9,10 @@ The Zomato API needs to be defined in the gradle.properties file. You can also m
 This application has been deployed into Google Play Store:  
 https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=en  
 
+> The master branch contains the latest working code, but may or may not be the one that is present in the Play Store. Check the branches with the current date. Branches marked with the most current date is the one that is present in Play Store.  
+
+
+
 **__Information__**  
 
 * Top 20 restaurants  
@@ -39,6 +43,7 @@ https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=
 * Picasso  
 * Dagger 2  
 * Parceler  
+* Realm  
 * Timber  
 
 
@@ -46,12 +51,13 @@ https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=
 
 ![Screenshot](/screenshot/ZomatoBuddy_Usage_1124_1.gif?raw=true "Sample")  
 
-> The free version of the API does not provide all the required information so the details screen is very bare minimum. But, this should give an idea about the usage of the application.  
+> The GIF may or may not updated. This is just for reference. Download the actual code and try it.  
 
 
 
 **__Changelog__**  
 
+08 - Ability to mark restaurants as favourite. UI fixes.  
 07 - Added Firebase Analytics (current screen and log event - search term)  
 06 - Added share feature with UI tweaks. Added powered by Zomato text to show API usage.  
 05 - Lint and defect fixes  
