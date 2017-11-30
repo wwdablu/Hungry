@@ -19,6 +19,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("resid", getIntent().getStringExtra("resid"));
         bundle.putString("rName", getIntent().getStringExtra("rName"));
+        bundle.putString("rCuisine", getIntent().getStringExtra("rCuisine"));
 
         RestaurantDetails fragment = new RestaurantDetails();
         fragment.setArguments(bundle);

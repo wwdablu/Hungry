@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
 import com.soumya.wwdablu.zomatobuddy.fragment.CategoryList;
 import com.soumya.wwdablu.zomatobuddy.fragment.FavouriteList;
+import com.soumya.wwdablu.zomatobuddy.fragment.IRestaurantAction;
 import com.soumya.wwdablu.zomatobuddy.model.LocationCoordinates;
 
 import org.parceler.Parcels;
@@ -46,11 +47,11 @@ public class DashboardPageAdapter extends FragmentStatePagerAdapter {
     private int pageCount;
     private LocationCoordinates locationCoordinates;
     private ArrayList<PageInfo> pageInfoList;
-    private CategoryList.IRestaurantAction restaurantActionImpl;
+    private IRestaurantAction restaurantActionImpl;
 
     public DashboardPageAdapter(FragmentManager fm, LocationCoordinates locationCoordinates,
                                 int pageCount, ArrayList<PageInfo> pageInfoList,
-                                CategoryList.IRestaurantAction action) {
+                                IRestaurantAction action) {
 
         super(fm);
         this.locationCoordinates = locationCoordinates;
@@ -72,7 +73,7 @@ public class DashboardPageAdapter extends FragmentStatePagerAdapter {
         if(SearchTypes.SEARCH_FAVOURITE.contentEquals(pageInfoList.get(position).getSearchType())) {
 
             FavouriteList fragment = new FavouriteList();
-            //fragment.setRestaurantAction(restaurantActionImpl);
+            fragment.setRestaurantAction(restaurantActionImpl);
             fragment.setArguments(bundle);
 
             return fragment;

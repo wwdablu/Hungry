@@ -44,44 +44,43 @@ public class RestaurantListModel {
     public Observable<SearchResponse> search(LocationCoordinates locationCoordinates) {
 
         //This returns the observable which will fire once an observer is subscribed with it
-        return Observable.create(emitter -> {
+        return Observable.create(emitter ->
 
-            disposableObserver = Observable.defer(() -> Observable.create((ObservableOnSubscribe<String>) cacheEmitter -> {
+        disposableObserver = Observable.defer(() -> Observable.create((ObservableOnSubscribe<String>) cacheEmitter -> {
 
-                String data = CacheDB.getInstance().getFromCache(searchType);
-                cacheEmitter.onNext(data);
+            String data = CacheDB.getInstance().getFromCache(searchType);
+            cacheEmitter.onNext(data);
 
-            })).flatMap(responseCache -> {
+        })).flatMap(responseCache -> {
 
-                if(!"".equals(responseCache.trim())) {
-                    return Observable.just(new Gson().fromJson(responseCache, SearchResponse.class));
+            if(!"".equals(responseCache.trim())) {
+                return Observable.just(new Gson().fromJson(responseCache, SearchResponse.class));
+            }
+
+            return zomatoServiceApi.getCategorySearch(Double.toString(locationCoordinates.getLatitude()),
+                    Double.toString(locationCoordinates.getLongitude()), searchType);
+
+        }).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new DisposableObserver<SearchResponse>() {
+                @Override
+                public void onNext(SearchResponse searchResponse) {
+
+                    cacheSearchResponse(searchResponse);
+                    emitter.onNext(searchResponse);
                 }
 
-                return zomatoServiceApi.getCategorySearch(Double.toString(locationCoordinates.getLatitude()),
-                        Double.toString(locationCoordinates.getLongitude()), searchType);
+                @Override
+                public void onError(Throwable e) {
+                    emitter.onError(e);
+                }
 
-            }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<SearchResponse>() {
-                    @Override
-                    public void onNext(SearchResponse searchResponse) {
-
-                        cacheSearchResponse(searchResponse);
-                        emitter.onNext(searchResponse);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        emitter.onError(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        emitter.onComplete();
-                        clean();
-                    }
-                });
-        });
+                @Override
+                public void onComplete() {
+                    emitter.onComplete();
+                    clean();
+                }
+            }));
     }
 
     /**

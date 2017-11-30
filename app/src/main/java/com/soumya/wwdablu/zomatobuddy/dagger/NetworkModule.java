@@ -3,7 +3,6 @@ package com.soumya.wwdablu.zomatobuddy.dagger;
 import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.network.ZomatoServiceApi;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;

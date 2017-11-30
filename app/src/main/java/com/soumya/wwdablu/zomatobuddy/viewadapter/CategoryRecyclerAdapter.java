@@ -11,15 +11,12 @@ import android.view.ViewGroup;
 
 import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.databinding.CardRestaurantInfoBinding;
+import com.soumya.wwdablu.zomatobuddy.fragment.IRestaurantAction;
 import com.soumya.wwdablu.zomatobuddy.model.search.Restaurant;
 import com.soumya.wwdablu.zomatobuddy.model.search.SearchResponse;
 import com.soumya.wwdablu.zomatobuddy.viewmodel.CategoryCardViewModel;
 
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.CategoryViewHolder> {
-
-    public interface IRestaurantAction {
-        void onClick(Restaurant restaurant);
-    }
 
     private SearchResponse searchResponse;
     private IRestaurantAction restaurantActionImpl;

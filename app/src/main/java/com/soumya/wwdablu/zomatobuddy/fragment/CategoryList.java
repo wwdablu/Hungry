@@ -20,11 +20,7 @@ import com.soumya.wwdablu.zomatobuddy.viewmodel.CategoryViewModel;
 import org.parceler.Parcels;
 
 public class CategoryList extends Fragment implements CategoryViewModel.ISearchResult,
-                CategoryRecyclerAdapter.IRestaurantAction {
-
-    public interface IRestaurantAction {
-        void onClick(@SearchTypes.SearchType String searchType, Restaurant restaurant);
-    }
+                IRestaurantAction {
 
     public static final String KEY_HEADER_TITLE = "headerTitle";
     public static final String KEY_HEADER_SUB_TITLE = "headerSubTitle";
@@ -84,6 +80,6 @@ public class CategoryList extends Fragment implements CategoryViewModel.ISearchR
             return;
         }
 
-        restaurantActionImpl.onClick(getArguments().getString(KEY_SEARCH_TYPE), restaurant);
+        restaurantActionImpl.onClick(restaurant);
     }
 }

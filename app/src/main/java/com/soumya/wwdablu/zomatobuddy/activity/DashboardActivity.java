@@ -16,6 +16,7 @@ import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
 import com.soumya.wwdablu.zomatobuddy.database.CacheDB;
 import com.soumya.wwdablu.zomatobuddy.databinding.ActivityDashboardBinding;
 import com.soumya.wwdablu.zomatobuddy.fragment.CategoryList;
+import com.soumya.wwdablu.zomatobuddy.fragment.IRestaurantAction;
 import com.soumya.wwdablu.zomatobuddy.model.LocationCoordinates;
 import com.soumya.wwdablu.zomatobuddy.model.categories.CategoryResponse;
 import com.soumya.wwdablu.zomatobuddy.model.search.Restaurant;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 import timber.log.Timber;
 
-public class DashboardActivity extends AppCompatActivity implements CategoryList.IRestaurantAction {
+public class DashboardActivity extends AppCompatActivity implements IRestaurantAction {
 
     private static final int MAX_TABS = 4;
 
@@ -96,7 +97,7 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
     }
 
     @Override
-    public void onClick(String searchType, Restaurant restaurant) {
+    public void onClick(Restaurant restaurant) {
 
         launchNextActivity(restaurant);
     }
@@ -106,6 +107,7 @@ public class DashboardActivity extends AppCompatActivity implements CategoryList
         Intent launchIntent = new Intent(this, RestaurantDetailsActivity.class);
         launchIntent.putExtra("resid", restaurant.getId());
         launchIntent.putExtra("rName", restaurant.getName());
+        launchIntent.putExtra("rCuisine", restaurant.getCuisines());
         startActivity(launchIntent);
     }
 

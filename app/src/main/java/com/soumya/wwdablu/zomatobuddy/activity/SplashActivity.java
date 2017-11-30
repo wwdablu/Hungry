@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.R;
@@ -40,6 +44,7 @@ public class SplashActivity extends AppCompatActivity {
     private DisposableObserver disposableObserver;
     private CategoryResponse categoryResponse;
     private Location location;
+    private FusedLocationProviderClient locationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +60,13 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         if (null != disposableObserver && !disposableObserver.isDisposed()) {
             disposableObserver.dispose();
         }
+
+        locationProviderClient.removeLocationUpdates(locationCallback);
     }
 
     @Override
@@ -103,22 +105,49 @@ public class SplashActivity extends AppCompatActivity {
 
     private void fetchLocationInformation() {
 
-        FusedLocationProviderClient locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //Guard check
+        if (ActivityCompat.checkSelfPermission(SplashActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+
         //Listen for the last location from the provider
         locationProviderClient.getLastLocation()
-            .addOnSuccessListener(location -> {
-                this.location = location;
-                fetchDataFromZomatoToProceed();
+            .addOnSuccessListener(loc -> {
+
+                //We did not get the last location, lets get it
+                if(null == loc) {
+
+                    LocationRequest locationRequest = LocationRequest.create()
+                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                        .setInterval(10000)
+                        .setFastestInterval(1000);
+
+                    locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+
+                } else {
+                    location = loc;
+                    fetchDataFromZomatoToProceed();
+                }
             })
             .addOnFailureListener(e -> {
-                this.location = null;
+                location = null;
                 fetchDataFromZomatoToProceed();
             });
     }
+
+    private LocationCallback locationCallback = new LocationCallback() {
+
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            super.onLocationResult(locationResult);
+            location = locationResult.getLastLocation();
+            locationProviderClient.removeLocationUpdates(locationCallback);
+            fetchDataFromZomatoToProceed();
+        }
+    };
 
     private void fetchDataFromZomatoToProceed() {
 
@@ -127,8 +156,8 @@ public class SplashActivity extends AppCompatActivity {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<CategoryResponse>() {
                 @Override
-                public void onNext(CategoryResponse categoryResponse) {
-                    SplashActivity.this.categoryResponse = categoryResponse;
+                public void onNext(CategoryResponse catRes) {
+                    categoryResponse = catRes;
                     Timber.d("The category has been received: %s", categoryResponse.getCategories().size());
                 }
 

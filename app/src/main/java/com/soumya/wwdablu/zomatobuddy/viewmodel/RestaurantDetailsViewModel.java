@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.soumya.wwdablu.zomatobuddy.BuildConfig;
 import com.soumya.wwdablu.zomatobuddy.R;
+import com.soumya.wwdablu.zomatobuddy.model.Favourites;
 import com.soumya.wwdablu.zomatobuddy.model.RestaurantDetailsModel;
 import com.soumya.wwdablu.zomatobuddy.model.restaurant.RestaurantResponse;
 
@@ -26,6 +27,7 @@ public class RestaurantDetailsViewModel extends BaseObservable {
     private RestaurantDetailsModel restaurantDetailsModel;
     private DisposableObserver disposableObserver;
     private IDetailsAction detailsAction;
+    private boolean isFavourite;
 
     private ObservableField<String> restaurantName;
     private ObservableField<String> restaurantLocation;
@@ -47,10 +49,14 @@ public class RestaurantDetailsViewModel extends BaseObservable {
 
     public void getRestaurantDetails(final String resId) {
 
-        disposableObserver = restaurantDetailsModel.getRestaurantDetails(resId)
+        disposableObserver = Favourites.isFavouriteRestaurant(resId)
+            .flatMap(isFav -> {
+                isFavourite = isFav;
+                return restaurantDetailsModel.getRestaurantDetails(resId);
+            })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<RestaurantResponse>() {
+                .subscribeWith(new DisposableObserver<RestaurantResponse>() {
                 @Override
                 public void onNext(RestaurantResponse restaurantResponse) {
                     bindData(restaurantResponse);
@@ -64,7 +70,10 @@ public class RestaurantDetailsViewModel extends BaseObservable {
 
                 @Override
                 public void onComplete() {
-                    //
+
+                    if(null != disposableObserver && !disposableObserver.isDisposed()) {
+                        disposableObserver.dispose();
+                    }
                 }
             });
     }
@@ -87,6 +96,10 @@ public class RestaurantDetailsViewModel extends BaseObservable {
 
     public String getRestaurantId() {
         return  restaurantDetailsModel.getRestaurantId();
+    }
+
+    public boolean isFavouriteRestaurant() {
+        return this.isFavourite;
     }
 
     public void clean() {

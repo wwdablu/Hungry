@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.soumya.wwdablu.zomatobuddy.R;
+import com.soumya.wwdablu.zomatobuddy.common.DefaultCuisineImage;
 import com.soumya.wwdablu.zomatobuddy.databinding.FragmentRestaurantDetailsBinding;
 import com.soumya.wwdablu.zomatobuddy.model.Favourites;
 import com.soumya.wwdablu.zomatobuddy.model.favourite.FavouriteData;
@@ -48,6 +50,10 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
 
         //Get the name of the restaurant from the caller
         restaurantName = getArguments().getString("rName");
+
+        String cuisine = getArguments().getString("rCuisine").split(",")[0];
+        binder.ivRestDetailsHeader.setImageDrawable(ContextCompat.getDrawable(binder.ivRestDetailsHeader.getContext(),
+                DefaultCuisineImage.getCuisineImage(cuisine)));
 
         restaurantDetailsViewModel = new RestaurantDetailsViewModel(this);
         binder.cardLayoutRestDetailsHeader.setRestDetails(restaurantDetailsViewModel);
@@ -102,11 +108,18 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
                 break;
 
             case R.id.menu_fav:
-                Favourites.addFavourite(restaurantDetailsViewModel.getRestaurantId(),
-                        restaurantDetailsViewModel.getRestaurantName().get(),
-                        restaurantDetailsViewModel.getRestaurantLocation().get(),
-                        restaurantDetailsViewModel.getRestaurantCuisines().get(),
-                        callbackStatus);
+
+                if(restaurantDetailsViewModel.isFavouriteRestaurant()) {
+
+                    Favourites.removeFavourite(restaurantDetailsViewModel.getRestaurantId(), callbackStatus);
+
+                } else {
+                    Favourites.addFavourite(restaurantDetailsViewModel.getRestaurantId(),
+                            restaurantDetailsViewModel.getRestaurantName().get(),
+                            restaurantDetailsViewModel.getRestaurantLocation().get(),
+                            restaurantDetailsViewModel.getRestaurantCuisines().get(),
+                            callbackStatus);
+                }
                 break;
 
             default:
@@ -129,6 +142,11 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
         //Now get and display the review information
         reviewAdapter = new ReviewAdapter(getArguments().getString("resid"));
         binder.rvReviewList.setAdapter(reviewAdapter);
+
+        //Mark, if the restaurant is already a favourite
+        if(restaurantDetailsViewModel.isFavouriteRestaurant()) {
+            binder.toolbarRestDetails.getMenu().findItem(R.id.menu_fav).setIcon(R.drawable.ic_heart);
+        }
     }
 
     @Override
@@ -230,13 +248,19 @@ public class RestaurantDetails extends Fragment implements RestaurantDetailsView
     private Favourites.ITransactionStatus callbackStatus = new Favourites.ITransactionStatus() {
 
         @Override
-        public void onSuccess() {
-            Toast.makeText(getActivity(), R.string.rest_fav_marked, Toast.LENGTH_SHORT).show();
-            binder.toolbarRestDetails.getMenu().findItem(R.id.menu_fav).setIcon(R.drawable.ic_heart);
+        public void onSuccess(Favourites.FavAction action) {
+
+            if(Favourites.FavAction.ADD == action) {
+                Toast.makeText(getActivity(), R.string.rest_fav_marked, Toast.LENGTH_SHORT).show();
+                binder.toolbarRestDetails.getMenu().findItem(R.id.menu_fav).setIcon(R.drawable.ic_heart);
+            } else {
+                Toast.makeText(getActivity(), R.string.rest_fav_unmarked, Toast.LENGTH_SHORT).show();
+                binder.toolbarRestDetails.getMenu().findItem(R.id.menu_fav).setIcon(R.drawable.ic_heart_outline);
+            }
         }
 
         @Override
-        public void onError() {
+        public void onError(Favourites.FavAction action) {
             Toast.makeText(getActivity(), R.string.rest_fav_cannot_marked, Toast.LENGTH_SHORT).show();
         }
 

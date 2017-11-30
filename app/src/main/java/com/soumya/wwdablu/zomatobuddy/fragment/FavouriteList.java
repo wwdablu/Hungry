@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,10 @@ import com.soumya.wwdablu.zomatobuddy.R;
 import com.soumya.wwdablu.zomatobuddy.common.SearchTypes;
 import com.soumya.wwdablu.zomatobuddy.databinding.FragmentFavlistBinding;
 import com.soumya.wwdablu.zomatobuddy.model.search.Restaurant;
-import com.soumya.wwdablu.zomatobuddy.viewadapter.CategoryRecyclerAdapter;
 import com.soumya.wwdablu.zomatobuddy.viewadapter.FavouritesRecyclerAdapter;
 import com.soumya.wwdablu.zomatobuddy.viewmodel.FavouritesViewModel;
 
-public class FavouriteList extends Fragment {
-
-    public interface IFavRestaurantAction {
-        void onFavouriteClick(Restaurant restaurant);
-    }
+public class FavouriteList extends Fragment implements IRestaurantAction {
 
     public static final String KEY_HEADER_TITLE = "headerTitle";
     public static final String KEY_HEADER_SUB_TITLE = "headerSubTitle";
@@ -32,7 +26,7 @@ public class FavouriteList extends Fragment {
 
     private FragmentFavlistBinding binder;
     private FavouritesRecyclerAdapter adapter;
-    private IFavRestaurantAction favRestaurantImpl;
+    private IRestaurantAction favRestaurantImpl;
 
     private FavouritesViewModel favouritesViewModel;
 
@@ -48,7 +42,7 @@ public class FavouriteList extends Fragment {
         adapter = new FavouritesRecyclerAdapter();
         binder.rvFavRestaurants.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         binder.rvFavRestaurants.addItemDecoration(
-                new CategoryRecyclerAdapter.CardDecorator(getActivity(), R.dimen.card_margins));
+                new FavouritesRecyclerAdapter.CardDecorator(getActivity(), R.dimen.card_margins));
 
         //Set the view model for the view binding
         binder.setFavViewModel(favouritesViewModel);
@@ -65,12 +59,28 @@ public class FavouriteList extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         binder.rvFavRestaurants.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         //Set the view model for the adapter
         adapter.setFavouriteDataList(favouritesViewModel);
+        adapter.setRestaurantAction(this);
     }
 
-    public void setRestaurantAction(IFavRestaurantAction action) {
+    @Override
+    public void onClick(Restaurant restaurant) {
+
+        if(null == favRestaurantImpl) {
+            return;
+        }
+
+        favRestaurantImpl.onClick(restaurant);
+    }
+
+    public void setRestaurantAction(IRestaurantAction action) {
         this.favRestaurantImpl = action;
     }
 }
