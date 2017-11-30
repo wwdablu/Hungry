@@ -23,6 +23,9 @@ https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=
 * Search Feature  
   This perform the search feature based on the query provided by the user. It uses the approach to wait for the user to complete the query and then peform the Search Network API. This can be achieved by using the debounce method in conjunction with the SearchView query change listener. The query change listeners fires all the time, but the actual method of execution will only be called (which will return an observable) once the debounce timeout has been completed, uninterupted. This makes it more flowing with the user and removes the requirement for a search button (which would then require another click action).  
   
+* Favourite Restaurant  
+  A restaurant can be marked/unmarked as a favourite. It will be displayed in a separate tab inside the application. Realm database has been used to perform the local storage functionality.  
+  
 * Analytics  
   Using Firebase Analytics to log events like which screen is displayed to the user and the search terms used.  
 
