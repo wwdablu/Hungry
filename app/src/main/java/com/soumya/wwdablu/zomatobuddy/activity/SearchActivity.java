@@ -20,16 +20,22 @@ public class SearchActivity extends AppCompatActivity implements Search.ISearchA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Search fragment = new Search();
+        Search fragment = (Search) getSupportFragmentManager().findFragmentByTag(FTAG_SEARCH_FRAGMENT);
+
+        if(null == fragment) {
+
+            fragment = new Search();
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("location", getIntent().getParcelableExtra("location"));
+            fragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fl_search_activity, fragment, FTAG_SEARCH_FRAGMENT)
+                    .commit();
+        }
+
         fragment.setSearchAction(this);
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("location", getIntent().getParcelableExtra("location"));
-        fragment.setArguments(bundle);
-
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.fl_search_activity, fragment, FTAG_SEARCH_FRAGMENT)
-            .commit();
 
         //Analytics information
         Analytics.setCurrentScreen(this, "Search Activity");
@@ -42,6 +48,7 @@ public class SearchActivity extends AppCompatActivity implements Search.ISearchA
         Intent launchIntent = new Intent(this, RestaurantDetailsActivity.class);
         launchIntent.putExtra("resid", restaurant.getId());
         launchIntent.putExtra("rName", restaurant.getName());
+        launchIntent.putExtra("rCuisine", restaurant.getCuisines());
         startActivity(launchIntent);
     }
 }

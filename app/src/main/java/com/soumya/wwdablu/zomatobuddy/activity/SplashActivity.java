@@ -55,18 +55,24 @@ public class SplashActivity extends AppCompatActivity {
             .networkModule(new NetworkModule(BuildConfig.ZOMATO_BASE_URL))
             .build()
             .inject(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         confirmUserAction();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         if (null != disposableObserver && !disposableObserver.isDisposed()) {
             disposableObserver.dispose();
         }
 
-        locationProviderClient.removeLocationUpdates(locationCallback);
+        if(null != locationProviderClient) {
+            locationProviderClient.removeLocationUpdates(locationCallback);
+        }
     }
 
     @Override
