@@ -52,7 +52,7 @@ https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=
 
 **__Screenshot__**  
 
-![Screenshot](/screenshot/ZomatoBuddy_Usage_1124_1.gif?raw=true "Sample")  
+![Screenshot](/screenshot/ZB_Usage_12_02.gif?raw=true "Sample")  
 
 > The GIF may or may not updated. This is just for reference. Download the actual code and try it.  
 
