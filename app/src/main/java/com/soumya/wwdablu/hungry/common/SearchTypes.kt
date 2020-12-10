@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.zomatobuddy.common
+package com.soumya.wwdablu.hungry.common
 
 import androidx.annotation.StringDef
 import java.lang.annotation.Retention

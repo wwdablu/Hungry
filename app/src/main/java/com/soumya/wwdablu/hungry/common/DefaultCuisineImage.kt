@@ -1,7 +1,7 @@
-package com.soumya.wwdablu.zomatobuddy.common
+package com.soumya.wwdablu.hungry.common
 
 import androidx.annotation.DrawableRes
-import com.soumya.wwdablu.zomatobuddy.R
+import com.soumya.wwdablu.hungry.R
 import java.util.*
 
 object DefaultCuisineImage {

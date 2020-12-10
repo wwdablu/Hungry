@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#cb202d</color>
+
+    <!-- Reference: https://www.zomato.com/blog/wp-content/uploads/2019/04/Zomato-Brand-Book.pdf -->
+
+    <color name="colorPrimary">#E23744</color>
     <color name="colorPrimaryDark">#ab202d</color>
-    <color name="colorAccent">#cb202d</color>
+    <color name="colorAccent">#E23744</color>
 
     <color name="pureBlack">#000000</color>
+    <color name="black">#2D2D2D</color>
+    <color name="white">#FFFFFF</color>
+    <color name="tyrolean">#F4F4F2</color>
 
 </resources>

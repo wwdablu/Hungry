@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.zomatobuddy
+package com.soumya.wwdablu.hungry
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

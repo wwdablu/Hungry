@@ -1,10 +1,10 @@
-package com.soumya.wwdablu.zomatobuddy.util
+package com.soumya.wwdablu.hungry.util
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.text.TextUtils
-import com.soumya.wwdablu.zomatobuddy.R
+import com.soumya.wwdablu.hungry.R
 
 object AlertUtil {
     /**

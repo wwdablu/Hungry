@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.zomatobuddy
+package com.soumya.wwdablu.hungry
 
 import org.junit.Assert
 import org.junit.Test
