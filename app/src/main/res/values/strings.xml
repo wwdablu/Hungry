@@ -26,4 +26,5 @@
     <string name="rest_fav_marked">Restaurant marked as favourite.</string>
     <string name="rest_fav_cannot_marked">The requested action could not be performed.</string>
     <string name="rest_fav_unmarked">Restaurant removed as favourite</string>
+    <string name="using_zomato_developer_api">Zomato Developer API</string>
 </resources>
