@@ -7,10 +7,10 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.soumya.wwdablu.zomatobuddy"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
-        versionCode 5
-        versionName "2.0.0"
+        versionCode 6
+        versionName "3.0.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -60,9 +60,15 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.28-alpha"
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
 
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    //Glide - Image handling
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
+    //Timber - Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Phone input field with flag and country code
+    implementation 'com.github.wwdablu:PhoneInputExt:1.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
