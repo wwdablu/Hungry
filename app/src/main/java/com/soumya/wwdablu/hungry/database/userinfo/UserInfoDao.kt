@@ -1,7 +1,6 @@
 package com.soumya.wwdablu.hungry.database.userinfo
 
 import androidx.room.*
-import com.soumya.wwdablu.hungry.database.userinfo.UserInfo
 
 @Dao
 interface UserInfoDao {

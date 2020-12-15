@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activity.LoginActivity">
+
+    <com.soumya.wwdablu.phoneinputext.PhoneInputExt
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pi_phone_number"
+        android:layout_marginTop="@dimen/space_65"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        app:dataMode="fetch"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_get_otp"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:layout_below="@id/pi_phone_number"
+        android:background="@color/black"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:text="@string/send_otp"
+        android:fontFamily="@font/metropolis_regular"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fl_divider_container"
+        android:layout_marginTop="@dimen/space_6"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:layout_below="@id/btn_get_otp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/vw_divider"
+            android:background="@color/tyrolean"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_or"
+            android:text="@string/or"
+            android:textColor="@color/white"
+            android:fontFamily="@font/metropolis_extralight"
+            android:textSize="@dimen/font_3"
+            android:background="@color/colorPrimary"
+            android:paddingStart="@dimen/space_3"
+            android:paddingEnd="@dimen/space_3"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_continue_with_email"
+        android:layout_below="@id/fl_divider_container"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:background="@color/tyrolean"
+        android:textAllCaps="false"
+        android:fontFamily="@font/metropolis_regular"
+        android:text="@string/continue_with_email"
+        android:drawableStart="@drawable/ic_email"
+        android:paddingStart="@dimen/space_5"
+        android:paddingEnd="@dimen/space_5"
+        />
+
+</RelativeLayout>

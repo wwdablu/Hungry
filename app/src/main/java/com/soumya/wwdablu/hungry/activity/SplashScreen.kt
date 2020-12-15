@@ -1,5 +1,6 @@
 package com.soumya.wwdablu.hungry.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.soumya.wwdablu.hungry.R
@@ -15,20 +16,20 @@ class SplashScreen : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         HungryRepo.getCategories()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object: DisposableObserver<List<Categories>>() {
-                    override fun onNext(t: List<Categories>?) {
-                        //
-                    }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribeWith(object: DisposableObserver<List<Categories>>() {
+                override fun onNext(t: List<Categories>?) {
+                    //
+                }
 
-                    override fun onError(e: Throwable?) {
-                        //
-                    }
+                override fun onError(e: Throwable?) {
+                    //
+                }
 
-                    override fun onComplete() {
-                        //
-                    }
-                })
+                override fun onComplete() {
+                    startActivity(Intent(this@SplashScreen, LoginActivity::class.java))
+                }
+            })
     }
 }
