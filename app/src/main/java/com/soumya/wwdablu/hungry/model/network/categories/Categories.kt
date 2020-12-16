@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry.model.network
+package com.soumya.wwdablu.hungry.model.network.categories
 
 import com.google.gson.annotations.SerializedName
 

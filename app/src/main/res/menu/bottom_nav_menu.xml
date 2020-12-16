@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_dining"
+        android:enabled="true"
+        android:icon="@drawable/ic_dining"
+        android:title="@string/dining"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_nightlife"
+        android:enabled="true"
+        android:icon="@drawable/ic_nightlife"
+        android:title="@string/nightlife"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile"
+        app:showAsAction="ifRoom"
+        />
+
+</menu>

@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.soumya.wwdablu.hungry.R
-import com.soumya.wwdablu.hungry.model.network.Categories
+import com.soumya.wwdablu.hungry.database.HungryDatabase
+import com.soumya.wwdablu.hungry.database.userinfo.UserInfo
+import com.soumya.wwdablu.hungry.model.network.categories.Categories
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
@@ -28,8 +30,23 @@ class SplashScreen : AppCompatActivity() {
                 }
 
                 override fun onComplete() {
-                    startActivity(Intent(this@SplashScreen, LoginActivity::class.java))
+                    Thread{
+                        proceed()
+                    }.start()
                 }
             })
+    }
+
+    private fun proceed() {
+        val user: UserInfo? = HungryDatabase.getDB(this@SplashScreen)
+                .UserInfoDao().getLoggedUser()
+
+        if(user == null) {
+            startActivity(Intent(this@SplashScreen, LoginActivity::class.java))
+        } else {
+            startActivity(Intent(this@SplashScreen, DashboardActivity::class.java))
+        }
+
+        finish()
     }
 }

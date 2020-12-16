@@ -19,7 +19,6 @@
 
     <string name="notify_user">The application uses basic Zomato API to display information.
         This application is intended only for the purpose of learning. Also note, that this application may or may not work for you based on the API usage limit.
-        Application requires location access or else it defaults to Las Vegas.
         Continue if you agree or else please exit.</string>
     <string name="favourites">Favourites</string>
     <string name="rest_fav_marked">Restaurant marked as favourite.</string>
@@ -42,4 +41,8 @@
     <string name="set_your_location">Set your location to start exploring restaurants around you</string>
     <string name="use_current_location">Use current location</string>
     <string name="set_your_location_manually">Set your location manually</string>
+    <string name="location_disclaimer">We only access your location while you are using the app to improve your experience.</string>
+    <string name="dining">Dining</string>
+    <string name="nightlife">Nightlife</string>
+    <string name="profile">Profile</string>
 </resources>

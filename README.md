@@ -26,3 +26,13 @@ Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
 * Search Location
 <a href="https://www.freepik.com/vectors/location">Location vector created by stories - www.freepik.com</a>
 
+* Dining Icon
+Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+* Nightlife Icon
+Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+* Profile Icon
+Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+

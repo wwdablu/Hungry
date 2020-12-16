@@ -1,7 +1,8 @@
-package com.soumya.wwdablu.zomatobuddy
+package com.soumya.wwdablu.hungry
 
 import android.app.Application
-class ZomatoBuddyApplication : Application() {
+
+class HungryApplication : Application() {
     @Override
     fun onCreate() {
         super.onCreate()
