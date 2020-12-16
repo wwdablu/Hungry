@@ -22,6 +22,7 @@ android {
     }
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
     buildTypes.each {
         it.buildConfigField("String", "ZOMATO_API_KEY", ZOMATO_API_KEY)

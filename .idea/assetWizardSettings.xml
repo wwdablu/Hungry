@@ -28,8 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="2d2d2d" />
-                            <entry key="outputName" value="ic_email" />
+                            <entry key="outputName" value="ic_access_location" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/2798166.svg" />
                           </map>
                         </option>
                       </PersistentState>

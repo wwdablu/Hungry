@@ -22,13 +22,18 @@
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_10">40dp</dimen>
     <dimen name="space_12">48dp</dimen>
+    <dimen name="space_15">60dp</dimen>
     <dimen name="space_20">80dp</dimen>
+    <dimen name="space_30">120dp</dimen>
     <dimen name="space_40">160dp</dimen>
     <dimen name="space_50">200dp</dimen>
     <dimen name="space_60">240dp</dimen>
     <dimen name="space_65">260dp</dimen>
     <dimen name="space_70">280dp</dimen>
     <dimen name="font_2">8sp</dimen>
+    <dimen name="font_2.5">10sp</dimen>
     <dimen name="font_3">12sp</dimen>
+    <dimen name="font_4">16sp</dimen>
+    <dimen name="font_5">20sp</dimen>
 
 </resources>

@@ -47,7 +47,17 @@ https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=
 * Dagger 2  
 * Parceler  
 * Realm  
-* Timber  
+* Timber
+
+Asset Credits:
+* Facebook SVG
+Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+*Google Icon SVG
+Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+* Search Location
+<a href="https://www.freepik.com/vectors/location">Location vector created by stories - www.freepik.com</a>
 
 
 **__Screenshot__**  

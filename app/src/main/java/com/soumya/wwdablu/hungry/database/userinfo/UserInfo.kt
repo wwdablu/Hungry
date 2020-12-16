@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey
 data class UserInfo(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Long,
+    val _id: Long = -1L,
 
     @ColumnInfo(name = "is_loggedin")
-    val isLoggedIn: Boolean,
+    var isLoggedIn: Boolean,
 
     @ColumnInfo(name = "user_identifier")
     val userIdentifier: String

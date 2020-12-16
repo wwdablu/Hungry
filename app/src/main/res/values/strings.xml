@@ -19,7 +19,6 @@
 
     <string name="notify_user">The application uses basic Zomato API to display information.
         This application is intended only for the purpose of learning. Also note, that this application may or may not work for you based on the API usage limit.
-        The application also captures analytics information about the application usage. No personal information is captured.
         Application requires location access or else it defaults to Las Vegas.
         Continue if you agree or else please exit.</string>
     <string name="favourites">Favourites</string>
@@ -36,4 +35,11 @@
     <string name="send_otp">Send OTP</string>
     <string name="or">OR</string>
     <string name="continue_with_email">Continue with Email</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="skip">Skip</string>
+    <string name="hi_nice_to_meet_you">Hi, nice to meet you!</string>
+    <string name="set_your_location">Set your location to start exploring restaurants around you</string>
+    <string name="use_current_location">Use current location</string>
+    <string name="set_your_location_manually">Set your location manually</string>
 </resources>
