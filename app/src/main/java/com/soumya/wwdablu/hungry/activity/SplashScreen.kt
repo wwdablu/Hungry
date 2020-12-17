@@ -1,7 +1,7 @@
 package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.location.Location
 import android.os.Bundle
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.database.HungryDatabase
@@ -11,8 +11,10 @@ import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreen : RepoCacheActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -37,16 +39,38 @@ class SplashScreen : AppCompatActivity() {
             })
     }
 
+    override fun onLocationUpdated(location: Location?) {
+        cacheInformation(location)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribeWith(object: DisposableObserver<Boolean>() {
+                override fun onNext(t: Boolean?) {
+                    //
+                }
+
+                override fun onError(e: Throwable?) {
+                    Timber.e(e)
+                    finish()
+                }
+
+                override fun onComplete() {
+                    startActivity(Intent(this@SplashScreen, DashboardActivity::class.java))
+                    finish()
+                }
+            })
+    }
+
     private fun proceed() {
         val user: UserInfo? = HungryDatabase.getDB(this@SplashScreen)
                 .UserInfoDao().getLoggedUser()
 
-        if(user == null) {
-            startActivity(Intent(this@SplashScreen, LoginActivity::class.java))
-        } else {
-            startActivity(Intent(this@SplashScreen, DashboardActivity::class.java))
+        runOnUiThread {
+            if(user == null) {
+                startActivity(Intent(this@SplashScreen, LoginActivity::class.java))
+                finish()
+            } else {
+                fetchCurrentCoordinates()
+            }
         }
-
-        finish()
     }
 }

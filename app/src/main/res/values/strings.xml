@@ -45,4 +45,6 @@
     <string name="dining">Dining</string>
     <string name="nightlife">Nightlife</string>
     <string name="profile">Profile</string>
+    <string name="curated_collections">Curated collections</string>
+    <string name="see_all">see all</string>
 </resources>
