@@ -17,7 +17,7 @@ class ExampleInstrumentedTest {
     @Throws(Exception::class)
     fun useAppContext() {
         // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        Assert.assertEquals("com.soumya.wwdablu.zomatobuddy", appContext.packageName)
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        Assert.assertEquals("com.soumya.wwdablu.hungry", appContext.packageName)
     }
 }

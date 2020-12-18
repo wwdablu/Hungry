@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry.fragment
+package com.soumya.wwdablu.hungry.activity
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,21 +6,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
-import com.soumya.wwdablu.hungry.databinding.ItemCuratedCollectionBinding
+import com.soumya.wwdablu.hungry.databinding.ItemCollectionLongBinding
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 
-class CuratedCollectionsAdapter(list: List<CuratedCollection>) :
-        RecyclerView.Adapter<CuratedCollectionsAdapter.CollectionViewHolder>() {
-
-    private val MAX_COLLECTION_CARDS: Int = 6
+class CollectionsAdapter(list: List<CuratedCollection>) : RecyclerView.Adapter<CollectionsAdapter.CollectionViewHolder>() {
 
     private val mCollectionList: List<CuratedCollection> = list
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionViewHolder {
 
-        val viewBinding: ItemCuratedCollectionBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context), R.layout.item_curated_collection, parent, false)
+        val viewBinding: ItemCollectionLongBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context), R.layout.item_collection_long, parent, false)
 
         return CollectionViewHolder(viewBinding)
     }
@@ -30,24 +27,20 @@ class CuratedCollectionsAdapter(list: List<CuratedCollection>) :
     }
 
     override fun getItemCount(): Int {
-        return if(mCollectionList.size >= MAX_COLLECTION_CARDS) {
-            MAX_COLLECTION_CARDS
-        } else {
-            mCollectionList.size
-        }
+        return mCollectionList.size
     }
 
-    inner class CollectionViewHolder(viewBinding: ItemCuratedCollectionBinding) :
+    inner class CollectionViewHolder(viewBinding: ItemCollectionLongBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
 
-        private val mViewBinding: ItemCuratedCollectionBinding = viewBinding
+        private val mViewBinding: ItemCollectionLongBinding = viewBinding
 
-        fun bind(collectionInfo: CollectionInfo) {
+        fun bind(collection: CollectionInfo) {
 
-            mViewBinding.collection = collectionInfo
+            mViewBinding.collection = collection
 
             Glide.with(mViewBinding.ivCollectionImage.context)
-                    .load(collectionInfo.imageUrl)
+                    .load(collection.imageUrl)
                     .placeholder(R.drawable.default_card_bg)
                     .into(mViewBinding.ivCollectionImage)
         }

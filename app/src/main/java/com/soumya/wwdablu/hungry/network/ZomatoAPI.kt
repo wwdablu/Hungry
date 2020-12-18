@@ -18,15 +18,12 @@ interface ZomatoAPI {
     @GET("/api/v2.1/collections")
     fun getCollections(@Query("lat") lat: String, @Query("lon") lon: String) : Observable<CollectionModel>
 
-    @GET("/api/v2.1/collections")
-    fun getCollections(@Query("city_id") cityId: String) : Observable<CollectionModel>
-
     @GET("/api/v2.1/cities")
     fun getCity(@Query("lat") lat: String, @Query("lon") lon: String) : Observable<CityModel>
 
     @GET("/api/v2.1/cuisines")
-    fun getCuisines(@Query("city_id") cityId: String) : Observable<CuisineModel>
+    fun getCuisines(@Query("lat") lat: String, @Query("lon") lon: String) : Observable<CuisineModel>
 
     @GET("/api/v2.1/establishments")
-    fun getEstablishments(@Query("city_id") cityId: String) : Observable<EstablishmentModel>
+    fun getEstablishments(@Query("lat") lat: String, @Query("lon") lon: String) : Observable<EstablishmentModel>
 }

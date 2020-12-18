@@ -73,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     launchLocationAccessPermissionActivity(this@LoginActivity)
+                    finish()
                 }
             })
     }

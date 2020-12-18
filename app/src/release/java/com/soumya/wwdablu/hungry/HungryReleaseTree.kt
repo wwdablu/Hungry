@@ -1,8 +1,8 @@
-package com.soumya.wwdablu.zomatobuddy
+package com.soumya.wwdablu.hungry
 
 import android.util.Log
 
-class BuddyReleaseTree : Timber.Tree() {
+class HungryReleaseTree : Timber.Tree() {
     @Override
     protected fun isLoggable(tag: String?, priority: Int): Boolean {
         when (priority) {

@@ -42,7 +42,8 @@ abstract class RepoCacheActivity : AppCompatActivity(), LocationListener {
 
                 val locationManager: LocationManager? = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
                 locationManager?.requestLocationUpdates(
-                        locationManager?.getBestProvider(Criteria(), false),
+                        locationManager.getBestProvider(Criteria(), false) ?:
+                        LocationManager.GPS_PROVIDER,
                         500, 1.0f, this)
             }
 
@@ -54,6 +55,12 @@ abstract class RepoCacheActivity : AppCompatActivity(), LocationListener {
     override fun onLocationChanged(location: Location?) {
         val locationManager: LocationManager? = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         locationManager?.removeUpdates(this)
+
+        mLat = location?.latitude?.toString() ?: BuildConfig.DEFAULT_LATITUDE
+        mLon = location?.longitude?.toString() ?: BuildConfig.DEFAULT_LOGITUDE
+
+        HungryRepo.setLocation(mLat, mLon)
+
         onLocationUpdated(location)
     }
 
@@ -79,8 +86,9 @@ abstract class RepoCacheActivity : AppCompatActivity(), LocationListener {
 
             when (permissionResult) {
                 PackageManager.PERMISSION_GRANTED -> {
-                    locationManager?.requestLocationUpdates(
-                            locationManager?.getBestProvider(Criteria(), false),
+                    locationManager.requestLocationUpdates(
+                            locationManager.getBestProvider(Criteria(), false) ?:
+                            LocationManager.GPS_PROVIDER,
                             500, 1.0f, this)
                 }
                 PackageManager.PERMISSION_DENIED -> {
@@ -93,33 +101,30 @@ abstract class RepoCacheActivity : AppCompatActivity(), LocationListener {
         }
     }
 
-    fun cacheInformation(location: Location?) : Observable<Boolean> {
-
-        mLat = location?.latitude?.toString() ?: BuildConfig.DEFAULT_LATITUDE
-        mLon = location?.longitude?.toString() ?: BuildConfig.DEFAULT_LOGITUDE
+    fun cacheInformation() : Observable<Boolean> {
 
         return Observable.create { it ->
 
-            HungryRepo.getCity(mLat, mLon)
+            HungryRepo.getCity()
                 .flatMap { me ->
 
                     mCity = me[0]
                     if(me.isEmpty()) {
-                        HungryRepo.getCollections(mLat, mLon)
+                        HungryRepo.getCollections()
                     } else {
-                        HungryRepo.getCollections(mCity.id)
+                        HungryRepo.getCollections()
                     }
 
-                    HungryRepo.getCuisine(mCity.id)
+                    HungryRepo.getCuisine()
                 }
                 .flatMap {
                     HungryRepo.getCategories()
                 }
                 .flatMap {
-                    HungryRepo.getEstablishments(mCity.id)
+                    HungryRepo.getEstablishments()
                 }
                 .flatMap {
-                    HungryRepo.getCollections(mCity.id)
+                    HungryRepo.getCollections()
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

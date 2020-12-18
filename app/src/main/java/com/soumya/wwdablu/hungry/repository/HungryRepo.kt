@@ -1,5 +1,6 @@
 package com.soumya.wwdablu.hungry.repository
 
+import android.location.Location
 import com.soumya.wwdablu.hungry.model.network.categories.Categories
 import com.soumya.wwdablu.hungry.model.network.categories.CategoriesModel
 import com.soumya.wwdablu.hungry.model.network.cities.City
@@ -18,14 +19,20 @@ import java.util.*
 
 internal object HungryRepo {
 
+    private lateinit var mLocation: Pair<String, String>
+
     private lateinit var mCategoriesModel: CategoriesModel
     private lateinit var mCollectionModel: CollectionModel
     private lateinit var mCityModel: CityModel
     private lateinit var mCuisineModel: CuisineModel
     private lateinit var mEstablishmentModel: EstablishmentModel
 
-    fun getCity() : CityModel {
+    fun getCityModel() : CityModel {
         return mCityModel
+    }
+
+    fun setLocation(lat: String, lon: String) {
+        mLocation = Pair(lat, lon)
     }
 
     fun getCategories() : Observable<List<Categories>> {
@@ -58,7 +65,7 @@ internal object HungryRepo {
         }
     }
 
-    fun getCity(lat: String, lon: String) : Observable<List<City>> {
+    fun getCity() : Observable<List<City>> {
 
         return Observable.create {
 
@@ -68,7 +75,7 @@ internal object HungryRepo {
                 return@create
             }
 
-            DataProvider.call().getCity(lat, lon)
+            DataProvider.call().getCity(mLocation.first, mLocation.second)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribeWith(object : DisposableObserver<CityModel>() {
@@ -88,7 +95,7 @@ internal object HungryRepo {
         }
     }
 
-    fun getCollections(lat: String, lon: String) : Observable<List<CuratedCollection>> {
+    fun getCollections() : Observable<List<CuratedCollection>> {
 
         return Observable.create {
 
@@ -98,7 +105,7 @@ internal object HungryRepo {
                 return@create
             }
 
-            DataProvider.call().getCollections(lat, lon)
+            DataProvider.call().getCollections(mLocation.first, mLocation.second)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribeWith(object : DisposableObserver<CollectionModel>() {
@@ -118,37 +125,7 @@ internal object HungryRepo {
         }
     }
 
-    fun getCollections(cityId: String) : Observable<List<CuratedCollection>> {
-
-        return Observable.create {
-
-            if(this::mCollectionModel.isInitialized && mCollectionModel.list.isEmpty()) {
-                it.onNext(mCollectionModel.list)
-                it.onComplete()
-                return@create
-            }
-
-            DataProvider.call().getCollections(cityId)
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<CollectionModel>() {
-                    override fun onNext(t: CollectionModel?) {
-                        mCollectionModel = t ?: CollectionModel(LinkedList())
-                        it.onNext(LinkedList(mCollectionModel.list))
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
-        }
-    }
-
-    fun getCuisine(cityId: String) : Observable<List<Cuisine>> {
+    fun getCuisine() : Observable<List<Cuisine>> {
 
         return Observable.create {
 
@@ -162,7 +139,7 @@ internal object HungryRepo {
                 return@create
             }
 
-            DataProvider.call().getCuisines(cityId)
+            DataProvider.call().getCuisines(mLocation.first, mLocation.second)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribeWith(object : DisposableObserver<CuisineModel>() {
@@ -186,7 +163,7 @@ internal object HungryRepo {
         }
     }
 
-    fun getEstablishments(cityId: String) : Observable<List<Establishment>> {
+    fun getEstablishments() : Observable<List<Establishment>> {
 
         return Observable.create {
 
@@ -200,7 +177,7 @@ internal object HungryRepo {
                 return@create
             }
 
-            DataProvider.call().getEstablishments(cityId)
+            DataProvider.call().getEstablishments(mLocation.first, mLocation.second)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribeWith(object : DisposableObserver<EstablishmentModel>() {

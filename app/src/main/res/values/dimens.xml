@@ -16,6 +16,8 @@
     <dimen name="inner_frame_layout_padding">5dp</dimen>
 
     <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_4">16dp</dimen>
     <dimen name="space_5">20dp</dimen>
     <dimen name="space_6">24dp</dimen>
     <dimen name="space_7">28dp</dimen>

@@ -27,7 +27,7 @@ class LocationAccessPermission : RepoCacheActivity() {
 
     override fun onLocationUpdated(location: Location?) {
 
-        cacheInformation(location)
+        cacheInformation()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribeWith(object: DisposableObserver<Boolean>() {

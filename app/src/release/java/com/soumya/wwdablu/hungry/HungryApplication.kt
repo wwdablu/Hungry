@@ -17,6 +17,6 @@ class HungryApplication : Application() {
         Realm.init(this)
 
         //Timber init with release tree
-        Timber.plant(BuddyReleaseTree())
+        Timber.plant(HungryReleaseTree())
     }
 }
