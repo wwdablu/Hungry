@@ -11,6 +11,7 @@ import com.soumya.wwdablu.hungry.model.network.cuisine.Cuisine
 import com.soumya.wwdablu.hungry.model.network.cuisine.CuisineModel
 import com.soumya.wwdablu.hungry.model.network.establishments.Establishment
 import com.soumya.wwdablu.hungry.model.network.establishments.EstablishmentModel
+import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.network.DataProvider
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.observers.DisposableObserver
@@ -188,6 +189,29 @@ internal object HungryRepo {
                             listEstablishment.add(me.establishment)
                         }
                         it.onNext(listEstablishment)
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        it.onError(e)
+                    }
+
+                    override fun onComplete() {
+                        it.onComplete()
+                    }
+                })
+        }
+    }
+
+    fun searchByCollectionId(collectionId: Int) : Observable<SearchModel?> {
+
+        return Observable.create {
+
+            DataProvider.call().searchByCollectionId(mLocation.first, mLocation.second, collectionId)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object : DisposableObserver<SearchModel>() {
+                    override fun onNext(t: SearchModel?) {
+                        it.onNext(t)
                     }
 
                     override fun onError(e: Throwable?) {
