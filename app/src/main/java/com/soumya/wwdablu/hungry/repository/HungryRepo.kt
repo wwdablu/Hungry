@@ -1,6 +1,5 @@
 package com.soumya.wwdablu.hungry.repository
 
-import android.location.Location
 import com.soumya.wwdablu.hungry.model.network.categories.Categories
 import com.soumya.wwdablu.hungry.model.network.categories.CategoriesModel
 import com.soumya.wwdablu.hungry.model.network.cities.City
@@ -34,6 +33,10 @@ internal object HungryRepo {
 
     fun setLocation(lat: String, lon: String) {
         mLocation = Pair(lat, lon)
+    }
+
+    fun getLocation(): Pair<String, String> {
+        return mLocation
     }
 
     fun getCategories() : Observable<List<Categories>> {

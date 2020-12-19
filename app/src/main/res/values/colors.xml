@@ -9,8 +9,13 @@
 
     <color name="pureBlack">#000000</color>
     <color name="black">#2D2D2D</color>
-    <color name="gray">#6E6E6E</color>
+    <color name="gray">#808080</color>
+    <color name="light_gray">#D3D3D3</color>
     <color name="white">#FFFFFF</color>
     <color name="tyrolean">#F4F4F2</color>
+    <color name="tyrolean_alpha10">#DDF4F4F2</color>
+    <color name="tyrolean_alpha25">#BBF4F4F2</color>
+    <color name="tyrolean_alpha50">#88F4F4F2</color>
+    <color name="tyrolean_alpha75">#55F4F4F2</color>
 
 </resources>

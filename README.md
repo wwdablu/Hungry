@@ -35,4 +35,5 @@ Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kir
 * Profile Icon
 Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
-
+* Background Image for cards (default - 2)
+<a href='https://www.freepik.com/vectors/pattern'>Pattern vector created by freepik - www.freepik.com</a>

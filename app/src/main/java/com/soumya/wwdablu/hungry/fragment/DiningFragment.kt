@@ -12,6 +12,7 @@ import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
 import com.soumya.wwdablu.hungry.databinding.FragDiningBinding
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
+import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
@@ -21,6 +22,7 @@ class DiningFragment : Fragment() {
 
     private lateinit var mViewBinding: FragDiningBinding
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
+    private lateinit var mRecommendedAdapter: RecommendedAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -30,11 +32,39 @@ class DiningFragment : Fragment() {
         mViewBinding.rvCuratedCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         getCollection()
 
+        mViewBinding.rvRecommendedForYou.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        getRecommendation()
+
         mViewBinding.tvCollectionSeeall.setOnClickListener {
             startActivity(Intent(context, CollectionsActivity::class.java))
         }
 
         return mViewBinding.root
+    }
+
+    private fun getRecommendation() {
+
+        HungryRepo.searchByCollectionId(1)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribeWith(object: DisposableObserver<SearchModel>() {
+                override fun onNext(t: SearchModel?) {
+
+                    if(t == null) {
+                        return
+                    }
+
+                    mRecommendedAdapter = RecommendedAdapter(t)
+                }
+
+                override fun onError(e: Throwable?) {
+                    //
+                }
+
+                override fun onComplete() {
+                    mViewBinding.rvRecommendedForYou.adapter = mRecommendedAdapter
+                }
+            })
     }
 
     private fun getCollection() {

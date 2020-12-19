@@ -77,12 +77,20 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/rv_recommended_for_you"
+                android:id="@+id/rtv_recommended_for_you"
                 android:text="@string/recommended_for_you"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_5"
                 android:fontFamily="@font/metropolis_semibold"
-                android:layout_margin="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_3"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_recommended_for_you"
                 />
             <!-- Trending this week - end -->
 

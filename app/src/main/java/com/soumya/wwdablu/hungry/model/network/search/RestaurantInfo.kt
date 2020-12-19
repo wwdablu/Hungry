@@ -1,6 +1,7 @@
 package com.soumya.wwdablu.hungry.model.network.search
 
 import com.google.gson.annotations.SerializedName
+import kotlin.math.roundToInt
 
 data class RestaurantInfo(
 
@@ -69,4 +70,22 @@ data class RestaurantInfo(
         var phoneNumbers: String,
 
         var establishment: List<String>
-)
+) {
+    companion object {
+        fun calculateDistance(fromLat: String, fromLon: String,
+                toLat: String, toLon: String) : String {
+
+            val from: android.location.Location = android.location.Location("from")
+            val to: android.location.Location = android.location.Location("from")
+
+            from.latitude = fromLat.toDouble()
+            from.longitude = fromLon.toDouble()
+
+            to.latitude = toLat.toDouble()
+            to.longitude = toLon.toDouble()
+
+            val distance: Float = from.distanceTo(to)
+            return "${(distance/1000).roundToInt()}"
+        }
+    }
+}
