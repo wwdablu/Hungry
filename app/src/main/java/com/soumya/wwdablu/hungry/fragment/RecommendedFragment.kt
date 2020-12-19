@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
-import com.soumya.wwdablu.hungry.databinding.FragDiningBinding
+import com.soumya.wwdablu.hungry.databinding.FragRecommendedBinding
 import com.soumya.wwdablu.hungry.fragment.allcategory.GenericSearchModelAdapter
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
@@ -18,16 +18,17 @@ import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 
-class DiningFragment : Fragment() {
+class RecommendedFragment : Fragment() {
 
-    private lateinit var mViewBinding: FragDiningBinding
+    private lateinit var mViewBinding: FragRecommendedBinding
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
     private lateinit var mGenericSearchModelAdapter: GenericSearchModelAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        mViewBinding = DataBindingUtil.inflate(inflater, R.layout.frag_dining, container, false)
+        mViewBinding = DataBindingUtil.inflate(inflater, R.layout.frag_recommended, container, false)
         mViewBinding.city = HungryRepo.getCityModel().model[0]
 
         mViewBinding.rvCuratedCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -59,7 +60,7 @@ class DiningFragment : Fragment() {
                 }
 
                 override fun onError(e: Throwable?) {
-                    //
+                    Timber.e(e)
                 }
 
                 override fun onComplete() {
@@ -80,7 +81,7 @@ class DiningFragment : Fragment() {
                 }
 
                 override fun onError(e: Throwable?) {
-                    //
+                    Timber.e(e)
                 }
 
                 override fun onComplete() {
