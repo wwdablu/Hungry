@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
 import com.soumya.wwdablu.hungry.databinding.FragDiningBinding
+import com.soumya.wwdablu.hungry.fragment.allcategory.GenericSearchModelAdapter
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
@@ -22,7 +23,7 @@ class DiningFragment : Fragment() {
 
     private lateinit var mViewBinding: FragDiningBinding
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
-    private lateinit var mRecommendedAdapter: RecommendedAdapter
+    private lateinit var mGenericSearchModelAdapter: GenericSearchModelAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -54,7 +55,7 @@ class DiningFragment : Fragment() {
                         return
                     }
 
-                    mRecommendedAdapter = RecommendedAdapter(t)
+                    mGenericSearchModelAdapter = GenericSearchModelAdapter(t)
                 }
 
                 override fun onError(e: Throwable?) {
@@ -62,7 +63,7 @@ class DiningFragment : Fragment() {
                 }
 
                 override fun onComplete() {
-                    mViewBinding.rvRecommendedForYou.adapter = mRecommendedAdapter
+                    mViewBinding.rvRecommendedForYou.adapter = mGenericSearchModelAdapter
                 }
             })
     }

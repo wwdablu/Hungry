@@ -1,5 +1,6 @@
 package com.soumya.wwdablu.hungry.repository
 
+import com.soumya.wwdablu.hungry.defines.CategoryEnum
 import com.soumya.wwdablu.hungry.model.network.categories.Categories
 import com.soumya.wwdablu.hungry.model.network.categories.CategoriesModel
 import com.soumya.wwdablu.hungry.model.network.cities.City
@@ -13,6 +14,7 @@ import com.soumya.wwdablu.hungry.model.network.establishments.EstablishmentModel
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.network.DataProvider
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
@@ -209,22 +211,37 @@ internal object HungryRepo {
 
         return Observable.create {
 
-            DataProvider.call().searchByCollectionId(mLocation.first, mLocation.second, collectionId)
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<SearchModel>() {
-                    override fun onNext(t: SearchModel?) {
-                        it.onNext(t)
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
+            handleSearchObservable(DataProvider.call().searchByCollectionId(
+                mLocation.first, mLocation.second, collectionId), it)
         }
+    }
+
+    fun searchByCategoryId(category: CategoryEnum) : Observable<SearchModel?> {
+
+        return Observable.create {
+
+            handleSearchObservable(DataProvider.call().searchByCategoryId(
+                mLocation.first, mLocation.second, category.ordinal), it)
+        }
+    }
+
+    private fun handleSearchObservable(observable: Observable<SearchModel>,
+                                       emitter: ObservableEmitter<SearchModel?>) {
+
+        observable.observeOn(Schedulers.io())
+            .subscribeOn(Schedulers.io())
+            .subscribeWith(object : DisposableObserver<SearchModel>() {
+                override fun onNext(t: SearchModel?) {
+                    emitter.onNext(t)
+                }
+
+                override fun onError(e: Throwable?) {
+                    emitter.onError(e)
+                }
+
+                override fun onComplete() {
+                    emitter.onComplete()
+                }
+            })
     }
 }

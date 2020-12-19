@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry.fragment
+package com.soumya.wwdablu.hungry.fragment.allcategory
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 
-internal class RecommendedAdapter(searchModel: SearchModel) :
-        RecyclerView.Adapter<RecommendedAdapter.RecommendedViewHolder>() {
+internal class GenericSearchModelAdapter(searchModel: SearchModel) :
+        RecyclerView.Adapter<GenericSearchModelAdapter.RecommendedViewHolder>() {
 
     private val mSearchModel: SearchModel = searchModel
 
