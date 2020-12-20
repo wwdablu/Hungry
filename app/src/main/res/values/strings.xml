@@ -49,4 +49,8 @@
     <string name="see_all">see all</string>
     <string name="recommended_for_you">Recommended for you</string>
     <string name="places_you_might_want_to_try">Places you might want to try</string>
+    <string name="menu_overview">Overview</string>
+    <string name="menu_foodmenu">Menu</string>
+    <string name="menu_photos">Photos</string>
+    <string name="menu_reviews">Reviews</string>
 </resources>

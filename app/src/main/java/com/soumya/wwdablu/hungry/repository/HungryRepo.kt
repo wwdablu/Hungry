@@ -11,8 +11,11 @@ import com.soumya.wwdablu.hungry.model.network.cuisine.Cuisine
 import com.soumya.wwdablu.hungry.model.network.cuisine.CuisineModel
 import com.soumya.wwdablu.hungry.model.network.establishments.Establishment
 import com.soumya.wwdablu.hungry.model.network.establishments.EstablishmentModel
+import com.soumya.wwdablu.hungry.model.network.search.Restaurant
+import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.network.DataProvider
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.observers.DisposableObserver
@@ -194,6 +197,29 @@ internal object HungryRepo {
                             listEstablishment.add(me.establishment)
                         }
                         it.onNext(listEstablishment)
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        it.onError(e)
+                    }
+
+                    override fun onComplete() {
+                        it.onComplete()
+                    }
+                })
+        }
+    }
+
+    fun getRestaurantDetails(resId: Int) : Observable<RestaurantInfo> {
+
+        return Observable.create {
+
+            DataProvider.call().getRestaurantDetails(resId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object : DisposableObserver<RestaurantInfo>() {
+                    override fun onNext(t: RestaurantInfo?) {
+                        it.onNext(t)
                     }
 
                     override fun onError(e: Throwable?) {

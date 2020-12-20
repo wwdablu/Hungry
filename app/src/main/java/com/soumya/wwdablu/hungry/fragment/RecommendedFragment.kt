@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
+import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.databinding.FragRecommendedBinding
-import com.soumya.wwdablu.hungry.fragment.allcategory.GenericSearchModelAdapter
+import com.soumya.wwdablu.hungry.fragment.generic.GenericSearchModelAdapter
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
+import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -20,7 +22,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class RecommendedFragment : Fragment() {
+class RecommendedFragment : Fragment(), RestaurantItemSelector {
 
     private lateinit var mViewBinding: FragRecommendedBinding
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
@@ -56,7 +58,7 @@ class RecommendedFragment : Fragment() {
                         return
                     }
 
-                    mGenericSearchModelAdapter = GenericSearchModelAdapter(t)
+                    mGenericSearchModelAdapter = GenericSearchModelAdapter(t, this@RecommendedFragment)
                 }
 
                 override fun onError(e: Throwable?) {
@@ -88,5 +90,14 @@ class RecommendedFragment : Fragment() {
                     mViewBinding.rvCuratedCollection.adapter = mCollectionAdapter
                 }
             })
+    }
+
+    override fun onRestaurantClicked(restaurant: RestaurantInfo) {
+
+        activity?.runOnUiThread {
+            val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
+            intent.putExtra("resid", restaurant.id)
+            startActivity(intent)
+        }
     }
 }

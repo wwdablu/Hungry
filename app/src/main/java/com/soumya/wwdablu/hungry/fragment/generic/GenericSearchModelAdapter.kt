@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry.fragment.allcategory
+package com.soumya.wwdablu.hungry.fragment.generic
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,14 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemRecommendedBinding
+import com.soumya.wwdablu.hungry.fragment.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 
-internal class GenericSearchModelAdapter(searchModel: SearchModel) :
+internal class GenericSearchModelAdapter(searchModel: SearchModel, listener: RestaurantItemSelector) :
         RecyclerView.Adapter<GenericSearchModelAdapter.RecommendedViewHolder>() {
 
     private val mSearchModel: SearchModel = searchModel
+    private val mListener: RestaurantItemSelector = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendedViewHolder {
 
@@ -34,6 +36,12 @@ internal class GenericSearchModelAdapter(searchModel: SearchModel) :
             RecyclerView.ViewHolder(viewBinding.root) {
 
         private val mViewBinding: ItemRecommendedBinding = viewBinding
+
+        init {
+            mViewBinding.root.setOnClickListener {
+                mListener.onRestaurantClicked(mSearchModel.restaurants[adapterPosition].restaurant)
+            }
+        }
 
         @SuppressLint("SetTextI18n")
         fun bind(restaurant: RestaurantInfo) {

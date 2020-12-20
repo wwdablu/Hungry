@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry.util
+package com.soumya.wwdablu.hungry.utils
 
 import android.app.AlertDialog
 import android.content.Context

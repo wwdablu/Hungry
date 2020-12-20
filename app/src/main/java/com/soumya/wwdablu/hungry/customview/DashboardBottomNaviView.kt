@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import java.util.*
 
-class HungryBottomNaviView : BottomNavigationView {
+class DashboardBottomNaviView : BottomNavigationView {
 
     private lateinit var mCategoriesList: List<Categories>
 

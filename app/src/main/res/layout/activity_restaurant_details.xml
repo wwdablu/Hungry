@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DashboardActivity">
+    tools:context=".activity.RestaurantDetailsActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:layout_above="@id/bnv_bottom_menu"
         />
 
-    <com.soumya.wwdablu.hungry.customview.DashboardBottomNaviView
+    <com.soumya.wwdablu.hungry.customview.RestaurantDetailsBottomNaviView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bnv_bottom_menu"

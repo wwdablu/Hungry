@@ -1,13 +1,17 @@
-package com.soumya.wwdablu.hungry.fragment.allcategory
+package com.soumya.wwdablu.hungry.fragment.generic
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.databinding.FragCategoryGenericBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
+import com.soumya.wwdablu.hungry.fragment.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,7 +19,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class GenericCategoryFragment(category: CategoryEnum) : Fragment() {
+class GenericCategoryFragment(category: CategoryEnum) : Fragment(), RestaurantItemSelector {
 
     private val mCategoryEnum: CategoryEnum = category
     private lateinit var mViewBinding: FragCategoryGenericBinding
@@ -48,7 +52,7 @@ class GenericCategoryFragment(category: CategoryEnum) : Fragment() {
 
                     if(t != null) {
                         mSearchModel = t
-                        mGenericSearchModelAdapter = GenericSearchModelAdapter(t)
+                        mGenericSearchModelAdapter = GenericSearchModelAdapter(t, this@GenericCategoryFragment)
                     } else {
                         getByCollectionId()
                     }
@@ -77,7 +81,7 @@ class GenericCategoryFragment(category: CategoryEnum) : Fragment() {
 
                     if(t != null) {
                         mSearchModel = t
-                        mGenericSearchModelAdapter = GenericSearchModelAdapter(t)
+                        mGenericSearchModelAdapter = GenericSearchModelAdapter(t, this@GenericCategoryFragment)
                     }
                 }
 
@@ -92,5 +96,14 @@ class GenericCategoryFragment(category: CategoryEnum) : Fragment() {
                     }
                 }
             })
+    }
+
+    override fun onRestaurantClicked(restaurant: RestaurantInfo) {
+
+        activity?.runOnUiThread {
+            val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
+            intent.putExtra("resid", restaurant.id)
+            startActivity(intent)
+        }
     }
 }
