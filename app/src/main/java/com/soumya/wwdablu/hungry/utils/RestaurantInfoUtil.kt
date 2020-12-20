@@ -4,7 +4,6 @@ import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.schedulers.Schedulers
-import timber.log.Timber
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -46,7 +45,6 @@ object RestaurantInfoUtil {
                 colonSplit.forEach { me ->
                     if (me.contains("https") && me.contains(".jpg\\\"")) {
                         val iUrl = me.substring(0, me.indexOf(".jpg\\\"") + 4)
-                        Timber.d(iUrl)
                         possibleImageUrl.add(iUrl)
                     }
                 }

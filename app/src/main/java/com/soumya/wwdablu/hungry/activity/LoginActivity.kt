@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.MainThread
-import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.database.HungryDatabase
 import com.soumya.wwdablu.hungry.database.userinfo.UserInfo
 import com.soumya.wwdablu.hungry.databinding.ActivityLoginBinding
@@ -42,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
     @MainThread
     private fun launchLocationAccessPermissionActivity(context: Context) {
-        startActivity(Intent(context, LocationAccessPermission::class.java))
+        startActivity(Intent(context, LocationAccess::class.java))
     }
 
     private fun registerUser(context: Context, userId: String) {

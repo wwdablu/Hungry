@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class LocationAccessPermission : RepoCacheActivity() {
+class LocationAccess : RepoCacheActivity() {
 
     private lateinit var mViewBinding: ActivityLocationAccessPermissionBinding
 
@@ -41,7 +41,7 @@ class LocationAccessPermission : RepoCacheActivity() {
                 }
 
                 override fun onComplete() {
-                    startActivity(Intent(this@LocationAccessPermission,
+                    startActivity(Intent(this@LocationAccess,
                             DashboardActivity::class.java))
                     finish()
                 }

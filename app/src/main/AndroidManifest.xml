@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RestaurantDetailsActivity"></activity>
+        <activity android:name=".activity.PhotoViewerActivity"></activity>
+        <activity android:name=".activity.RestaurantDetailsActivity" />
         <activity
             android:name=".activity.CollectionsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -21,7 +22,7 @@
             android:name=".activity.DashboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.LocationAccessPermission"
+            android:name=".activity.LocationAccess"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.LoginActivity"

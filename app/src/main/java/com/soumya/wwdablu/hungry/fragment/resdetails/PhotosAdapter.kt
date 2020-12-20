@@ -1,10 +1,12 @@
 package com.soumya.wwdablu.hungry.fragment.resdetails
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
+import com.soumya.wwdablu.hungry.activity.PhotoViewerActivity
 import com.soumya.wwdablu.hungry.databinding.ItemResPhotoBinding
 
 class PhotosAdapter(urlList: List<String>) : RecyclerView.Adapter<PhotosAdapter.PhotosViewModel>() {
@@ -30,6 +32,15 @@ class PhotosAdapter(urlList: List<String>) : RecyclerView.Adapter<PhotosAdapter.
     inner class PhotosViewModel(viewBinding: ItemResPhotoBinding) : RecyclerView.ViewHolder(viewBinding.root) {
 
         private val mViewBinding: ItemResPhotoBinding = viewBinding
+
+        init {
+            mViewBinding.root.setOnClickListener {
+                val intent: Intent = Intent(viewBinding.root.context, PhotoViewerActivity::class.java)
+                intent.putStringArrayListExtra("list", ArrayList(mUrlList))
+                intent.putExtra("index", adapterPosition)
+                viewBinding.root.context.startActivity(intent)
+            }
+        }
 
         fun bind(url: String) {
 

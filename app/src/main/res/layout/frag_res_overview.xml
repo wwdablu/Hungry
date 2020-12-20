@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="resInfo"
+            type="com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_name"
+                android:textColor="@color/black"
+                android:fontFamily="@font/metropolis_semibold"
+                android:textSize="@dimen/font_5"
+                android:text="@{resInfo.name}"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                tools:text="Shambala"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_cuisine"
+                android:layout_below="@id/tv_res_name"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/metropolis_thin"
+                android:textSize="@dimen/font_3"
+                android:text="@{resInfo.cuisines}"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                tools:text="Indian, Japanese, American"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_location"
+                android:layout_below="@id/tv_res_cuisine"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/metropolis_thin"
+                android:textSize="@dimen/font_3"
+                android:text="@{resInfo.location.locality}"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                tools:text="Hidden Cave, Kailash"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_timing"
+                android:layout_below="@id/tv_res_location"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/metropolis_thin"
+                android:textSize="@dimen/font_3"
+                android:text="@{resInfo.timings}"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_2"
+                tools:text="10:30 AM - 10:00 PM"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_avg_cost"
+                android:layout_below="@id/tv_res_timing"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/metropolis_thin"
+                android:textSize="@dimen/font_3"
+                android:text="@{Integer.toString(resInfo.averageCostForTwo)}"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                tools:text="Free for those deserving"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_address_header"
+                android:layout_below="@id/tv_res_avg_cost"
+                android:textColor="@color/black"
+                android:fontFamily="@font/metropolis_light"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_5"
+                android:text="@string/address"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_address"
+                android:layout_below="@id/tv_address_header"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/metropolis_thin"
+                android:textSize="@dimen/font_3"
+                android:text="@{resInfo.location.address}"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
+                tools:text="Indian, Japanese, American"
+                />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

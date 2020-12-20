@@ -8,6 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.customview.RestaurantDetailsBottomNaviView
 import com.soumya.wwdablu.hungry.databinding.ActivityRestaurantDetailsBinding
+import com.soumya.wwdablu.hungry.fragment.resdetails.OverviewFragment
 import com.soumya.wwdablu.hungry.fragment.resdetails.RestaurantPhotosFragment
 import com.soumya.wwdablu.hungry.model.network.search.Restaurant
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
@@ -83,7 +84,7 @@ class RestaurantDetailsActivity : AppCompatActivity() {
         val useFragment: Fragment = when (menuItem) {
 
             RestaurantDetailsBottomNaviView.MenuItems.Overview -> {
-                mFragments[menuItem] ?: RestaurantPhotosFragment(mRestaurant)
+                mFragments[menuItem] ?: OverviewFragment(mRestaurant)
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Menu -> {
@@ -97,6 +98,10 @@ class RestaurantDetailsActivity : AppCompatActivity() {
             RestaurantDetailsBottomNaviView.MenuItems.Reviews -> {
                 mFragments[menuItem] ?: RestaurantPhotosFragment(mRestaurant)
             }
+        }
+
+        if(!mFragments.containsKey(menuItem)) {
+            mFragments[menuItem] = useFragment
         }
 
         supportFragmentManager.beginTransaction()
