@@ -11,6 +11,7 @@ import com.soumya.wwdablu.hungry.fragment.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
+import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 
 internal class GenericSearchModelAdapter(searchModel: SearchModel, listener: RestaurantItemSelector) :
         RecyclerView.Adapter<GenericSearchModelAdapter.RecommendedViewHolder>() {
@@ -57,18 +58,7 @@ internal class GenericSearchModelAdapter(searchModel: SearchModel, listener: Res
                     HungryRepo.getLocation().first, HungryRepo.getLocation().second
             )
 
-            val imageUrl: String = if (restaurant.featuredImage.isNotEmpty() && restaurant.featuredImage.isNotBlank()) {
-                restaurant.featuredImage
-            } else if (restaurant.thumb.isNotEmpty() && restaurant.thumb.isNotBlank()) {
-                restaurant.thumb
-            } else {
-                ""
-            }
-
-            Glide.with(mViewBinding.ivRestaurantImage.context)
-                .load(imageUrl)
-                .placeholder(R.drawable.default_card_bg)
-                .into(mViewBinding.ivRestaurantImage)
+            RestaurantInfoUtil.loadFeatureImage(mViewBinding.ivRestaurantImage, restaurant)
         }
     }
 }

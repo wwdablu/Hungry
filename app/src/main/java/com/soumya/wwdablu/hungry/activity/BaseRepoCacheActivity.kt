@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-abstract class RepoCacheActivity : AppCompatActivity(), LocationListener {
+abstract class BaseRepoCacheActivity : AppCompatActivity(), LocationListener {
 
     private var mLat: String = BuildConfig.DEFAULT_LATITUDE
     private var mLon: String = BuildConfig.DEFAULT_LOGITUDE

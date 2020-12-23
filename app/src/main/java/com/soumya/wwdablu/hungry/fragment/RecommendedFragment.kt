@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
@@ -22,13 +21,12 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class RecommendedFragment : Fragment(), RestaurantItemSelector {
+class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), RestaurantItemSelector {
 
-    private lateinit var mViewBinding: FragRecommendedBinding
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
     private lateinit var mGenericSearchModelAdapter: GenericSearchModelAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = DataBindingUtil.inflate(inflater, R.layout.frag_recommended, container, false)
         mViewBinding.city = HungryRepo.getCityModel().model[0]

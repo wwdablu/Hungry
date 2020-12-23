@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.soumya.wwdablu.hungry.databinding.FragResPhotoBinding
+import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -14,9 +14,8 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class RestaurantPhotosFragment(restaurant: RestaurantInfo) : Fragment() {
+class RestaurantPhotosFragment(restaurant: RestaurantInfo) : HungryFragment<FragResPhotoBinding>() {
 
-    private lateinit var mViewBinding: FragResPhotoBinding
     private lateinit var mAdapter: PhotosAdapter
     private lateinit var mPhotoUrls: List<String>
 
@@ -24,7 +23,7 @@ class RestaurantPhotosFragment(restaurant: RestaurantInfo) : Fragment() {
         getPhotos(restaurant)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragResPhotoBinding.inflate(inflater, container, false)
         mViewBinding.rvPhotos.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

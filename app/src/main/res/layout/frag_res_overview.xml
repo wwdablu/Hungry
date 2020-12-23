@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -16,6 +16,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/iv_restaurant_image"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:scaleType="center"
+                app:srcCompat="@drawable/default_card_bg"
+                tools:src="@drawable/default_card_bg"
+                />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rb_res_rating"
+                android:layout_marginTop="@dimen/space_2"
+                android:layout_below="@id/iv_restaurant_image"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                android:max="5"
+                android:min="1"
+                android:numStars="5"
+                android:stepSize="0.25"
+                android:rating="@{Float.parseFloat(resInfo.userRating.aggregateRating)}"
+                tools:rating="4.2"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_avg_rating"
+                android:text="@{resInfo.userRating.aggregateRating}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_4"
+                android:fontFamily="@font/metropolis_semibold"
+                android:layout_toEndOf="@id/rb_res_rating"
+                android:layout_alignBottom="@id/rb_res_rating"
+                android:layout_alignTop="@id/rb_res_rating"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/space_5"
+                tools:text="4.7"
+                />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,6 +69,8 @@
                 android:text="@{resInfo.name}"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_3"
+                android:layout_below="@id/rb_res_rating"
                 tools:text="Shambala"
                 />
 
@@ -106,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_res_address"
                 android:layout_below="@id/tv_address_header"
-                android:textColor="@color/gray"
+                android:textColor="@color/black"
                 android:fontFamily="@font/metropolis_thin"
                 android:textSize="@dimen/font_3"
                 android:text="@{resInfo.location.address}"
@@ -114,6 +159,32 @@
                 android:layout_marginStart="@dimen/space_3"
                 android:layout_marginTop="@dimen/space_5"
                 tools:text="Indian, Japanese, American"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_other_info_header"
+                android:layout_below="@id/tv_res_address"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/metropolis_thin"
+                android:textSize="@dimen/font_3"
+                android:text="@string/other_info"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_highlights_container"
+                android:orientation="vertical"
+                android:layout_below="@id/tv_other_info_header"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
                 />
 
         </RelativeLayout>

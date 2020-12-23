@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.databinding.FragCategoryGenericBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
+import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.fragment.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
@@ -19,10 +20,10 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class GenericCategoryFragment(category: CategoryEnum) : Fragment(), RestaurantItemSelector {
+class GenericCategoryFragment(category: CategoryEnum) : HungryFragment<FragCategoryGenericBinding>(),
+        RestaurantItemSelector {
 
     private val mCategoryEnum: CategoryEnum = category
-    private lateinit var mViewBinding: FragCategoryGenericBinding
     private lateinit var mGenericSearchModelAdapter: GenericSearchModelAdapter
     private lateinit var mSearchModel: SearchModel
 
@@ -30,7 +31,7 @@ class GenericCategoryFragment(category: CategoryEnum) : Fragment(), RestaurantIt
         getByCategory()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragCategoryGenericBinding.inflate(inflater)
 
