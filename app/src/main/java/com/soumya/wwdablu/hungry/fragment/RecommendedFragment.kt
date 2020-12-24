@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumya.wwdablu.hungry.CollectionDetailsActivity
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.databinding.FragRecommendedBinding
 import com.soumya.wwdablu.hungry.fragment.generic.GenericSearchModelAdapter
+import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
@@ -21,7 +23,8 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), RestaurantItemSelector {
+class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), RestaurantItemSelector,
+            CollectionItemSelector {
 
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
     private lateinit var mGenericSearchModelAdapter: GenericSearchModelAdapter
@@ -77,7 +80,9 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
             .subscribeWith(object: DisposableObserver<List<CuratedCollection>>() {
                 override fun onNext(t: List<CuratedCollection>?) {
 
-                    mCollectionAdapter = CuratedCollectionsAdapter(t!!)
+                    if(t != null) {
+                        mCollectionAdapter = CuratedCollectionsAdapter(t, this@RecommendedFragment)
+                    }
                 }
 
                 override fun onError(e: Throwable?) {
@@ -85,7 +90,10 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
                 }
 
                 override fun onComplete() {
-                    mViewBinding.rvCuratedCollection.adapter = mCollectionAdapter
+
+                    if(this@RecommendedFragment::mCollectionAdapter.isInitialized) {
+                        mViewBinding.rvCuratedCollection.adapter = mCollectionAdapter
+                    }
                 }
             })
     }
@@ -95,6 +103,15 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
         activity?.runOnUiThread {
             val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
             intent.putExtra("resid", restaurant.id)
+            startActivity(intent)
+        }
+    }
+
+    override fun onCollectionClicked(collection: CollectionInfo) {
+        activity?.runOnUiThread {
+            val intent: Intent = Intent(context, CollectionDetailsActivity::class.java)
+            intent.putExtra("collection_id", collection.id)
+            intent.putExtra("collection_info", collection)
             startActivity(intent)
         }
     }

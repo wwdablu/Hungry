@@ -1,7 +1,10 @@
 package com.soumya.wwdablu.hungry.model.network.collections
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class CollectionInfo(
         @SerializedName("collection_id")
         val id: String,
@@ -23,4 +26,4 @@ data class CollectionInfo(
 
         @SerializedName("share_url")
         val shareUrl: String
-)
+) : Parcelable

@@ -10,12 +10,13 @@ import com.soumya.wwdablu.hungry.databinding.ItemCuratedCollectionBinding
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 
-class CuratedCollectionsAdapter(list: List<CuratedCollection>) :
+class CuratedCollectionsAdapter(list: List<CuratedCollection>, listener: CollectionItemSelector) :
         RecyclerView.Adapter<CuratedCollectionsAdapter.CollectionViewHolder>() {
 
     private val MAX_COLLECTION_CARDS: Int = 6
 
     private val mCollectionList: List<CuratedCollection> = list
+    private val mListener: CollectionItemSelector = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionViewHolder {
 
@@ -41,6 +42,12 @@ class CuratedCollectionsAdapter(list: List<CuratedCollection>) :
             RecyclerView.ViewHolder(viewBinding.root) {
 
         private val mViewBinding: ItemCuratedCollectionBinding = viewBinding
+
+        init {
+            mViewBinding.root.setOnClickListener {
+                mListener.onCollectionClicked(mCollectionList[adapterPosition].collection)
+            }
+        }
 
         fun bind(collectionInfo: CollectionInfo) {
 
