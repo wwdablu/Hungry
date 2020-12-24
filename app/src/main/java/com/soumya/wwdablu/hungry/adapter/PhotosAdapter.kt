@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry.fragment.resdetails
+package com.soumya.wwdablu.hungry.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater

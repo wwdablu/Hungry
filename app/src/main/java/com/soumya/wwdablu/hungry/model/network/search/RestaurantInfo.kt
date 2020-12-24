@@ -1,8 +1,11 @@
 package com.soumya.wwdablu.hungry.model.network.search
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import kotlin.math.roundToInt
 
+@Parcelize
 data class RestaurantInfo(
 
         @SerializedName("R")
@@ -70,7 +73,8 @@ data class RestaurantInfo(
         var phoneNumbers: String,
 
         var establishment: List<String>
-) {
+
+) : Parcelable {
     companion object {
         fun calculateDistance(fromLat: String, fromLon: String,
                 toLat: String, toLon: String) : String {

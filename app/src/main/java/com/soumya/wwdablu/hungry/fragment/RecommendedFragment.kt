@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.soumya.wwdablu.hungry.CollectionDetailsActivity
+import com.soumya.wwdablu.hungry.activity.CollectionDetailsActivity
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
+import com.soumya.wwdablu.hungry.adapter.CuratedCollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.FragRecommendedBinding
-import com.soumya.wwdablu.hungry.fragment.generic.GenericSearchModelAdapter
+import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
+import com.soumya.wwdablu.hungry.fragment.iface.CollectionItemSelector
+import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
@@ -24,7 +27,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
 class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), RestaurantItemSelector,
-            CollectionItemSelector {
+        CollectionItemSelector {
 
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
     private lateinit var mGenericSearchModelAdapter: GenericSearchModelAdapter
@@ -102,7 +105,7 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
 
         activity?.runOnUiThread {
             val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
-            intent.putExtra("resid", restaurant.id)
+            intent.putExtra("res_details", restaurant)
             startActivity(intent)
         }
     }

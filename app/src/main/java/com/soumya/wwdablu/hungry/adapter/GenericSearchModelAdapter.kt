@@ -1,13 +1,11 @@
-package com.soumya.wwdablu.hungry.fragment.generic
+package com.soumya.wwdablu.hungry.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemRecommendedBinding
-import com.soumya.wwdablu.hungry.fragment.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo

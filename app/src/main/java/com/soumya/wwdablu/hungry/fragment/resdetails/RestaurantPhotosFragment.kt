@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.soumya.wwdablu.hungry.adapter.PhotosAdapter
 import com.soumya.wwdablu.hungry.databinding.FragResPhotoBinding
 import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo

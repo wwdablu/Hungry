@@ -4,9 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.soumya.wwdablu.hungry.CollectionDetailsActivity
+import com.soumya.wwdablu.hungry.adapter.CollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionsBinding
-import com.soumya.wwdablu.hungry.fragment.CollectionItemSelector
+import com.soumya.wwdablu.hungry.fragment.iface.CollectionItemSelector
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.repository.HungryRepo
@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class CollectionsActivity : AppCompatActivity(), CollectionItemSelector {
+class CollectionsActivity : HungryActivity(), CollectionItemSelector {
 
     private lateinit var mAdapter: CollectionsAdapter
     private lateinit var mViewBinding: ActivityCollectionsBinding

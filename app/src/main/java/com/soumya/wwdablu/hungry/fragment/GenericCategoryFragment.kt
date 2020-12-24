@@ -1,17 +1,16 @@
-package com.soumya.wwdablu.hungry.fragment.generic
+package com.soumya.wwdablu.hungry.fragment
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
+import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
 import com.soumya.wwdablu.hungry.databinding.FragCategoryGenericBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
-import com.soumya.wwdablu.hungry.fragment.HungryFragment
-import com.soumya.wwdablu.hungry.fragment.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
@@ -103,7 +102,7 @@ class GenericCategoryFragment(category: CategoryEnum) : HungryFragment<FragCateg
 
         activity?.runOnUiThread {
             val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
-            intent.putExtra("resid", restaurant.id)
+            intent.putExtra("res_details", restaurant)
             startActivity(intent)
         }
     }

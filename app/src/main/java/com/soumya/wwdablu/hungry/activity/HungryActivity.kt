@@ -8,25 +8,22 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.BuildConfig
-import com.soumya.wwdablu.hungry.model.network.cities.City
-import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
+import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
-import timber.log.Timber
 
-abstract class BaseRepoCacheActivity : AppCompatActivity(), LocationListener {
+abstract class HungryActivity : AppCompatActivity(), LocationListener {
 
     private var mLat: String = BuildConfig.DEFAULT_LATITUDE
     private var mLon: String = BuildConfig.DEFAULT_LOGITUDE
-    private lateinit var mCity: City
 
-    internal abstract fun onLocationUpdated(location: Location?)
+    protected open fun onLocationUpdated(location: Location?) {
+        //
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -76,7 +73,7 @@ abstract class BaseRepoCacheActivity : AppCompatActivity(), LocationListener {
         //
     }
 
-    internal fun fetchCurrentCoordinates() {
+    protected fun fetchCurrentCoordinates() {
 
         val locationManager: LocationManager? = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
 
@@ -101,46 +98,11 @@ abstract class BaseRepoCacheActivity : AppCompatActivity(), LocationListener {
         }
     }
 
-    fun cacheInformation() : Observable<Boolean> {
+    protected fun loadImageIntoImageView(imageUrl: String, imageView: ImageView) {
 
-        return Observable.create { it ->
-
-            HungryRepo.getCity()
-                .flatMap { me ->
-
-                    mCity = me[0]
-                    if(me.isEmpty()) {
-                        HungryRepo.getCollections()
-                    } else {
-                        HungryRepo.getCollections()
-                    }
-
-                    HungryRepo.getCuisine()
-                }
-                .flatMap {
-                    HungryRepo.getCategories()
-                }
-                .flatMap {
-                    HungryRepo.getEstablishments()
-                }
-                .flatMap {
-                    HungryRepo.getCollections()
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object: DisposableObserver<List<CuratedCollection>>() {
-                    override fun onNext(t: List<CuratedCollection>?) {
-                        Timber.d(t?.get(0)?.toString() ?: "empty")
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
-        }
+        Glide.with(imageView.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.default_card_bg)
+            .into(imageView)
     }
 }

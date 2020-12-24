@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry
+package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
+import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionDetailsBinding
-import com.soumya.wwdablu.hungry.fragment.RestaurantItemSelector
-import com.soumya.wwdablu.hungry.fragment.generic.GenericSearchModelAdapter
+import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
@@ -19,7 +19,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class CollectionDetailsActivity : AppCompatActivity() {
+class CollectionDetailsActivity : HungryActivity() {
 
     private lateinit var mViewBinding: ActivityCollectionDetailsBinding
     private lateinit var mSearchModel: SearchModel
@@ -37,10 +37,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
         if(collectionInfoParcelable != null) {
             val model: CollectionInfo = collectionInfoParcelable as CollectionInfo
             mViewBinding.collectionModel = model
-            Glide.with(mViewBinding.root.context)
-                .load(model.imageUrl)
-                .placeholder(R.drawable.default_card_bg)
-                .into(mViewBinding.ivRestaurantImage)
+            loadImageIntoImageView(model.imageUrl, mViewBinding.ivRestaurantImage)
         }
 
         setContentView(mViewBinding.root)
@@ -79,7 +76,7 @@ class CollectionDetailsActivity : AppCompatActivity() {
         override fun onRestaurantClicked(restaurant: RestaurantInfo) {
             runOnUiThread {
                 val intent: Intent = Intent(this@CollectionDetailsActivity, RestaurantDetailsActivity::class.java)
-                intent.putExtra("resid", restaurant.id)
+                intent.putExtra("res_details", restaurant)
                 startActivity(intent)
             }
         }

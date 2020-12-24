@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class OverviewFragment(restaurant: RestaurantInfo) : HungryFragment<FragResOverviewBinding>() {
+class RestaurantOverviewFragment(restaurant: RestaurantInfo) : HungryFragment<FragResOverviewBinding>() {
 
     private val mRestaurant: RestaurantInfo = restaurant
 

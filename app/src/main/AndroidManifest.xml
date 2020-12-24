@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".CollectionDetailsActivity"
+        <activity android:name=".activity.CollectionDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar.TransparentNavi" />
 
         <activity android:name=".activity.PhotoViewerActivity"

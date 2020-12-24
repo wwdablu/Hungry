@@ -1,4 +1,4 @@
-package com.soumya.wwdablu.hungry.activity
+package com.soumya.wwdablu.hungry.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemCollectionLongBinding
-import com.soumya.wwdablu.hungry.fragment.CollectionItemSelector
+import com.soumya.wwdablu.hungry.fragment.iface.CollectionItemSelector
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 

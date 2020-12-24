@@ -1,7 +1,10 @@
 package com.soumya.wwdablu.hungry.model.network.search
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class R(
         @SerializedName("res_id")
         val resId: Int,
@@ -11,4 +14,5 @@ data class R(
 
         @SerializedName("has_menu_status")
         val hasMenuStatus: HasMenuStatus
-)
+
+) : Parcelable

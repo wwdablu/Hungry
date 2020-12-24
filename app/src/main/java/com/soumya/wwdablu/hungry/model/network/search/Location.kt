@@ -1,7 +1,10 @@
 package com.soumya.wwdablu.hungry.model.network.search
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Location(
         var address: String,
         var locality: String,
@@ -19,4 +22,5 @@ data class Location(
 
         @SerializedName("locality_verbose")
         var localityVerbose: String
-)
+
+) : Parcelable
