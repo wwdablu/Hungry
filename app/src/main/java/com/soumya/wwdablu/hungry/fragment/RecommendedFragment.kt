@@ -11,6 +11,7 @@ import com.soumya.wwdablu.hungry.activity.CollectionDetailsActivity
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
+import com.soumya.wwdablu.hungry.activity.SearchActivity
 import com.soumya.wwdablu.hungry.adapter.CuratedCollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.FragRecommendedBinding
 import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
@@ -45,6 +46,10 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
 
         mViewBinding.tvCollectionSeeall.setOnClickListener {
             startActivity(Intent(context, CollectionsActivity::class.java))
+        }
+
+        mViewBinding.btnSearch.setOnClickListener {
+            startActivity(Intent(context, SearchActivity::class.java))
         }
 
         return mViewBinding.root

@@ -251,6 +251,15 @@ internal object HungryRepo {
         }
     }
 
+    fun search(query: String) : Observable<SearchModel?> {
+
+        return Observable.create {
+
+            handleSearchObservable(DataProvider.call().search(
+                    mLocation.first, mLocation.second, query), it)
+        }
+    }
+
     private fun handleSearchObservable(observable: Observable<SearchModel>,
                                        emitter: ObservableEmitter<SearchModel?>) {
 

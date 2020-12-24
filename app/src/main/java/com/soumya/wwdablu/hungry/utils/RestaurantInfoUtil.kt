@@ -17,7 +17,16 @@ import java.util.*
 
 object RestaurantInfoUtil {
 
-    fun loadFeatureImage(imageView: AppCompatImageView, restaurant: RestaurantInfo) {
+    /**
+     * Tries to set the image for the restaurant. It has few fallback methods. It tries for the
+     * provided feature image, then thumbnail. If both are absent then tries to get the
+     * photos. If that too fails, then default image is displayed. The entire process is both
+     * time and bandwidth consuming.
+     *
+     * @param userPhotoIfFeatureAbsent Set to false to prevent fetching user submitted photos
+     */
+    fun loadFeatureImage(imageView: AppCompatImageView, restaurant: RestaurantInfo,
+                         userPhotoIfFeatureAbsent: Boolean = true) {
 
         val imageUrl: String = if (restaurant.featuredImage.isNotEmpty() && restaurant.featuredImage.isNotBlank()) {
             restaurant.featuredImage
@@ -27,6 +36,11 @@ object RestaurantInfoUtil {
 
         if(imageUrl.isNotBlank() && imageUrl.isNotEmpty()) {
             loadImageIntoView(imageUrl, imageView)
+        }
+
+        else if(!userPhotoIfFeatureAbsent) {
+            imageView.setImageResource(R.drawable.default_card_bg)
+            return
         }
 
         else {

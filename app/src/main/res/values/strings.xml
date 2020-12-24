@@ -58,4 +58,8 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="other_info">Other Info</string>
+    <string name="search_all_hint">Restaurant name, cuisine or a dish...</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="try_something_new">Try something new</string>
 </resources>

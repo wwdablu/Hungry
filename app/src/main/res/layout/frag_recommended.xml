@@ -26,8 +26,21 @@
                 android:fontFamily="@font/metropolis_bold"
                 android:text="@{city.name}"
                 android:layout_marginStart="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginEnd="@dimen/space_3"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_search"
                 android:layout_marginTop="@dimen/space_3"
-                android:layout_marginBottom="@dimen/space_3"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:text="@string/search_all_hint"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:drawableStart="@drawable/ic_search_black"
                 />
 
             <!-- Collections starts -->
@@ -35,9 +48,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_3"
-                android:layout_marginEnd="@dimen/space_3"
-                android:layout_marginBottom="@dimen/space_3">
+                android:layout_margin="@dimen/space_3">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
