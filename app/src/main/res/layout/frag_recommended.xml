@@ -30,17 +30,9 @@
                 android:layout_marginEnd="@dimen/space_3"
                 />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_search"
-                android:layout_marginTop="@dimen/space_3"
-                android:layout_marginStart="@dimen/space_3"
-                android:layout_marginEnd="@dimen/space_3"
-                android:text="@string/search_all_hint"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:drawableStart="@drawable/ic_search_black"
+            <!-- Include the search bar -->
+            <include layout="@layout/incl_search_bar"
+                android:id="@+id/search_bar"
                 />
 
             <!-- Collections starts -->

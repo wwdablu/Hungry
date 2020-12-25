@@ -19,6 +19,10 @@ class DashboardBottomNaviView : BottomNavigationView {
 
     private lateinit var mCategoriesList: List<Categories>
 
+    companion object {
+        const val ProfileMenu: Int = 99
+    }
+
     constructor(context: Context) : super(context) {
         fetchCategories()
     }
@@ -35,9 +39,9 @@ class DashboardBottomNaviView : BottomNavigationView {
 
         val pair: Pair<CategoryEnum, CategoryEnum?> = getFoodType()
 
-        menu.add(Menu.NONE, CategoryEnum.Recommended.ordinal, Menu.NONE, "Order")
-                .setIcon(R.drawable.ic_recommended)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menu.add(Menu.NONE, CategoryEnum.Recommended.ordinal, Menu.NONE, context.getString(R.string.menu_order))
+            .setIcon(R.drawable.ic_recommended)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
         selectedItemId = CategoryEnum.Recommended.ordinal
 
@@ -57,12 +61,15 @@ class DashboardBottomNaviView : BottomNavigationView {
                         .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             }
         }
+
+        menu.add(Menu.NONE, ProfileMenu, Menu.NONE, context.getString(R.string.menu_profile))
+            .setIcon(R.drawable.ic_profile)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     }
 
     private fun getFoodType() : Pair<CategoryEnum, CategoryEnum?> {
 
-        val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        return when (hourOfDay) {
+        return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
 
             in 0..4 -> {
                 Pair(CategoryEnum.Nightlife, CategoryEnum.PubAndBar)

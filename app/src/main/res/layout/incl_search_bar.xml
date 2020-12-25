@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_search"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_marginStart="@dimen/space_3"
+        android:layout_marginEnd="@dimen/space_3"
+        android:text="@string/search_all_hint"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:drawableStart="@drawable/ic_search_black"
+        />
+</FrameLayout>

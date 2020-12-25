@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.activity.CollectionDetailsActivity
-import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.activity.SearchActivity
@@ -27,15 +25,22 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), RestaurantItemSelector,
-        CollectionItemSelector {
+class RecommendedFragment private constructor() : HungryFragment<FragRecommendedBinding>(),
+        RestaurantItemSelector, CollectionItemSelector {
 
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
     private lateinit var mGenericSearchResultAdapter: GenericSearchResultAdapter
 
+    companion object {
+
+        fun newInstance() : RecommendedFragment {
+            return RecommendedFragment()
+        }
+    }
+
     override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        mViewBinding = DataBindingUtil.inflate(inflater, R.layout.frag_recommended, container, false)
+        mViewBinding = FragRecommendedBinding.inflate(inflater, container, false)
         mViewBinding.city = HungryRepo.getCityModel().model[0]
 
         mViewBinding.rvCuratedCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -48,7 +53,7 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
             startActivity(Intent(context, CollectionsActivity::class.java))
         }
 
-        mViewBinding.btnSearch.setOnClickListener {
+        mViewBinding.searchBar.btnSearch.setOnClickListener {
             startActivity(Intent(context, SearchActivity::class.java))
         }
 

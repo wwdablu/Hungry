@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
+import com.soumya.wwdablu.hungry.activity.SearchActivity
 import com.soumya.wwdablu.hungry.adapter.GenericSearchResultAdapter
-import com.soumya.wwdablu.hungry.databinding.FragCategoryGenericBinding
+import com.soumya.wwdablu.hungry.databinding.FragSearchResultGenericBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
 import com.soumya.wwdablu.hungry.enums.SearchBy
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
@@ -20,7 +21,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class GenericSearchResultFragment private constructor() : HungryFragment<FragCategoryGenericBinding>(),
+class GenericSearchResultFragment private constructor() : HungryFragment<FragSearchResultGenericBinding>(),
         RestaurantItemSelector {
 
     private lateinit var mGenericSearchResultAdapter: GenericSearchResultAdapter
@@ -30,6 +31,7 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragCat
     private lateinit var mFallbackSearchCriteria: Pair<SearchBy, String>
 
     companion object {
+
         fun newInstance(primarySearch: SearchBy, primarySearchParam: String,
                         fallbackSearch: SearchBy = SearchBy.None, fallbackSearchParam: String = "")
         : GenericSearchResultFragment {
@@ -54,17 +56,23 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragCat
 
     override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        mViewBinding = FragCategoryGenericBinding.inflate(inflater)
+        mViewBinding = FragSearchResultGenericBinding.inflate(inflater, container, false)
 
         mViewBinding.rvCatList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         if(this::mSearchModel.isInitialized) {
             mViewBinding.rvCatList.adapter = mGenericSearchResultAdapter
         }
 
+        mViewBinding.searchBar.btnSearch.setOnClickListener {
+            startActivity(Intent(context, SearchActivity::class.java))
+        }
+
         val bundle: Bundle? = arguments
         if(bundle != null) {
             getDataBySearchMode(bundle)
         }
+
+        mViewBinding.city = HungryRepo.getCityModel().model[0]
 
         return mViewBinding.root
     }

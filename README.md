@@ -1,6 +1,7 @@
 # Hungry
 
 Upgrading the application to Kotlin and matching the UI as of Zomato release in Dec, 2020
+This is still a WIP version and hence on a separate branch.
 
 **__Libraries used during development:__**  
 
@@ -9,6 +10,7 @@ Upgrading the application to Kotlin and matching the UI as of Zomato release in 
 * Design Library
     * ViewPager  
     * CoordinatorLayout
+* Ktx
 * Retrofit  
 * RxJava
 * Glide
@@ -17,52 +19,33 @@ Upgrading the application to Kotlin and matching the UI as of Zomato release in 
 * Timber
 
 **__Asset Credits:__**
-* Facebook SVG
-Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
-*Google Icon SVG
-Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+This project contains various assets which are owed by the respective owners.
+Their details are provided as below
 
-* Search Location
-<a href="https://www.freepik.com/vectors/location">Location vector created by stories - www.freepik.com</a>
+* Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Facebook, Google, Delivery, Catchup, Dinner, Cafe, Buffet
 
-* Dining Icon
-Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+* <a href="https://www.freepik.com/vectors/location">Location vector created by stories - www.freepik.com</a>
+Search Location
 
-* Nightlife Icon
-Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+* Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Dining, Lunch
 
-* Profile Icon
-Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+* Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Nightlife
 
-* Background Image for cards (default - 2)
-<a href='https://www.freepik.com/vectors/pattern'>Pattern vector created by freepik - www.freepik.com</a>
+* Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Profile
 
-* Delivery Icon
-Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+* <a href='https://www.freepik.com/vectors/pattern'>Pattern vector created by freepik - www.freepik.com</a>
+Default background image for cards
 
-* Catchup icon
-Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+* Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Takeout
 
-* Takeout
-Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+* Icons made by <a href="https://www.flaticon.com/authors/pixelmeetup" title="Pixelmeetup">Pixelmeetup</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Breakfast
 
-* Breakfast (bread)
-Icons made by <a href="https://www.flaticon.com/authors/pixelmeetup" title="Pixelmeetup">Pixelmeetup</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
-* Dinner
-Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
-* Lunch
-Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
-* Club
-Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
-* Cafe
-Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
-* Buffet
-Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-
-
+* Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Club

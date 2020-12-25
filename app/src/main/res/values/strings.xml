@@ -62,4 +62,6 @@
     <string name="cuisine">Cuisine</string>
     <string name="restaurants">Restaurants</string>
     <string name="try_something_new">Try something new</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_order">Order</string>
 </resources>

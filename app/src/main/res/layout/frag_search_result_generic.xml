@@ -15,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ll_dining_root"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -27,8 +26,13 @@
                 android:fontFamily="@font/metropolis_bold"
                 android:text="@{city.name}"
                 android:layout_marginStart="@dimen/space_3"
-                android:layout_marginTop="@dimen/space_3"
-                android:layout_marginBottom="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginEnd="@dimen/space_3"
+                />
+
+            <!-- Include the search bar -->
+            <include layout="@layout/incl_search_bar"
+                android:id="@+id/search_bar"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView

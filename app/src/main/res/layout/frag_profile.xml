@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_user_name"
+        android:textColor="@color/pureBlack"
+        android:fontFamily="@font/metropolis_semibold"
+        android:textSize="@dimen/font_6"
+        android:layout_marginStart="@dimen/space_3"
+        android:layout_marginTop="@dimen/space_10"
+        tools:text="Soumya"
+        />
+
+    <include layout="@layout/incl_hor_thin_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="@dimen/space_3"
+        android:layout_marginEnd="@dimen/space_3"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/tv_user_name"
+        />
+
+</RelativeLayout>
