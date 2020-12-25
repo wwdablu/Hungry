@@ -11,8 +11,8 @@ import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 
-internal class GenericSearchModelAdapter(searchModel: SearchModel, listener: RestaurantItemSelector) :
-        RecyclerView.Adapter<GenericSearchModelAdapter.RecommendedViewHolder>() {
+internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: RestaurantItemSelector) :
+        RecyclerView.Adapter<GenericSearchResultAdapter.RecommendedViewHolder>() {
 
     private val mSearchModel: SearchModel = searchModel
     private val mListener: RestaurantItemSelector = listener

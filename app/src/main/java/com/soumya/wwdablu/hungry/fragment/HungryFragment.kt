@@ -20,5 +20,13 @@ abstract class HungryFragment<T : ViewBinding> : Fragment() {
         return onCreateViewExt(inflater, container, savedInstanceState)
     }
 
+    protected fun String.isEmptyOrBlank() : Boolean {
+        return isEmpty() || isBlank()
+    }
+
+    protected fun String.isNotEmptyAndNotBlank() : Boolean {
+        return isNotEmpty() && isNotBlank()
+    }
+
     abstract fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
 }

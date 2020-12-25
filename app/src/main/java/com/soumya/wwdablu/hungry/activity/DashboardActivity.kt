@@ -7,8 +7,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ActivityDashboardBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
+import com.soumya.wwdablu.hungry.enums.SearchBy
 import com.soumya.wwdablu.hungry.fragment.RecommendedFragment
-import com.soumya.wwdablu.hungry.fragment.GenericCategoryFragment
+import com.soumya.wwdablu.hungry.fragment.GenericSearchResultFragment
 import java.util.*
 
 class DashboardActivity : AppCompatActivity() {
@@ -42,11 +43,12 @@ class DashboardActivity : AppCompatActivity() {
                 val catEnum: CategoryEnum = CategoryEnum.values()[it.itemId-1]
                 var catFrag: Fragment? = mCategoryFragmentMap[catEnum]
                 if(catFrag == null) {
-                    catFrag = GenericCategoryFragment(catEnum)
+                    catFrag = GenericSearchResultFragment.newInstance(SearchBy.Category, catEnum.name,
+                            SearchBy.Collection, "1")
                     mCategoryFragmentMap[catEnum] = catFrag
                 }
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fl_frag_container, catFrag, GenericCategoryFragment::class.java.simpleName)
+                    .replace(R.id.fl_frag_container, catFrag, GenericSearchResultFragment::class.java.simpleName)
                     .commitAllowingStateLoss()
             }
         }

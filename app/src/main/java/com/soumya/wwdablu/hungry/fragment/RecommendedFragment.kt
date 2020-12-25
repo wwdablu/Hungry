@@ -14,7 +14,7 @@ import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.activity.SearchActivity
 import com.soumya.wwdablu.hungry.adapter.CuratedCollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.FragRecommendedBinding
-import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
+import com.soumya.wwdablu.hungry.adapter.GenericSearchResultAdapter
 import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
@@ -31,7 +31,7 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
         CollectionItemSelector {
 
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter
-    private lateinit var mGenericSearchModelAdapter: GenericSearchModelAdapter
+    private lateinit var mGenericSearchResultAdapter: GenericSearchResultAdapter
 
     override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -67,7 +67,7 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
                         return
                     }
 
-                    mGenericSearchModelAdapter = GenericSearchModelAdapter(t, this@RecommendedFragment)
+                    mGenericSearchResultAdapter = GenericSearchResultAdapter(t, this@RecommendedFragment)
                 }
 
                 override fun onError(e: Throwable?) {
@@ -75,7 +75,7 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(), Restaurant
                 }
 
                 override fun onComplete() {
-                    mViewBinding.rvRecommendedForYou.adapter = mGenericSearchModelAdapter
+                    mViewBinding.rvRecommendedForYou.adapter = mGenericSearchResultAdapter
                 }
             })
     }

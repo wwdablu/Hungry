@@ -251,12 +251,12 @@ internal object HungryRepo {
         }
     }
 
-    fun searchByCuisineId(cuisine: Cuisine) : Observable<SearchModel?> {
+    fun searchByCuisineId(cuisineId: String) : Observable<SearchModel?> {
 
         return Observable.create {
 
             handleSearchObservable(DataProvider.call().searchByCuisineId(
-                    mLocation.first, mLocation.second, cuisine.cuisineId), it)
+                    mLocation.first, mLocation.second, cuisineId), it)
         }
     }
 

@@ -6,7 +6,7 @@ import android.os.Parcelable
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionDetailsBinding
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
-import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
+import com.soumya.wwdablu.hungry.adapter.GenericSearchResultAdapter
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
@@ -20,7 +20,7 @@ class CollectionDetailsActivity : HungryActivity() {
 
     private lateinit var mViewBinding: ActivityCollectionDetailsBinding
     private lateinit var mSearchModel: SearchModel
-    private lateinit var mAdapter: GenericSearchModelAdapter
+    private lateinit var mAdapter: GenericSearchResultAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +62,7 @@ class CollectionDetailsActivity : HungryActivity() {
 
                     if(this@CollectionDetailsActivity::mSearchModel.isInitialized &&
                             !this@CollectionDetailsActivity::mAdapter.isInitialized) {
-                        mAdapter = GenericSearchModelAdapter(mSearchModel, mListener)
+                        mAdapter = GenericSearchResultAdapter(mSearchModel, mListener)
                         mViewBinding.rvResByCollection.adapter = mAdapter
                     }
                 }

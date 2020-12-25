@@ -10,6 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.adapter.SearchAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivitySearchBinding
+import com.soumya.wwdablu.hungry.enums.SearchBy
 import com.soumya.wwdablu.hungry.iface.CuisineItemSelector
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.cuisine.Cuisine
@@ -117,6 +118,10 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSele
     }
 
     override fun onCuisineClicked(cuisine: Cuisine) {
-        TODO("Not yet implemented")
+        runOnUiThread {
+            val intent: Intent = GenericSearchResultActivity.createLaunchIntent(this@SearchActivity,
+                    SearchBy.Cuisine, cuisine.cuisineId)
+            startActivity(intent)
+        }
     }
 }
