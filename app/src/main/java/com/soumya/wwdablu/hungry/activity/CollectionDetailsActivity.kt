@@ -1,14 +1,11 @@
 package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionDetailsBinding
-import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo

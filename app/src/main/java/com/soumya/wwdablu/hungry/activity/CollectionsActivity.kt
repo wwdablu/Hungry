@@ -1,12 +1,11 @@
 package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.adapter.CollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionsBinding
-import com.soumya.wwdablu.hungry.fragment.iface.CollectionItemSelector
+import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.repository.HungryRepo

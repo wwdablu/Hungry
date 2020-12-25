@@ -8,6 +8,8 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -21,8 +23,11 @@ abstract class HungryActivity : AppCompatActivity(), LocationListener {
     private var mLat: String = BuildConfig.DEFAULT_LATITUDE
     private var mLon: String = BuildConfig.DEFAULT_LOGITUDE
 
-    protected open fun onLocationUpdated(location: Location?) {
-        //
+    private val mHandler: Handler = Handler()
+
+    fun hideKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     override fun onDestroy() {
@@ -71,6 +76,17 @@ abstract class HungryActivity : AppCompatActivity(), LocationListener {
 
     override fun onProviderDisabled(provider: String?) {
         //
+    }
+
+    protected open fun onLocationUpdated(location: Location?) {
+        //
+    }
+
+    protected fun postRunnableOnMain(r: Runnable, delayInMilli: Long = 0, cancelIfExists: Boolean = false) {
+        if(cancelIfExists) {
+            mHandler.removeCallbacks(r)
+        }
+        mHandler.postDelayed(r, delayInMilli)
     }
 
     protected fun fetchCurrentCoordinates() {

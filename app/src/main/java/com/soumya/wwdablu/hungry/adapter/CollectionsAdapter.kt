@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemCollectionLongBinding
-import com.soumya.wwdablu.hungry.fragment.iface.CollectionItemSelector
+import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 

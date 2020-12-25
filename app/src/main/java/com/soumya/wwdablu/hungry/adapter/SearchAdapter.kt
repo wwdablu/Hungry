@@ -7,17 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.soumya.wwdablu.hungry.databinding.ItemSearchCuisineBinding
 import com.soumya.wwdablu.hungry.databinding.ItemSearchResBinding
 import com.soumya.wwdablu.hungry.databinding.ItemSearchResHeaderBinding
-import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.iface.CuisineItemSelector
+import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.cuisine.Cuisine
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
+import java.util.*
 
 class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
-                    resListener: RestaurantItemSelector) :
+                    resListener: RestaurantItemSelector, cuisineItemSelector: CuisineItemSelector) :
         RecyclerView.Adapter<SearchAdapter.BaseSearchViewHolder>() {
 
     private val mResListener: RestaurantItemSelector = resListener
+    private val mCuisineItemSelector: CuisineItemSelector = cuisineItemSelector
 
     private enum class ViewType {
         Cuisine,
@@ -25,8 +28,8 @@ class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
         Restaurant
     }
 
-    private val mCuisineList: List<Cuisine> = cuisineList
-    private val mSearchModel: SearchModel = searchModel
+    private val mCuisineList: LinkedList<Cuisine> = LinkedList(cuisineList)
+    private var mSearchModel: SearchModel? = searchModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseSearchViewHolder {
 
@@ -49,7 +52,8 @@ class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
     }
 
     override fun getItemCount(): Int {
-        return mCuisineList.size + mSearchModel.restaurants.size + 1
+        return mCuisineList.size + (mSearchModel?.restaurants?.size ?: 0) +
+                if(mSearchModel == null) 0 else 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -67,10 +71,26 @@ class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
         }
     }
 
+    fun setSearchResults(list: List<Cuisine>, searchResult: SearchModel?) {
+
+        mCuisineList.clear()
+        mCuisineList.addAll(list)
+
+        mSearchModel = searchResult
+
+        notifyDataSetChanged()
+    }
+
     inner class SearchCuisineViewHolder(viewBinding: ItemSearchCuisineBinding) :
             BaseSearchViewHolder(viewBinding.root) {
 
         private val mViewBinding: ItemSearchCuisineBinding = viewBinding
+
+        init {
+            mViewBinding.root.setOnClickListener {
+                mCuisineItemSelector.onCuisineClicked(mCuisineList[adapterPosition])
+            }
+        }
 
         override fun bind(position: Int) {
 
@@ -85,21 +105,22 @@ class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
 
         init {
             mViewBinding.root.setOnClickListener {
-                mResListener.onRestaurantClicked(getRestaurant())
+                val restaurant = getRestaurant() ?: return@setOnClickListener
+                mResListener.onRestaurantClicked(restaurant)
             }
         }
 
         override fun bind(position: Int) {
 
-            val restaurant = getRestaurant()
+            val restaurant = getRestaurant() ?: return
             mViewBinding.resInfo = restaurant
 
             RestaurantInfoUtil.loadFeatureImage(mViewBinding.ivCuisine, restaurant, false)
         }
 
-        private fun getRestaurant() : RestaurantInfo {
+        private fun getRestaurant() : RestaurantInfo? {
             val index = adapterPosition - mCuisineList.size - 1
-            return mSearchModel.restaurants[index].restaurant
+            return mSearchModel?.restaurants?.get(index)?.restaurant
         }
     }
 

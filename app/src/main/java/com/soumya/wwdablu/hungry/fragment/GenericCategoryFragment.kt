@@ -10,7 +10,7 @@ import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
 import com.soumya.wwdablu.hungry.databinding.FragCategoryGenericBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
-import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo

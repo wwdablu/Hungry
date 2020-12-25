@@ -45,6 +45,11 @@ interface ZomatoAPI {
                            @Query("category") category: Int) : Observable<SearchModel>
 
     @GET("/api/v2.1/search")
+    fun searchByCuisineId(@Query("lat") lat: String,
+                           @Query("lon") lon: String,
+                           @Query("cuisines") cuisines: String) : Observable<SearchModel>
+
+    @GET("/api/v2.1/search")
     fun search(@Query("lat") lat: String,
                @Query("lon") lon: String,
                @Query("q") query: String) : Observable<SearchModel>

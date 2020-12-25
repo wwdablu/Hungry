@@ -15,8 +15,8 @@ import com.soumya.wwdablu.hungry.activity.SearchActivity
 import com.soumya.wwdablu.hungry.adapter.CuratedCollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.FragRecommendedBinding
 import com.soumya.wwdablu.hungry.adapter.GenericSearchModelAdapter
-import com.soumya.wwdablu.hungry.fragment.iface.CollectionItemSelector
-import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
+import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo

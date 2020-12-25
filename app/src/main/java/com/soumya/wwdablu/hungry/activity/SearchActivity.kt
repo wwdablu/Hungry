@@ -2,12 +2,16 @@ package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.adapter.SearchAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivitySearchBinding
-import com.soumya.wwdablu.hungry.fragment.iface.RestaurantItemSelector
+import com.soumya.wwdablu.hungry.iface.CuisineItemSelector
+import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.model.network.cuisine.Cuisine
 import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.model.network.search.SearchModel
@@ -17,7 +21,7 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 
-class SearchActivity : HungryActivity(), RestaurantItemSelector {
+class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSelector {
 
     private lateinit var mViewBinding: ActivitySearchBinding
     private lateinit var mAdapter: SearchAdapter
@@ -33,11 +37,22 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector {
         mViewBinding.rvSearchResults.layoutManager = LinearLayoutManager(this)
 
         mViewBinding.etSearch.setOnEditorActionListener(mActionListener)
+        mViewBinding.etSearch.doAfterTextChanged {
+            postRunnableOnMain(mSearchRunnable, 500, true)
+        }
+        hideKeyboard()
 
         setContentView(mViewBinding.root)
     }
 
     private fun search(content: String) {
+
+        if(content.isBlank() || content.isEmpty()) {
+            mCuisineList.clear()
+            mSearchModel = null
+            updateSearchAdapter()
+            return
+        }
 
         HungryRepo.getCuisine().flatMap {
             mCuisineList.clear()
@@ -57,20 +72,31 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector {
                 }
 
                 override fun onComplete() {
-
-                    if(!this@SearchActivity::mAdapter.isInitialized) {
-                        mAdapter = SearchAdapter(mCuisineList, mSearchModel ?:
-                            SearchModel(0, 0, 0, LinkedList()),
-                                this@SearchActivity)
-
-                        mViewBinding.rvSearchResults.adapter = mAdapter
-                    }
+                    updateSearchAdapter()
                 }
             })
     }
 
+    private fun updateSearchAdapter() {
+        if(!this@SearchActivity::mAdapter.isInitialized) {
+            mAdapter = SearchAdapter(mCuisineList, mSearchModel ?:
+            SearchModel(0, 0, 0, LinkedList()),
+                    this@SearchActivity, this@SearchActivity)
+
+            mViewBinding.rvSearchResults.adapter = mAdapter
+        } else {
+            mAdapter.setSearchResults(mCuisineList, mSearchModel)
+        }
+    }
+
+    private val mSearchRunnable: Runnable = Runnable {
+        search(mViewBinding.etSearch.text.toString())
+    }
+
     private val mActionListener: TextView.OnEditorActionListener = object: TextView.OnEditorActionListener {
         override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+
+            hideKeyboard()
 
             val content: String = mViewBinding.etSearch.text.toString()
             if(content.isEmpty() || content.isBlank()) {
@@ -88,5 +114,9 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector {
             intent.putExtra("res_details", restaurant)
             startActivity(intent)
         }
+    }
+
+    override fun onCuisineClicked(cuisine: Cuisine) {
+        TODO("Not yet implemented")
     }
 }
