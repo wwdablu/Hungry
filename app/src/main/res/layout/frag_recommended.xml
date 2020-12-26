@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -8,6 +8,7 @@
     </data>
 
     <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,9 +26,11 @@
                 android:textSize="@dimen/font_5"
                 android:fontFamily="@font/metropolis_bold"
                 android:text="@{city.name}"
+                android:drawableStart="@drawable/ic_location"
                 android:layout_marginStart="@dimen/space_3"
                 android:layout_marginTop="@dimen/space_5"
                 android:layout_marginEnd="@dimen/space_3"
+                tools:text="Shangri-La"
                 />
 
             <!-- Include the search bar -->
@@ -67,10 +70,24 @@
 
             </RelativeLayout>
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:id="@+id/lot_collection_loading"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lottie_loading.json"
+                />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rv_curated_collection"
+                android:visibility="gone"
                 />
 
             <!-- Collections end -->
@@ -89,10 +106,24 @@
                 android:layout_marginEnd="@dimen/space_3"
                 />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:id="@+id/lot_recommended_loading"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lottie_loading.json"
+                />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rv_recommended_for_you"
+                android:visibility="gone"
                 />
             <!-- Trending this week - end -->
 

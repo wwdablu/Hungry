@@ -2,6 +2,7 @@ package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.adapter.CollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionsBinding
@@ -51,6 +52,9 @@ class CollectionsActivity : HungryActivity(), CollectionItemSelector {
                 override fun onComplete() {
 
                     if(this@CollectionsActivity::mAdapter.isInitialized) {
+                        mViewBinding.lotLoading.cancelAnimation()
+                        mViewBinding.lotLoading.visibility = View.GONE
+                        mViewBinding.rvCollections.visibility = View.VISIBLE
                         mViewBinding.rvCollections.adapter = mAdapter
                     }
                 }

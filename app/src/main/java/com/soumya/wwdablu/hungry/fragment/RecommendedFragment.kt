@@ -80,7 +80,13 @@ class RecommendedFragment private constructor() : HungryFragment<FragRecommended
                 }
 
                 override fun onComplete() {
-                    mViewBinding.rvRecommendedForYou.adapter = mGenericSearchResultAdapter
+
+                    if(this@RecommendedFragment::mGenericSearchResultAdapter.isInitialized) {
+                        mViewBinding.lotRecommendedLoading.cancelAnimation()
+                        mViewBinding.lotRecommendedLoading.visibility = View.GONE
+                        mViewBinding.rvRecommendedForYou.visibility = View.VISIBLE
+                        mViewBinding.rvRecommendedForYou.adapter = mGenericSearchResultAdapter
+                    }
                 }
             })
     }
@@ -105,6 +111,9 @@ class RecommendedFragment private constructor() : HungryFragment<FragRecommended
                 override fun onComplete() {
 
                     if(this@RecommendedFragment::mCollectionAdapter.isInitialized) {
+                        mViewBinding.lotCollectionLoading.cancelAnimation()
+                        mViewBinding.lotCollectionLoading.visibility = View.GONE
+                        mViewBinding.rvCuratedCollection.visibility = View.VISIBLE
                         mViewBinding.rvCuratedCollection.adapter = mCollectionAdapter
                     }
                 }

@@ -6,10 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".activity.CollectionsActivity">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:id="@+id/lot_loading"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_marginStart="@dimen/space_3"
+        android:layout_marginEnd="@dimen/space_3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_fileName="lottie_loading.json"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_collections"
+        android:visibility="gone"
         />
 
 </FrameLayout>

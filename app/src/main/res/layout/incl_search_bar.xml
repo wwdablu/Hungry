@@ -2,16 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_search"
-        android:layout_marginTop="@dimen/space_3"
+        android:background="@drawable/search_button"
+        android:layout_marginTop="@dimen/space_4"
         android:layout_marginStart="@dimen/space_3"
         android:layout_marginEnd="@dimen/space_3"
         android:text="@string/search_all_hint"
         android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:drawableStart="@drawable/ic_search_black"
+        android:textColor="@color/gray"
+        android:drawableStart="@drawable/ic_search"
+        android:padding="@dimen/space_3"
+        android:drawablePadding="@dimen/space_3"
         />
 </FrameLayout>

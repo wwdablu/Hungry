@@ -3,6 +3,7 @@ package com.soumya.wwdablu.hungry.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionDetailsBinding
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
@@ -64,6 +65,10 @@ class CollectionDetailsActivity : HungryActivity() {
                             !this@CollectionDetailsActivity::mAdapter.isInitialized) {
                         mAdapter = GenericSearchResultAdapter(mSearchModel, mListener)
                         mViewBinding.rvResByCollection.adapter = mAdapter
+
+                        mViewBinding.lotLoading.cancelAnimation()
+                        mViewBinding.lotLoading.visibility = View.GONE
+                        mViewBinding.rvResByCollection.visibility = View.VISIBLE
                     }
                 }
             })

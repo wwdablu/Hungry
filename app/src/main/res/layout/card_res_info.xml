@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.soumya.wwdablu.hungry.customview.RestaurantCard xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,10 +8,10 @@
     android:background="@color/tyrolean"
     android:layout_marginStart="@dimen/space_3"
     android:layout_marginEnd="@dimen/space_3"
-    android:layout_marginTop="@dimen/space_5"
-    app:cardCornerRadius="8dp"
-    app:cardMaxElevation="4dp"
-    app:cardElevation="4dp">
+    android:layout_marginTop="@dimen/space_6"
+    app:cardCornerRadius="16dp"
+    app:cardMaxElevation="8dp"
+    app:cardElevation="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             android:layout_marginBottom="@dimen/space_3"
             android:layout_marginEnd="@dimen/space_3"
             tools:text="0.4 mi"
-            />
+            tools:ignore="RelativeOverlap" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -122,4 +122,4 @@
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.soumya.wwdablu.hungry.customview.RestaurantCard>

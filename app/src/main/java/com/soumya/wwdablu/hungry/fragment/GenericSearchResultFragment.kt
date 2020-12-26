@@ -153,6 +153,9 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
 
         override fun onComplete() {
             if(this@GenericSearchResultFragment::mGenericSearchResultAdapter.isInitialized) {
+                mViewBinding.lotLoading.cancelAnimation()
+                mViewBinding.lotLoading.visibility = View.GONE
+                mViewBinding.rvCatList.visibility = View.VISIBLE
                 mViewBinding.rvCatList.adapter = mGenericSearchResultAdapter
             }
         }

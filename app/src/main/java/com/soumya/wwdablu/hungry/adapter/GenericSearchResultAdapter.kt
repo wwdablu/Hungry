@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.soumya.wwdablu.hungry.databinding.ItemRecommendedBinding
+import com.soumya.wwdablu.hungry.databinding.CardResInfoBinding
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
@@ -19,7 +19,7 @@ internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: Re
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendedViewHolder {
 
-        return RecommendedViewHolder(ItemRecommendedBinding.inflate(LayoutInflater.from(parent.context),
+        return RecommendedViewHolder(CardResInfoBinding.inflate(LayoutInflater.from(parent.context),
                 parent, false))
     }
 
@@ -31,10 +31,10 @@ internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: Re
         return mSearchModel.restaurants.size
     }
 
-    inner class RecommendedViewHolder(viewBinding: ItemRecommendedBinding) :
+    inner class RecommendedViewHolder(viewBinding: CardResInfoBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
 
-        private val mViewBinding: ItemRecommendedBinding = viewBinding
+        private val mViewBinding: CardResInfoBinding = viewBinding
 
         init {
             mViewBinding.root.setOnClickListener {
