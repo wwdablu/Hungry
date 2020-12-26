@@ -4,7 +4,7 @@ import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import com.soumya.wwdablu.hungry.databinding.ActivityLocationAccessPermissionBinding
-import com.soumya.wwdablu.hungry.model.network.cities.City
+import com.soumya.wwdablu.hungry.network.model.cities.City
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver

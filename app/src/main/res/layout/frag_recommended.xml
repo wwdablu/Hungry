@@ -4,7 +4,7 @@
     <data>
         <variable
             name="city"
-            type="com.soumya.wwdablu.hungry.model.network.cities.City" />
+            type="com.soumya.wwdablu.hungry.network.model.cities.City" />
     </data>
 
     <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"

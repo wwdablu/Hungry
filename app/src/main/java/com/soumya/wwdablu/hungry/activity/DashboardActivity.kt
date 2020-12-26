@@ -8,7 +8,7 @@ import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.customview.DashboardBottomNaviView
 import com.soumya.wwdablu.hungry.databinding.ActivityDashboardBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
-import com.soumya.wwdablu.hungry.enums.SearchBy
+import com.soumya.wwdablu.hungry.defines.SearchBy
 import com.soumya.wwdablu.hungry.fragment.RecommendedFragment
 import com.soumya.wwdablu.hungry.fragment.GenericSearchResultFragment
 import com.soumya.wwdablu.hungry.fragment.ProfileFragment

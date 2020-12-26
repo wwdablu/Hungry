@@ -9,7 +9,7 @@ import com.soumya.wwdablu.hungry.customview.RestaurantDetailsBottomNaviView
 import com.soumya.wwdablu.hungry.databinding.ActivityRestaurantDetailsBinding
 import com.soumya.wwdablu.hungry.fragment.resdetails.RestaurantOverviewFragment
 import com.soumya.wwdablu.hungry.fragment.resdetails.RestaurantPhotosFragment
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import java.util.*
 
 class RestaurantDetailsActivity : AppCompatActivity() {
@@ -57,7 +57,7 @@ class RestaurantDetailsActivity : AppCompatActivity() {
         val useFragment: Fragment = when (menuItem) {
 
             RestaurantDetailsBottomNaviView.MenuItems.Overview -> {
-                mFragments[menuItem] ?: RestaurantOverviewFragment(mRestaurant)
+                mFragments[menuItem] ?: RestaurantOverviewFragment.newInstance(mRestaurant)
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Menu -> {

@@ -9,9 +9,9 @@ import com.soumya.wwdablu.hungry.databinding.ItemSearchResBinding
 import com.soumya.wwdablu.hungry.databinding.ItemSearchResHeaderBinding
 import com.soumya.wwdablu.hungry.iface.CuisineItemSelector
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
-import com.soumya.wwdablu.hungry.model.network.cuisine.Cuisine
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
-import com.soumya.wwdablu.hungry.model.network.search.SearchModel
+import com.soumya.wwdablu.hungry.network.model.cuisine.Cuisine
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 import java.util.*
 

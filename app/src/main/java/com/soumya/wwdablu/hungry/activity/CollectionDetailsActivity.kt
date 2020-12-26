@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionDetailsBinding
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.adapter.GenericSearchResultAdapter
-import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
-import com.soumya.wwdablu.hungry.model.network.search.SearchModel
+import com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver

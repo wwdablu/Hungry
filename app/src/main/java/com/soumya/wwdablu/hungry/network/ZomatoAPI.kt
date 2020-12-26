@@ -1,16 +1,14 @@
 package com.soumya.wwdablu.hungry.network
 
-import com.soumya.wwdablu.hungry.model.network.categories.CategoriesModel
-import com.soumya.wwdablu.hungry.model.network.cities.CityModel
-import com.soumya.wwdablu.hungry.model.network.collections.CollectionModel
-import com.soumya.wwdablu.hungry.model.network.cuisine.CuisineModel
-import com.soumya.wwdablu.hungry.model.network.establishments.EstablishmentModel
-import com.soumya.wwdablu.hungry.model.network.search.Restaurant
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
-import com.soumya.wwdablu.hungry.model.network.search.SearchModel
+import com.soumya.wwdablu.hungry.network.model.categories.CategoriesModel
+import com.soumya.wwdablu.hungry.network.model.cities.CityModel
+import com.soumya.wwdablu.hungry.network.model.collections.CollectionModel
+import com.soumya.wwdablu.hungry.network.model.cuisine.CuisineModel
+import com.soumya.wwdablu.hungry.network.model.establishments.EstablishmentModel
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ZomatoAPI {

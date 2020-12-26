@@ -11,10 +11,10 @@ import com.soumya.wwdablu.hungry.activity.SearchActivity
 import com.soumya.wwdablu.hungry.adapter.GenericSearchResultAdapter
 import com.soumya.wwdablu.hungry.databinding.FragSearchResultGenericBinding
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
-import com.soumya.wwdablu.hungry.enums.SearchBy
+import com.soumya.wwdablu.hungry.defines.SearchBy
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
-import com.soumya.wwdablu.hungry.model.network.search.SearchModel
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver
@@ -36,19 +36,10 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
                         fallbackSearch: SearchBy = SearchBy.None, fallbackSearchParam: String = "")
         : GenericSearchResultFragment {
 
-            val bundle = Bundle()
-            bundle.putSerializable("key.primary_search", primarySearch)
-            bundle.putString("key.primary_search_param", primarySearchParam)
-            bundle.putSerializable("key.fallback_search", fallbackSearch)
-            bundle.putString("key.fallback_search_param", fallbackSearchParam)
-
-            return newInstance(bundle)
-        }
-
-        fun newInstance(bundle: Bundle) : GenericSearchResultFragment {
-
             val fragment = GenericSearchResultFragment()
-            fragment.arguments = bundle
+
+            fragment.mPrimarySearchCriteria = Pair(primarySearch, primarySearchParam)
+            fragment.mFallbackSearchCriteria = Pair(fallbackSearch, fallbackSearchParam)
 
             return fragment
         }
@@ -67,27 +58,14 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
             startActivity(Intent(context, SearchActivity::class.java))
         }
 
-        val bundle: Bundle? = arguments
-        if(bundle != null) {
-            getDataBySearchMode(bundle)
-        }
+        getDataBySearchMode()
 
         mViewBinding.city = HungryRepo.getCityModel().model[0]
 
         return mViewBinding.root
     }
 
-    private fun getDataBySearchMode(bundle: Bundle) {
-
-        mPrimarySearchCriteria = Pair(
-                bundle.getSerializable("key.primary_search") as SearchBy,
-                bundle.getString("key.primary_search_param", "")
-        )
-
-        mFallbackSearchCriteria = Pair(
-                bundle.getSerializable("key.fallback_search") as SearchBy,
-                bundle.getString("key.fallback_search_param", "")
-        )
+    private fun getDataBySearchMode() {
 
         when (mPrimarySearchCriteria.first) {
 

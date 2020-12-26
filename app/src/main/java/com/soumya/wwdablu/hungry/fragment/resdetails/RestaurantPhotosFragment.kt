@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.soumya.wwdablu.hungry.adapter.PhotosAdapter
 import com.soumya.wwdablu.hungry.databinding.FragResPhotoBinding
 import com.soumya.wwdablu.hungry.fragment.HungryFragment
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver

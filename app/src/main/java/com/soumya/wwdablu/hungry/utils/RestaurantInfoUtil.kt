@@ -4,7 +4,7 @@ import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableOnSubscribe

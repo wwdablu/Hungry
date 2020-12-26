@@ -7,7 +7,7 @@ import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
-import com.soumya.wwdablu.hungry.model.network.categories.Categories
+import com.soumya.wwdablu.hungry.network.model.categories.Categories
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver

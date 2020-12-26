@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.adapter.CollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionsBinding
 import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
-import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
-import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
+import com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo
+import com.soumya.wwdablu.hungry.network.model.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver

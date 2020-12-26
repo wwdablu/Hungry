@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemCuratedCollectionBinding
 import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
-import com.soumya.wwdablu.hungry.model.network.collections.CollectionInfo
-import com.soumya.wwdablu.hungry.model.network.collections.CuratedCollection
+import com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo
+import com.soumya.wwdablu.hungry.network.model.collections.CuratedCollection
 
 class CuratedCollectionsAdapter(list: List<CuratedCollection>, listener: CollectionItemSelector) :
         RecyclerView.Adapter<CuratedCollectionsAdapter.CollectionViewHolder>() {

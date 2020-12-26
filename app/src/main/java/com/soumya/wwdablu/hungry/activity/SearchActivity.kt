@@ -2,20 +2,18 @@ package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.adapter.SearchAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivitySearchBinding
-import com.soumya.wwdablu.hungry.enums.SearchBy
+import com.soumya.wwdablu.hungry.defines.SearchBy
 import com.soumya.wwdablu.hungry.iface.CuisineItemSelector
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
-import com.soumya.wwdablu.hungry.model.network.cuisine.Cuisine
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
-import com.soumya.wwdablu.hungry.model.network.search.SearchModel
+import com.soumya.wwdablu.hungry.network.model.cuisine.Cuisine
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.observers.DisposableObserver

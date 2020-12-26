@@ -4,7 +4,7 @@
     <data>
         <variable
             name="resInfo"
-            type="com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo" />
+            type="com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo" />
     </data>
 
     <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"

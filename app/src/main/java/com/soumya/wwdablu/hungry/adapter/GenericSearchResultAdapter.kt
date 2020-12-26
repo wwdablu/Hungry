@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.soumya.wwdablu.hungry.databinding.ItemRecommendedBinding
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
-import com.soumya.wwdablu.hungry.model.network.search.RestaurantInfo
-import com.soumya.wwdablu.hungry.model.network.search.SearchModel
+import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 
