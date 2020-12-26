@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/check/baseline_check_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/info/baseline_info_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="056608" />
-                            <entry key="outputName" value="ic_check" />
+                            <entry key="outputName" value="ic_info" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/catering.svg" />
                           </map>
                         </option>
