@@ -15,13 +15,20 @@ import io.reactivex.rxjava3.observers.DisposableObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
-class RestaurantPhotosFragment(restaurant: RestaurantInfo) : HungryFragment<FragResPhotoBinding>() {
+class PhotosFragment private constructor() : HungryFragment<FragResPhotoBinding>() {
 
     private lateinit var mAdapter: PhotosAdapter
     private lateinit var mPhotoUrls: List<String>
 
-    init {
-        getPhotos(restaurant)
+    companion object {
+
+        fun newInstance(restaurant: RestaurantInfo) : PhotosFragment {
+
+            val fragment = PhotosFragment()
+            fragment.getPhotos(restaurant)
+
+            return fragment
+        }
     }
 
     override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -53,7 +60,7 @@ class RestaurantPhotosFragment(restaurant: RestaurantInfo) : HungryFragment<Frag
 
                 override fun onComplete() {
 
-                    if(this@RestaurantPhotosFragment::mPhotoUrls.isInitialized) {
+                    if(this@PhotosFragment::mPhotoUrls.isInitialized) {
                         mAdapter = PhotosAdapter(mPhotoUrls)
                         mViewBinding.rvPhotos.adapter = mAdapter
                     }

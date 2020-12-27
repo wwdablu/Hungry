@@ -13,31 +13,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.GenericSearchResultActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".activity.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".activity.CollectionDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar.TransparentNavi" />
+            android:theme="@style/AppTheme.NoActionBar.TransparentNavi"
+            android:exported="false" />
         <activity
             android:name=".activity.PhotoViewerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".activity.RestaurantDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar.TransparentNavi" />
+            android:theme="@style/AppTheme.NoActionBar.TransparentNavi"
+            android:exported="false" />
         <activity
             android:name=".activity.CollectionsActivity"
-            android:theme="@style/AppTheme.NoActionBar.TransparentNavi" />
+            android:theme="@style/AppTheme.NoActionBar.TransparentNavi"
+            android:exported="false" />
         <activity
             android:name=".activity.DashboardActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".activity.LocationAccess"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".activity.SplashScreen"
             android:screenOrientation="portrait"

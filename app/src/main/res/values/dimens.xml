@@ -35,6 +35,7 @@
     <dimen name="font_2">8sp</dimen>
     <dimen name="font_2.5">10sp</dimen>
     <dimen name="font_3">12sp</dimen>
+    <dimen name="font_3.5">14sp</dimen>
     <dimen name="font_4">16sp</dimen>
     <dimen name="font_5">20sp</dimen>
     <dimen name="font_6">24sp</dimen>

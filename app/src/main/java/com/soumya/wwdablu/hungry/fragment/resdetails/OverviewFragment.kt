@@ -13,15 +13,15 @@ import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 
-class RestaurantOverviewFragment private constructor() : HungryFragment<FragResOverviewBinding>() {
+class OverviewFragment private constructor() : HungryFragment<FragResOverviewBinding>() {
 
     private lateinit var mRestaurant: RestaurantInfo
 
     companion object {
 
-        fun newInstance(restaurant: RestaurantInfo) : RestaurantOverviewFragment {
+        fun newInstance(restaurant: RestaurantInfo) : OverviewFragment {
 
-            val fragment = RestaurantOverviewFragment()
+            val fragment = OverviewFragment()
             fragment.mRestaurant = restaurant
 
             return fragment

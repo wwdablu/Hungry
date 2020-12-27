@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="resInfo"
+            type="com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo" />
+
+        <variable
+            name="review"
+            type="com.soumya.wwdablu.hungry.network.model.reviews.ReviewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/space_3">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_name"
+                android:text="@{resInfo.name}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_5"
+                android:fontFamily="@font/metropolis_semibold"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                tools:text="Shangri-La"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_cuisine"
+                android:text="@{resInfo.cuisines}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_regular"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/tv_res_name"
+                tools:text="Casual Dining"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_location"
+                android:text="@{resInfo.location.locality}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_regular"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/tv_res_cuisine"
+                tools:text="Shambala"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_timing"
+                android:text="@{resInfo.timings}"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_regular"
+                android:layout_marginTop="@dimen/space_2"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/tv_res_location"
+                tools:text="8:00 am - 10:00 pm"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_avg_cost"
+                android:text="@{Integer.toString(resInfo.averageCostForTwo)}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_regular"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/tv_res_timing"
+                tools:text="Free for deserving"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/dev_hor_reviews"
+                android:background="@color/light_gray"
+                android:layout_marginTop="@dimen/space_2"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/tv_res_avg_cost"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_review_header"
+                android:text="@string/reviews"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_5"
+                android:fontFamily="@font/metropolis_semibold"
+                android:drawableStart="@drawable/ic_star"
+                android:drawablePadding="@dimen/space_2"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/dev_hor_reviews"
+                />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rb_res_rating"
+                android:layout_marginTop="@dimen/space_3"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_below="@id/tv_res_review_header"
+                android:layout_alignParentStart="true"
+                android:rating="@{Float.parseFloat(resInfo.userRating.aggregateRating)}"
+                android:max="5"
+                android:min="1"
+                android:numStars="5"
+                android:stepSize="0.25"
+                tools:rating="4.2"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_rating"
+                android:text="@{resInfo.userRating.aggregateRating}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                android:layout_marginStart="@dimen/space_6"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_toEndOf="@id/rb_res_rating"
+                android:layout_alignBottom="@id/rb_res_rating"
+                android:layout_alignTop="@id/rb_res_rating"
+                android:gravity="center"
+                tools:text="4.7"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_review_count"
+                android:text="@{Integer.toString(review.reviewsCount)}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_regular"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/rb_res_rating"
+                tools:text="108 REVIEWS"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/dev_hor_reviews_list"
+                android:background="@color/light_gray"
+                android:layout_marginTop="@dimen/space_3"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/tv_res_review_count"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_reviews"
+                android:layout_marginTop="@dimen/space_3"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/dev_hor_reviews_list"
+                />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

@@ -7,8 +7,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.soumya.wwdablu.hungry.customview.RestaurantDetailsBottomNaviView
 import com.soumya.wwdablu.hungry.databinding.ActivityRestaurantDetailsBinding
-import com.soumya.wwdablu.hungry.fragment.resdetails.RestaurantOverviewFragment
-import com.soumya.wwdablu.hungry.fragment.resdetails.RestaurantPhotosFragment
+import com.soumya.wwdablu.hungry.fragment.resdetails.OverviewFragment
+import com.soumya.wwdablu.hungry.fragment.resdetails.PhotosFragment
+import com.soumya.wwdablu.hungry.fragment.resdetails.ReviewFragment
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import java.util.*
 
@@ -57,19 +58,19 @@ class RestaurantDetailsActivity : AppCompatActivity() {
         val useFragment: Fragment = when (menuItem) {
 
             RestaurantDetailsBottomNaviView.MenuItems.Overview -> {
-                mFragments[menuItem] ?: RestaurantOverviewFragment.newInstance(mRestaurant)
+                mFragments[menuItem] ?: OverviewFragment.newInstance(mRestaurant)
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Menu -> {
-                mFragments[menuItem] ?: RestaurantPhotosFragment(mRestaurant)
+                mFragments[menuItem] ?: PhotosFragment.newInstance(mRestaurant)
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Photos -> {
-                mFragments[menuItem] ?: RestaurantPhotosFragment(mRestaurant)
+                mFragments[menuItem] ?: PhotosFragment.newInstance(mRestaurant)
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Reviews -> {
-                mFragments[menuItem] ?: RestaurantPhotosFragment(mRestaurant)
+                mFragments[menuItem] ?: ReviewFragment.newInstance(mRestaurant)
             }
         }
 

@@ -5,6 +5,7 @@ import com.soumya.wwdablu.hungry.network.model.cities.CityModel
 import com.soumya.wwdablu.hungry.network.model.collections.CollectionModel
 import com.soumya.wwdablu.hungry.network.model.cuisine.CuisineModel
 import com.soumya.wwdablu.hungry.network.model.establishments.EstablishmentModel
+import com.soumya.wwdablu.hungry.network.model.reviews.ReviewModel
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import io.reactivex.rxjava3.core.Observable
@@ -54,4 +55,7 @@ interface ZomatoAPI {
 
     @GET("/api/v2.1/restaurant")
     fun getRestaurantDetails(@Query("res_id") resId: Int) : Observable<RestaurantInfo>
+
+    @GET("/api/v2.1/reviews")
+    fun getReviews(@Query("res_id") resId: Int) : Observable<ReviewModel>
 }

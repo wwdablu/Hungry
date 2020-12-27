@@ -14,6 +14,7 @@ import com.soumya.wwdablu.hungry.network.model.establishments.EstablishmentModel
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.network.DataProvider
+import com.soumya.wwdablu.hungry.network.model.reviews.ReviewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
@@ -219,6 +220,29 @@ internal object HungryRepo {
                 .subscribeWith(object : DisposableObserver<RestaurantInfo>() {
                     override fun onNext(t: RestaurantInfo?) {
                         it.onNext(t)
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        it.onError(e)
+                    }
+
+                    override fun onComplete() {
+                        it.onComplete()
+                    }
+                })
+        }
+    }
+
+    fun getReviews(resId: Int) : Observable<ReviewModel> {
+
+        return Observable.create {
+
+            DataProvider.call().getReviews(resId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object : DisposableObserver<ReviewModel>() {
+                    override fun onNext(t: ReviewModel?) {
+                        it.onNext(t ?: ReviewModel(0, LinkedList()))
                     }
 
                     override fun onError(e: Throwable?) {

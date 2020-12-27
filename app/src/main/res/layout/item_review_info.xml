@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="review"
+            type="com.soumya.wwdablu.hungry.network.model.reviews.Review" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginBottom="@dimen/space"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_marginEnd="@dimen/space_3">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:id="@+id/iv_user_image"
+                android:scaleType="center"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                tools:src="@drawable/default_card_bg"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_review_title"
+                android:text="@{review.user.name}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_toEndOf="@id/iv_user_image"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/space_3"
+                tools:text="Delicious Food"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_user_followers"
+                android:text="@{review.user.foodieLevel}"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                android:layout_toEndOf="@id/iv_user_image"
+                android:layout_alignBottom="@id/iv_user_image"
+                android:layout_marginStart="@dimen/space_3"
+                tools:text="1000 Followers"
+                />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rb_res_rating"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_below="@id/iv_user_image"
+                android:rating="@{review.rating}"
+                android:max="5"
+                android:min="1"
+                android:numStars="5"
+                android:stepSize="0.25"
+                tools:rating="4.2"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_res_rating"
+                android:text="@{Float.toString(review.rating)}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                android:layout_marginStart="@dimen/space_6"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_toEndOf="@id/rb_res_rating"
+                android:layout_alignBottom="@id/rb_res_rating"
+                android:layout_alignTop="@id/rb_res_rating"
+                android:gravity="center"
+                tools:text="4.7"
+                />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_user_comment"
+            android:text="@{review.reviewText}"
+            android:textSize="@dimen/font_3.5"
+            android:fontFamily="@font/metropolis_regular"
+            android:maxLines="24"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_marginEnd="@dimen/space_3"
+            tools:text="They server delicious food to those deserving"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_comment_date"
+            android:text="@{review.reviewTimeFriendly}"
+            android:textSize="@dimen/font_3.5"
+            android:fontFamily="@font/metropolis_regular"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/space_4"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_marginEnd="@dimen/space_3"
+            android:paddingBottom="@dimen/space_2"
+            tools:text="August 15, 1947"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/light_gray"
+            />
+
+    </LinearLayout>
+
+</layout>
