@@ -45,7 +45,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar.TransparentNavi"
             android:exported="false" />
         <activity
             android:name=".activity.SplashScreen"

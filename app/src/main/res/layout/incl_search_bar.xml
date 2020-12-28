@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_search"
-        android:background="@drawable/search_button"
+        android:background="@drawable/ic_rounded_80_corner"
         android:layout_marginTop="@dimen/space_4"
         android:layout_marginStart="@dimen/space_3"
         android:layout_marginEnd="@dimen/space_3"

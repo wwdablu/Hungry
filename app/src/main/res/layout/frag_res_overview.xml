@@ -40,6 +40,7 @@
                 android:numStars="5"
                 android:stepSize="0.25"
                 android:rating="@{Float.parseFloat(resInfo.userRating.aggregateRating)}"
+                style="?android:attr/ratingBarStyleIndicator"
                 tools:rating="4.2"
                 />
 

@@ -65,6 +65,11 @@ class ReviewFragment private constructor() : HungryFragment<FragResReviewsBindin
                 override fun onComplete() {
 
                     if(this@ReviewFragment::mReviewModel.isInitialized) {
+
+                        mViewBinding.lotRecommendedLoading.cancelAnimation()
+                        mViewBinding.lotRecommendedLoading.visibility = View.GONE
+                        mViewBinding.rvReviews.visibility = View.VISIBLE
+
                         mAdapter = ReviewAdapter(mReviewModel)
                         mViewBinding.rvReviews.adapter = mAdapter
                         mViewBinding.review = mReviewModel

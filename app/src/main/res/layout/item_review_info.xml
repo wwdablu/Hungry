@@ -72,6 +72,7 @@
                 android:min="1"
                 android:numStars="5"
                 android:stepSize="0.25"
+                style="?android:attr/ratingBarStyleIndicator"
                 tools:rating="4.2"
                 />
 

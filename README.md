@@ -6,11 +6,7 @@ This is still a WIP version and hence on a separate branch.
 **__Libraries used during development:__**  
 
 * Recycler View  
-* Card View  
-* Design Library
-    * ViewPager  
-    * CoordinatorLayout
-* Ktx
+* Card View
 * Retrofit  
 * RxJava
 * Glide
@@ -49,6 +45,9 @@ Breakfast
 
 * Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 Club
+
+* <a href='https://www.freepik.com/vectors/food'>Food vector created by stories - www.freepik.com</a>
+Image of chef in login screen
 
 * https://lottiefiles.com/968-loading
 Loading Lottie - 1

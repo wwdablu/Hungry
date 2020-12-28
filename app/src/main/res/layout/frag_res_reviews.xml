@@ -14,6 +14,7 @@
     <androidx.core.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -137,6 +138,7 @@
                 android:min="1"
                 android:numStars="5"
                 android:stepSize="0.25"
+                style="?android:attr/ratingBarStyleIndicator"
                 tools:rating="4.2"
                 />
 
@@ -182,6 +184,20 @@
                 android:layout_below="@id/tv_res_review_count"
                 />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:id="@+id/lot_recommended_loading"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                android:layout_below="@id/dev_hor_reviews_list"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lottie_loading.json"
+                />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -190,6 +206,7 @@
                 android:layout_marginStart="@dimen/space_3"
                 android:layout_marginEnd="@dimen/space_3"
                 android:layout_below="@id/dev_hor_reviews_list"
+                android:visibility="gone"
                 />
 
         </RelativeLayout>

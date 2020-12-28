@@ -23,6 +23,7 @@
     <dimen name="space_7">28dp</dimen>
     <dimen name="space_8">32dp</dimen>
     <dimen name="space_10">40dp</dimen>
+    <dimen name="space_11">40dp</dimen>
     <dimen name="space_12">48dp</dimen>
     <dimen name="space_15">60dp</dimen>
     <dimen name="space_20">80dp</dimen>
@@ -31,6 +32,7 @@
     <dimen name="space_50">200dp</dimen>
     <dimen name="space_60">240dp</dimen>
     <dimen name="space_65">260dp</dimen>
+    <dimen name="space_67">268dp</dimen>
     <dimen name="space_70">280dp</dimen>
     <dimen name="font_2">8sp</dimen>
     <dimen name="font_2.5">10sp</dimen>
