@@ -2,5 +2,44 @@
 
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="card_margins">8dp</dimen>
+    <!--
+    Because the window insets on round devices are larger than 15dp, this padding only applies
+    to square screens.
+    -->
+    <dimen name="box_inset_layout_padding">0dp</dimen>
+
+    <!--
+    This padding applies to both square and round screens. The total padding between the buttons
+    and the window insets is box_inset_layout_padding (above variable) on square screens and
+    inner_frame_layout_padding (below variable) on round screens.
+    -->
+    <dimen name="inner_frame_layout_padding">5dp</dimen>
+
+    <dimen name="space_2">8dp</dimen>
+    <dimen name="space_3">12dp</dimen>
+    <dimen name="space_4">16dp</dimen>
+    <dimen name="space_5">20dp</dimen>
+    <dimen name="space_6">24dp</dimen>
+    <dimen name="space_7">28dp</dimen>
+    <dimen name="space_8">32dp</dimen>
+    <dimen name="space_10">40dp</dimen>
+    <dimen name="space_11">40dp</dimen>
+    <dimen name="space_12">48dp</dimen>
+    <dimen name="space_15">60dp</dimen>
+    <dimen name="space_20">80dp</dimen>
+    <dimen name="space_30">120dp</dimen>
+    <dimen name="space_40">160dp</dimen>
+    <dimen name="space_50">200dp</dimen>
+    <dimen name="space_60">240dp</dimen>
+    <dimen name="space_65">260dp</dimen>
+    <dimen name="space_67">268dp</dimen>
+    <dimen name="space_70">280dp</dimen>
+    <dimen name="font_2">8sp</dimen>
+    <dimen name="font_2.5">10sp</dimen>
+    <dimen name="font_3">12sp</dimen>
+    <dimen name="font_3.5">14sp</dimen>
+    <dimen name="font_4">16sp</dimen>
+    <dimen name="font_5">20sp</dimen>
+    <dimen name="font_6">24sp</dimen>
 
 </resources>

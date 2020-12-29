@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.soumya.wwdablu.hungry.customview.RestaurantCard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:id="@+id/cv_restaurant"
+    android:background="@color/tyrolean"
+    android:layout_marginStart="@dimen/space_3"
+    android:layout_marginEnd="@dimen/space_3"
+    android:layout_marginTop="@dimen/space_6"
+    app:cardCornerRadius="16dp"
+    app:cardMaxElevation="8dp"
+    app:cardElevation="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rl_container">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/iv_bookmark"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_not_bookmarked_black"
+            android:background="@drawable/ic_circle_white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/space_3"
+            android:layout_marginEnd="@dimen/space_3"
+            android:translationZ="10dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/iv_restaurant_image"
+            android:scaleType="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            tools:src="@drawable/default_card_bg"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="150dp"
+            android:maxLength="200"
+            android:ellipsize="end"
+            android:id="@+id/tv_distance"
+            android:fontFamily="@font/metropolis_regular"
+            android:textSize="@dimen/font_3"
+            android:textColor="@color/black"
+            android:background="@color/tyrolean_alpha10"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_alignBottom="@id/iv_restaurant_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="@dimen/space_3"
+            android:layout_marginEnd="@dimen/space_3"
+            tools:text="0.4 mi"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/res_name"
+            android:fontFamily="@font/metropolis_semibold"
+            android:textSize="@dimen/font_5"
+            android:textColor="@color/black"
+            android:layout_below="@id/iv_restaurant_image"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_marginTop="@dimen/space_2"
+            tools:text="Moksha"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/res_cuisines"
+            android:fontFamily="@font/metropolis_regular"
+            android:textSize="@dimen/font_3"
+            android:textColor="@color/gray"
+            android:maxLines="1"
+            android:textAlignment="textStart"
+            android:layout_below="@id/res_name"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_marginEnd="@dimen/space_3"
+            android:layout_toStartOf="@id/res_avg_cost"
+            tools:text="Indian, Japanese"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/res_avg_cost"
+            android:fontFamily="@font/metropolis_regular"
+            android:textSize="@dimen/font_3"
+            android:textColor="@color/gray"
+            android:maxLines="1"
+            android:layout_below="@id/res_name"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/space_3"
+            tools:text="0 for 2"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/res_location"
+            android:fontFamily="@font/metropolis_regular"
+            android:textSize="@dimen/font_3"
+            android:textColor="@color/light_gray"
+            android:layout_below="@id/res_cuisines"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_marginTop="@dimen/space"
+            tools:text="Sangri-La"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/res_timing"
+            android:fontFamily="@font/metropolis_semibold"
+            android:textSize="@dimen/font_3"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/res_location"
+            android:layout_marginStart="@dimen/space_3"
+            android:layout_marginTop="@dimen/space"
+            tools:text="Open for those deserving"
+            />
+
+    </RelativeLayout>
+
+</com.soumya.wwdablu.hungry.customview.RestaurantCard>

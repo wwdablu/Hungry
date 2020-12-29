@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="collection"
+            type="com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="170dp"
+        android:layout_height="220dp"
+        android:id="@+id/cv_collection"
+        android:layout_marginStart="@dimen/space_3"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rl_container">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_collection_image"
+                android:foreground="@drawable/dim_overlay"
+                android:src="@drawable/default_card_bg"
+                android:scaleType="centerCrop"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_collection_count"
+                android:text="@{collection.count}"
+                android:textColor="@color/tyrolean"
+                android:fontFamily="@font/metropolis_regular"
+                android:textSize="@dimen/font_3"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/space_3"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_collection_name"
+                android:text="@{collection.title}"
+                android:textColor="@color/tyrolean"
+                android:fontFamily="@font/metropolis_regular"
+                android:textSize="@dimen/font_4"
+                android:layout_above="@id/tv_collection_count"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

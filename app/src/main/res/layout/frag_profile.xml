@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/space_3"
+    android:layout_marginEnd="@dimen/space_3">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_user_name"
+        android:textColor="@color/pureBlack"
+        android:fontFamily="@font/metropolis_semibold"
+        android:textSize="@dimen/font_6"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_toStartOf="@id/iv_user_photo"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="@dimen/space_3"
+        tools:text="Soumya"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_user_photo"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@id/tv_user_name"
+        />
+
+    <include layout="@layout/incl_hor_thin_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/div_1"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/tv_user_name"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/ll_options_container"
+        android:layout_marginTop="@dimen/space_3"
+        android:weightSum="4"
+        android:layout_below="@id/div_1"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_bookmark"
+                android:src="@drawable/ic_not_bookmarked_black"
+                android:layout_gravity="center"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bookmarks"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_notification"
+                android:src="@drawable/ic_notification"
+                android:layout_gravity="center"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_settings"
+                android:src="@drawable/ic_settings"
+                android:layout_gravity="center"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_payments"
+                android:src="@drawable/ic_payment_card"
+                android:layout_gravity="center"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/payments"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_3"
+                android:fontFamily="@font/metropolis_semibold"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/incl_hor_thin_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/div_2"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/ll_options_container"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_about"
+        android:text="@string/about"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_4"
+        android:fontFamily="@font/metropolis_semibold"
+        android:drawableStart="@drawable/ic_info"
+        android:includeFontPadding="true"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/div_2"
+        android:gravity="center"
+        />
+
+    <include layout="@layout/incl_hor_thin_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/div_3"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/tv_about"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_send_feedback"
+        android:text="@string/send_feedback"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_4"
+        android:fontFamily="@font/metropolis_semibold"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/div_3"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_rate_us"
+        android:text="@string/rate_us_on_the_play_store"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_4"
+        android:fontFamily="@font/metropolis_semibold"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/tv_send_feedback"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_log_user"
+        android:text="@string/log_out"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_4"
+        android:fontFamily="@font/metropolis_semibold"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_below="@id/tv_rate_us"
+        />
+
+</RelativeLayout>

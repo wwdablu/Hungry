@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="resInfo"
+            type="com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/space_3">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/iv_cuisine"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/space_3"
+            android:scaleType="center"
+            tools:src="@drawable/default_card_bg"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_res_name"
+            android:text="@{resInfo.name}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_4"
+            android:fontFamily="@font/metropolis_semibold"
+            android:layout_toEndOf="@id/iv_cuisine"
+            android:layout_marginStart="@dimen/space_4"
+            tools:text="Shangri-La"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_res_rating"
+            android:text="@{resInfo.userRating.aggregateRating}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_3"
+            android:fontFamily="@font/metropolis_semibold"
+            android:layout_toEndOf="@id/iv_cuisine"
+            android:layout_below="@id/tv_res_name"
+            android:layout_marginStart="@dimen/space_4"
+            tools:text="4.5"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_res_location"
+            android:text="@{resInfo.location.locality}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_3"
+            android:fontFamily="@font/metropolis_semibold"
+            android:layout_toEndOf="@id/iv_cuisine"
+            android:layout_below="@id/tv_res_rating"
+            android:layout_marginStart="@dimen/space_4"
+            tools:text="Kailash Mountain"
+            />
+
+    </RelativeLayout>
+
+</layout>

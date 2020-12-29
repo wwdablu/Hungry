@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="collectionModel"
+            type="com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.CollectionDetailsActivity">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_collection_container"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/iv_restaurant_image"
+                android:scaleType="center"
+                tools:src="@drawable/default_card_bg"
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_collection_info_container"
+                android:background="@color/tyrolean"
+                android:paddingTop="@dimen/space_3"
+                android:paddingBottom="@dimen/space_3"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_collection_name"
+                    android:text="@{collectionModel.title}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_5"
+                    android:fontFamily="@font/metropolis_semibold"
+                    android:layout_marginStart="@dimen/space_3"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginEnd="@dimen/space_3"
+                    tools:text="Shangri-La"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_collection_description"
+                    android:text="@{collectionModel.description}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_3"
+                    android:fontFamily="@font/metropolis_regular"
+                    android:layout_marginStart="@dimen/space_3"
+                    android:layout_marginEnd="@dimen/space_3"
+                    tools:text="Shangri-La"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:id="@+id/lot_loading"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lottie_loading.json"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_res_by_collection"
+                android:visibility="gone"
+                />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

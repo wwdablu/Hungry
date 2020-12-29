@@ -1,72 +1,54 @@
-# ZomatoBuddy  
+# Hungry
 
-This is a restaurant search engine by using the **Zomato API**. It displays the information based on the current geolocation of the user and then displays the list of 20 restaurants based on 3 categories, (1) Dine-out, (2) Delivery and (3) Takeaway.  
-
-> Note: I took the existing Zomato application as an inspiration and a baseline to create this application. I am in  no way connected to the actual application or anything related to it. The objective of the application is to use Zomato API and create a friendly application that can display those information, hence the name ZomatoBuddy.  
-
-The Zomato API needs to be defined in the gradle.properties file. You can also modify the default location to use incase the user did not provide the permission for the geolocation.  
-
-This application has been deployed into Google Play Store:  
-https://play.google.com/store/apps/details?id=com.soumya.wwdablu.zomatobuddy&hl=en  
-
-> The master branch contains the latest working code, but may or may not be the one that is present in the Play Store. Check the branches with the current date. Branches marked with the most current date is the one that is present in Play Store.  
-
-
-
-**__Information__**  
-
-* Top 20 restaurants  
-  This displays the list of 20 restaurants in the location in three categories. We can click on them to dislay their results.  
-* Restaurant Images  
-  The images are not provided by the Zomato API for the basic version. For this reason , we are using sample images based on the first cuisine mentioned (this is being returned by the Zomato API). Also for the menu and photos, we are using the URL which is returned by the API. Hence to view the actual images, the user needs to visit the URLs provided in the details page.  
-  
-* Search Feature  
-  This perform the search feature based on the query provided by the user. It uses the approach to wait for the user to complete the query and then peform the Search Network API. This can be achieved by using the debounce method in conjunction with the SearchView query change listener. The query change listeners fires all the time, but the actual method of execution will only be called (which will return an observable) once the debounce timeout has been completed, uninterupted. This makes it more flowing with the user and removes the requirement for a search button (which would then require another click action).  
-  
-* Favourite Restaurant  
-  A restaurant can be marked/unmarked as a favourite. It will be displayed in a separate tab inside the application. Realm database has been used to perform the local storage functionality.  
-  
-* Analytics  
-  Using Firebase Analytics to log events like which screen is displayed to the user and the search terms used.  
+Upgrading the application to Kotlin and matching the UI as of Zomato release in Dec, 2020
+This is still a WIP version and hence on a separate branch.
 
 **__Libraries used during development:__**  
 
 * Recycler View  
-* Card View  
-* Design Library  
-    * NestedScrollView
-    * CollapsingToolbarLayout  
-    * FragmentStatePageAdapter  
-    * ViewPager  
-    * CoordinatorLayout  
-* Fused Location Provider (Google Play services - Location)  
+* Card View
 * Retrofit  
-* RxJava  
-* Firebase Analytics  
-* Picasso  
-* Dagger 2  
-* Parceler  
-* Realm  
-* Timber  
+* RxJava
+* Glide
+* Hilt
+* Room
+* Timber
 
+**__Asset Credits:__**
 
-**__Screenshot__**  
+This project contains various assets which are owed by the respective owners.
+Their details are provided as below
 
-![Screenshot](/screenshot/ZB_Usage_12_02.gif?raw=true "Sample")  
+* Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Facebook, Google, Delivery, Catchup, Dinner, Cafe, Buffet
 
-> The GIF may or may not updated. This is just for reference. Download the actual code and try it.  
+* <a href="https://www.freepik.com/vectors/location">Location vector created by stories - www.freepik.com</a>
+Search Location
 
+* Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Dining, Lunch
 
+* Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Nightlife
 
-**__Changelog__**  
+* Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Profile
 
-08 - Ability to mark restaurants as favourite. UI fixes.  
-07 - Added Firebase Analytics (current screen and log event - search term)  
-06 - Added share feature with UI tweaks. Added powered by Zomato text to show API usage.  
-05 - Lint and defect fixes  
-04 - Addition of reviews  
-03 - Addition of search feature  
-02 - Addition of details screen  
-01 - Initial checkin  
+* <a href='https://www.freepik.com/vectors/pattern'>Pattern vector created by freepik - www.freepik.com</a>
+Default background image for cards
 
+* Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Takeout
+
+* Icons made by <a href="https://www.flaticon.com/authors/pixelmeetup" title="Pixelmeetup">Pixelmeetup</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Breakfast
+
+* Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+Club
+
+* <a href='https://www.freepik.com/vectors/food'>Food vector created by stories - www.freepik.com</a>
+Image of chef in login screen
+
+* https://lottiefiles.com/968-loading
+Loading Lottie - 1
 

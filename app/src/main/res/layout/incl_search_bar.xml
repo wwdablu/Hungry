@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_search_container"
+    android:layout_marginStart="@dimen/space_3"
+    android:layout_marginEnd="@dimen/space_3"
+    android:layout_marginTop="@dimen/space_3"
+    android:background="@drawable/ic_rounded_80_corner">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:id="@+id/iv_search_icon"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/ic_search"
+        android:layout_marginStart="@dimen/space_3"
+        android:layout_marginEnd="@dimen/space_3"
+        android:layout_marginTop="@dimen/space"
+        android:layout_marginBottom="@dimen/space"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_search"
+        android:text="@string/search_all_hint"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/gray"
+        android:layout_marginEnd="@dimen/space_3"
+        android:layout_toEndOf="@id/iv_search_icon"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        />
+
+</RelativeLayout>

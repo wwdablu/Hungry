@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="city"
+            type="com.soumya.wwdablu.hungry.network.model.cities.City" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_dining_root"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_city_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_5"
+                android:fontFamily="@font/metropolis_bold"
+                android:text="@{city.name}"
+                android:drawableStart="@drawable/ic_location"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginEnd="@dimen/space_3"
+                tools:text="Shangri-La"
+                />
+
+            <!-- Include the search bar -->
+            <include layout="@layout/incl_search_bar"
+                android:id="@+id/search_bar"
+                />
+
+            <!-- Collections starts -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_3">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_heading_collection"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_5"
+                    android:fontFamily="@font/metropolis_semibold"
+                    android:text="@string/curated_collections"
+                    android:layout_alignParentStart="true"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_collection_seeall"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/font_3"
+                    android:fontFamily="@font/metropolis_regular"
+                    android:text="@string/see_all"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:id="@+id/lot_collection_loading"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lottie_loading.json"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_curated_collection"
+                android:visibility="gone"
+                />
+
+            <!-- Collections end -->
+
+            <!-- Trending this week - start -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rtv_recommended_for_you"
+                android:text="@string/recommended_for_you"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_5"
+                android:fontFamily="@font/metropolis_semibold"
+                android:layout_marginTop="@dimen/space_3"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:id="@+id/lot_recommended_loading"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/space_3"
+                android:layout_marginEnd="@dimen/space_3"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_fileName="lottie_loading.json"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_recommended_for_you"
+                android:visibility="gone"
+                />
+            <!-- Trending this week - end -->
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

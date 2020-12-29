@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activity.LoginActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:id="@+id/iv_login_header"
+        android:src="@drawable/ic_chef"
+        android:scaleType="centerCrop"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_skip"
+        android:text="@string/skip"
+        android:textSize="@dimen/font_3"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/metropolis_regular"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/space_12"
+        android:layout_marginEnd="@dimen/space_8"
+        android:background="@drawable/ic_rounded_80_corner"
+        android:backgroundTint="#66000000"
+        />
+
+    <com.soumya.wwdablu.phoneinputext.PhoneInputExt
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pi_phone_number"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/space_67"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        app:dataMode="fetch"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_get_otp"
+        android:text="@string/send_otp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:fontFamily="@font/metropolis_semibold"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:layout_below="@id/pi_phone_number"
+        android:background="@drawable/ic_rounded_corner"
+        android:backgroundTint="@color/black"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fl_divider_container"
+        android:layout_marginTop="@dimen/space_6"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:layout_below="@id/btn_get_otp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:id="@+id/vw_divider"
+            android:background="@color/tyrolean"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_or"
+            android:text="@string/or"
+            android:textColor="@color/white"
+            android:fontFamily="@font/metropolis_extralight"
+            android:textSize="@dimen/font_3"
+            android:background="@color/colorPrimary"
+            android:paddingStart="@dimen/space_3"
+            android:paddingEnd="@dimen/space_3"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_continue_with_email"
+        android:text="@string/continue_with_email"
+        android:textAllCaps="false"
+        android:fontFamily="@font/metropolis_semibold"
+        android:drawableStart="@drawable/ic_email"
+        android:layout_below="@id/fl_divider_container"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:background="@drawable/ic_rounded_corner"
+        android:backgroundTint="@color/tyrolean"
+        android:paddingStart="@dimen/space_5"
+        android:paddingEnd="@dimen/space_5"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_fb_google_container"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/space_3"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:paddingBottom="@dimen/space_3"
+        android:weightSum="2"
+        android:layout_below="@id/btn_continue_with_email">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_login_by_fb"
+            android:text="@string/facebook"
+            android:fontFamily="@font/metropolis_semibold"
+            android:textAllCaps="false"
+            android:drawableStart="@drawable/ic_facebook"
+            android:layout_weight="1"
+            android:background="@drawable/ic_rounded_corner"
+            android:backgroundTint="@color/tyrolean"
+            android:layout_marginEnd="@dimen/space_2"
+            android:paddingStart="@dimen/space_5"
+            android:paddingEnd="@dimen/space_5"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_login_by_google"
+            android:text="@string/google"
+            android:fontFamily="@font/metropolis_semibold"
+            android:textAllCaps="false"
+            android:drawableStart="@drawable/ic_google"
+            android:layout_weight="1"
+            android:background="@drawable/ic_rounded_corner"
+            android:backgroundTint="@color/tyrolean"
+            android:layout_marginStart="@dimen/space_2"
+            android:paddingStart="@dimen/space_5"
+            android:paddingEnd="@dimen/space_5"
+            />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_disclaimer"
+        android:layout_below="@id/ll_fb_google_container"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_8"
+        android:text="@string/notify_user"
+        android:fontFamily="@font/metropolis_thin"
+        android:textColor="@color/tyrolean"
+        android:textSize="@dimen/font_2.5"
+        />
+
+</RelativeLayout>
