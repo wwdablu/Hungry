@@ -18,6 +18,7 @@
         <activity
             android:name=".activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"
             android:exported="false" />
         <activity
             android:name=".activity.CollectionDetailsActivity"

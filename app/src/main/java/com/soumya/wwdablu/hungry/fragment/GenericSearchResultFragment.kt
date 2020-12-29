@@ -3,9 +3,11 @@ package com.soumya.wwdablu.hungry.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
 import com.soumya.wwdablu.hungry.activity.SearchActivity
 import com.soumya.wwdablu.hungry.adapter.GenericSearchResultAdapter
@@ -54,7 +56,7 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
             mViewBinding.rvCatList.adapter = mGenericSearchResultAdapter
         }
 
-        mViewBinding.searchBar.btnSearch.setOnClickListener {
+        mViewBinding.searchBar.rlSearchContainer.setOnClickListener {
             startActivity(Intent(context, SearchActivity::class.java))
         }
 

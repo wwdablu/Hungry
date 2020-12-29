@@ -16,11 +16,11 @@
         />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
         android:id="@+id/btn_skip"
         android:text="@string/skip"
-        android:textSize="@dimen/font_4"
+        android:textSize="@dimen/font_3"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:fontFamily="@font/metropolis_regular"

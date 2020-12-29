@@ -19,6 +19,20 @@
         android:id="@+id/rl_container">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/iv_bookmark"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_not_bookmarked_black"
+            android:background="@drawable/ic_circle_white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/space_3"
+            android:layout_marginEnd="@dimen/space_3"
+            android:translationZ="10dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:id="@+id/iv_restaurant_image"

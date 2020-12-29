@@ -53,7 +53,7 @@ class RecommendedFragment private constructor() : HungryFragment<FragRecommended
             startActivity(Intent(context, CollectionsActivity::class.java))
         }
 
-        mViewBinding.searchBar.btnSearch.setOnClickListener {
+        mViewBinding.searchBar.rlSearchContainer.setOnClickListener {
             startActivity(Intent(context, SearchActivity::class.java))
         }
 

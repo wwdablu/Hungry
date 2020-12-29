@@ -37,6 +37,11 @@ internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: Re
         private val mViewBinding: CardResInfoBinding = viewBinding
 
         init {
+
+            mViewBinding.ivBookmark.setOnClickListener {
+                //
+            }
+
             mViewBinding.root.setOnClickListener {
                 mListener.onRestaurantClicked(mSearchModel.restaurants[adapterPosition].restaurant)
             }

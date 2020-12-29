@@ -12,13 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_search"
+        android:textColor="@color/black"
+        android:hint="@string/search_all_hint"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="@dimen/space_2"
+        android:background="@drawable/ic_rounded_80_corner"
         android:layout_marginStart="@dimen/space_3"
         android:layout_marginEnd="@dimen/space_3"
         android:layout_marginTop="@dimen/space_3"
-        android:drawableStart="@drawable/ic_search_black"
-        android:drawablePadding="@dimen/space_2"
-        android:textColor="@color/black"
-        android:hint="@string/search_all_hint"
+        android:padding="@dimen/space_2"
         android:layout_weight="1"
         android:inputType="text"
         android:imeOptions="actionSearch"
@@ -29,6 +31,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/rv_search_results"
         android:layout_weight="99"
+        android:layout_marginTop="@dimen/space_2"
         />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
