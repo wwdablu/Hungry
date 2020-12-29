@@ -3,9 +3,11 @@ package com.soumya.wwdablu.hungry.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.soumya.wwdablu.hungry.activity.CollectionDetailsActivity
 import com.soumya.wwdablu.hungry.activity.CollectionsActivity
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
@@ -47,6 +49,7 @@ class RecommendedFragment private constructor() : HungryFragment<FragRecommended
         getCollection()
 
         mViewBinding.rvRecommendedForYou.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mViewBinding.rvRecommendedForYou.addOnItemTouchListener(mItemTouchListener)
         getRecommendation()
 
         mViewBinding.tvCollectionSeeall.setOnClickListener {
@@ -118,6 +121,25 @@ class RecommendedFragment private constructor() : HungryFragment<FragRecommended
                     }
                 }
             })
+    }
+
+    private val mItemTouchListener: RecyclerView.OnItemTouchListener = object: RecyclerView.OnItemTouchListener {
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+
+            val view: View = rv.findChildViewUnder(e.x, e.y) ?: return false
+            val viewHolder: RecyclerView.ViewHolder = rv.findContainingViewHolder(view) ?: return false
+            mGenericSearchResultAdapter.handleTouchEvent(e, viewHolder)
+
+            return false
+        }
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+            //
+        }
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+            //
+        }
     }
 
     override fun onRestaurantClicked(restaurant: RestaurantInfo) {

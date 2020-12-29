@@ -2,6 +2,8 @@ package com.soumya.wwdablu.hungry.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.soumya.wwdablu.hungry.databinding.CardResInfoBinding
@@ -10,20 +12,21 @@ import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
+import timber.log.Timber
 
 internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: RestaurantItemSelector) :
-        RecyclerView.Adapter<GenericSearchResultAdapter.RecommendedViewHolder>() {
+        RecyclerView.Adapter<GenericSearchResultAdapter.GenericSearchViewHolder>() {
 
     private val mSearchModel: SearchModel = searchModel
     private val mListener: RestaurantItemSelector = listener
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendedViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericSearchViewHolder {
 
-        return RecommendedViewHolder(CardResInfoBinding.inflate(LayoutInflater.from(parent.context),
+        return GenericSearchViewHolder(CardResInfoBinding.inflate(LayoutInflater.from(parent.context),
                 parent, false))
     }
 
-    override fun onBindViewHolder(holder: RecommendedViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GenericSearchViewHolder, position: Int) {
         holder.bind(mSearchModel.restaurants[position].restaurant)
     }
 
@@ -31,7 +34,27 @@ internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: Re
         return mSearchModel.restaurants.size
     }
 
-    inner class RecommendedViewHolder(viewBinding: CardResInfoBinding) :
+    fun handleTouchEvent(motionEvent: MotionEvent, viewHolder: RecyclerView.ViewHolder) {
+
+        val holder: GenericSearchViewHolder = viewHolder as GenericSearchViewHolder
+
+        when (motionEvent.actionMasked) {
+
+            MotionEvent.ACTION_DOWN -> {
+                holder.onTouchDown()
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                holder.onTouchMove()
+            }
+
+            MotionEvent.ACTION_UP -> {
+                holder.onTouchUp()
+            }
+        }
+    }
+
+    inner class GenericSearchViewHolder(viewBinding: CardResInfoBinding) :
             RecyclerView.ViewHolder(viewBinding.root) {
 
         private val mViewBinding: CardResInfoBinding = viewBinding
@@ -45,6 +68,20 @@ internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: Re
             mViewBinding.root.setOnClickListener {
                 mListener.onRestaurantClicked(mSearchModel.restaurants[adapterPosition].restaurant)
             }
+        }
+
+        fun onTouchDown() {
+
+            Timber.e("${mViewBinding.resName.text}")
+            mViewBinding.cvRestaurant.shrinkCard()
+        }
+
+        fun onTouchMove() {
+            //
+        }
+
+        fun onTouchUp() {
+            mViewBinding.cvRestaurant.expandCard()
         }
 
         @SuppressLint("SetTextI18n")

@@ -69,7 +69,9 @@ class DashboardBottomNaviView : BottomNavigationView {
 
     private fun getFoodType() : Pair<CategoryEnum, CategoryEnum?> {
 
-        return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+        var hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        hourOfDay = 21
+        return when (hourOfDay) {
 
             in 0..4 -> {
                 Pair(CategoryEnum.Nightlife, CategoryEnum.PubAndBar)

@@ -11,12 +11,6 @@ import kotlin.math.abs
 
 class RestaurantCard : CardView {
 
-    private val MIN_DISTACE: Int = 50
-
-    private var mStartX: Float = 0f
-    private var mStartY: Float = 0f
-    private var mMoved: Boolean = false
-
     constructor(context: Context) : super(context) {
         //
     }
@@ -29,44 +23,12 @@ class RestaurantCard : CardView {
         //
     }
 
-    override fun performClick(): Boolean {
-        return super.performClick()
+    fun shrinkCard() {
+        animateScaling(0.95f, 0.95f)
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-
-        if(event == null) {
-            return true
-        }
-
-        when (event.action) {
-
-            MotionEvent.ACTION_DOWN -> {
-
-                mStartX = x
-                mStartY = y
-                mMoved = false
-
-                animateScaling(0.95f, 0.95f)
-            }
-
-            MotionEvent.ACTION_UP -> {
-                animateScaling(1f, 1f)
-
-                if (abs(x - mStartX) <= MIN_DISTACE && abs(y - mStartY) <= MIN_DISTACE) {
-                    performClick()
-                }
-            }
-
-            MotionEvent.ACTION_MOVE -> {
-
-                if (!mMoved) {
-                    animateScaling(1f, 1f)
-                }
-            }
-        }
-
-        return true
+    fun expandCard() {
+        animateScaling(1f, 1f)
     }
 
     private fun animateScaling(x: Float, y: Float) {

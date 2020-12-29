@@ -52,6 +52,8 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
         mViewBinding = FragSearchResultGenericBinding.inflate(inflater, container, false)
 
         mViewBinding.rvCatList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mViewBinding.rvCatList.addOnItemTouchListener(mItemTouchListener)
+
         if(this::mSearchModel.isInitialized) {
             mViewBinding.rvCatList.adapter = mGenericSearchResultAdapter
         }
@@ -139,6 +141,25 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribeWith(GenericObserver())
+    }
+
+    private val mItemTouchListener: RecyclerView.OnItemTouchListener = object: RecyclerView.OnItemTouchListener {
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+
+            val view: View = rv.findChildViewUnder(e.x, e.y) ?: return false
+            val viewHolder: RecyclerView.ViewHolder = rv.findContainingViewHolder(view) ?: return false
+            mGenericSearchResultAdapter.handleTouchEvent(e, viewHolder)
+
+            return false
+        }
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+            //
+        }
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+            //
+        }
     }
 
     private open inner class GenericObserver : DisposableObserver<SearchModel>() {
