@@ -42,14 +42,9 @@ abstract class HungryActivity : AppCompatActivity(), LocationListener {
         if(requestCode == 1001) {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                val criteria = Criteria()
-                criteria.accuracy = Criteria.ACCURACY_HIGH
-                criteria.powerRequirement = Criteria.POWER_MEDIUM
-                criteria.isBearingRequired = false
-
                 val locationManager: LocationManager? = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
                 locationManager?.requestLocationUpdates(
-                        locationManager.getBestProvider(criteria, false) ?:
+                        locationManager.getBestProvider(Criteria(), false) ?:
                         LocationManager.GPS_PROVIDER,
                         500, 1.0f, this)
             }
