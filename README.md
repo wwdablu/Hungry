@@ -1,7 +1,7 @@
 # Hungry
 
 Upgrading the application to Kotlin and matching the UI as of Zomato release in Dec, 2020
-This is still a WIP version and hence on a separate branch.
+Most of the major changes are done. Few minor updates are still pending. Will update it while testing the application more.
 
 **__Libraries used during development:__**  
 
@@ -10,7 +10,6 @@ This is still a WIP version and hence on a separate branch.
 * Retrofit  
 * RxJava
 * Glide
-* Hilt
 * Room
 * Timber
 
