@@ -54,12 +54,12 @@ abstract class HungryActivity : AppCompatActivity(), LocationListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    override fun onLocationChanged(location: Location?) {
+    override fun onLocationChanged(location: Location) {
         val locationManager: LocationManager? = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
         locationManager?.removeUpdates(this)
 
-        mLat = location?.latitude?.toString() ?: BuildConfig.DEFAULT_LATITUDE
-        mLon = location?.longitude?.toString() ?: BuildConfig.DEFAULT_LOGITUDE
+        mLat = location.latitude.toString() ?: BuildConfig.DEFAULT_LATITUDE
+        mLon = location.longitude.toString() ?: BuildConfig.DEFAULT_LOGITUDE
 
         HungryRepo.setLocation(mLat, mLon)
 
@@ -70,11 +70,11 @@ abstract class HungryActivity : AppCompatActivity(), LocationListener {
         //
     }
 
-    override fun onProviderEnabled(provider: String?) {
+    override fun onProviderEnabled(provider: String) {
         //
     }
 
-    override fun onProviderDisabled(provider: String?) {
+    override fun onProviderDisabled(provider: String) {
         //
     }
 
