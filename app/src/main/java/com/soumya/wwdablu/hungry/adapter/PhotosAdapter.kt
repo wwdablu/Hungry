@@ -37,7 +37,7 @@ class PhotosAdapter(urlList: List<String>) : RecyclerView.Adapter<PhotosAdapter.
             mViewBinding.root.setOnClickListener {
                 val intent: Intent = Intent(viewBinding.root.context, PhotoViewerActivity::class.java)
                 intent.putStringArrayListExtra("list", ArrayList(mUrlList))
-                intent.putExtra("index", adapterPosition)
+                intent.putExtra("index", bindingAdapterPosition)
                 viewBinding.root.context.startActivity(intent)
             }
         }

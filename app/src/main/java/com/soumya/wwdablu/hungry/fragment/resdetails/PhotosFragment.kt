@@ -10,10 +10,9 @@ import com.soumya.wwdablu.hungry.databinding.FragResPhotoBinding
 import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.*
 import timber.log.Timber
+import java.util.*
 
 class PhotosFragment private constructor() : HungryFragment<FragResPhotoBinding>() {
 
@@ -41,30 +40,19 @@ class PhotosFragment private constructor() : HungryFragment<FragResPhotoBinding>
 
     private fun getPhotos(restaurant: RestaurantInfo) {
 
-        RestaurantInfoUtil.getPhotos(restaurant)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<List<String>>() {
-                override fun onNext(t: List<String>?) {
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+        }
 
-                    if(t == null) {
-                        return
-                    }
-
-                    mPhotoUrls = t
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            mPhotoUrls = RestaurantInfoUtil.getPhotos(restaurant)
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch(exceptionHandler) {
+                if(this@PhotosFragment::mPhotoUrls.isInitialized) {
+                    mAdapter = PhotosAdapter(mPhotoUrls)
+                    mViewBinding.rvPhotos.adapter = mAdapter
                 }
-
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                }
-
-                override fun onComplete() {
-
-                    if(this@PhotosFragment::mPhotoUrls.isInitialized) {
-                        mAdapter = PhotosAdapter(mPhotoUrls)
-                        mViewBinding.rvPhotos.adapter = mAdapter
-                    }
-                }
-            })
+            }
+        }
     }
 }

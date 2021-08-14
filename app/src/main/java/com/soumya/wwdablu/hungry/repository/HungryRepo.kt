@@ -15,11 +15,8 @@ import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.network.DataProvider
 import com.soumya.wwdablu.hungry.network.model.reviews.ReviewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableEmitter
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 
 internal object HungryRepo {
@@ -44,271 +41,119 @@ internal object HungryRepo {
         return mLocation
     }
 
-    fun getCategories() : Observable<List<Categories>> {
+    suspend fun getCategories() : List<Categories> {
 
-        return Observable.create {
+        if(this::mCategoriesModel.isInitialized && mCategoriesModel.categories.isNotEmpty()) {
+            return mCategoriesModel.categories
+        }
 
-            if(this::mCategoriesModel.isInitialized && mCategoriesModel.categories.isNotEmpty()) {
-                it.onNext(mCategoriesModel.categories)
-                it.onComplete()
-                return@create
-            }
-
-            DataProvider.call().getCategories()
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<CategoriesModel>() {
-                    override fun onNext(t: CategoriesModel?) {
-                        mCategoriesModel = t ?: CategoriesModel(LinkedList())
-                        it.onNext(LinkedList(mCategoriesModel.categories))
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
+        return withContext(Dispatchers.IO) {
+            mCategoriesModel = DataProvider.call().getCategories()
+            mCategoriesModel.categories
         }
     }
 
-    fun getCity() : Observable<List<City>> {
+    suspend fun getCity() : List<City> {
 
-        return Observable.create {
+        if(this::mCityModel.isInitialized && mCityModel.model.isNotEmpty()) {
+            return mCityModel.model
+        }
 
-            if(this::mCityModel.isInitialized && mCityModel.model.isEmpty()) {
-                it.onNext(mCityModel.model)
-                it.onComplete()
-                return@create
-            }
+        mCityModel = DataProvider.call().getCity(mLocation.first, mLocation.second)
+        return mCityModel.model
+    }
 
-            DataProvider.call().getCity(mLocation.first, mLocation.second)
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<CityModel>() {
-                    override fun onNext(t: CityModel?) {
-                        mCityModel = t ?: CityModel(LinkedList(), "success")
-                        it.onNext(LinkedList(mCityModel.model))
-                    }
+    suspend fun getCollections() : List<CuratedCollection> {
 
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
+        if(this::mCollectionModel.isInitialized && mCollectionModel.list.isNotEmpty()) {
+            return mCollectionModel.list
+        }
 
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
+        return withContext(Dispatchers.IO) {
+            mCollectionModel = DataProvider.call().getCollections(mLocation.first, mLocation.second)
+            mCollectionModel.list
         }
     }
 
-    fun getCollections() : Observable<List<CuratedCollection>> {
+    suspend fun getCuisine() : List<Cuisine> {
 
-        return Observable.create {
-
-            if(this::mCollectionModel.isInitialized && mCollectionModel.list.isEmpty()) {
-                it.onNext(mCollectionModel.list)
-                it.onComplete()
-                return@create
+        if(this::mCuisineModel.isInitialized && mCuisineModel.list.isNotEmpty()) {
+            val listCuisine: LinkedList<Cuisine> = LinkedList()
+            mCuisineModel.list.forEach { me ->
+                listCuisine.add(me.cuisine)
             }
+            return listCuisine
+        }
 
-            DataProvider.call().getCollections(mLocation.first, mLocation.second)
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<CollectionModel>() {
-                    override fun onNext(t: CollectionModel?) {
-                        mCollectionModel = t ?: CollectionModel(LinkedList())
-                        it.onNext(LinkedList(mCollectionModel.list))
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
+        return withContext(Dispatchers.IO) {
+            mCuisineModel = DataProvider.call().getCuisines(mLocation.first, mLocation.second)
+            val listCuisine: LinkedList<Cuisine> = LinkedList()
+            mCuisineModel.list.forEach { me ->
+                listCuisine.add(me.cuisine)
+            }
+            listCuisine
         }
     }
 
-    fun getCuisine() : Observable<List<Cuisine>> {
+    suspend fun getEstablishments() : List<Establishment> {
 
-        return Observable.create {
-
-            if(this::mCuisineModel.isInitialized && mCuisineModel.list.isEmpty()) {
-                val listCuisine: LinkedList<Cuisine> = LinkedList()
-                mCuisineModel.list.forEach { me ->
-                    listCuisine.add(me.cuisine)
-                }
-                it.onNext(listCuisine)
-                it.onComplete()
-                return@create
+        if(this::mEstablishmentModel.isInitialized && mEstablishmentModel.list.isNotEmpty()) {
+            val listEstablishment: LinkedList<Establishment> = LinkedList()
+            mEstablishmentModel.list.forEach { me ->
+                listEstablishment.add(me.establishment)
             }
+            return listEstablishment
+        }
 
-            DataProvider.call().getCuisines(mLocation.first, mLocation.second)
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<CuisineModel>() {
-                    override fun onNext(t: CuisineModel?) {
-                        mCuisineModel = t ?: CuisineModel(LinkedList())
-                        val listCuisine: LinkedList<Cuisine> = LinkedList()
-                        mCuisineModel.list.forEach { me ->
-                            listCuisine.add(me.cuisine)
-                        }
-                        it.onNext(listCuisine)
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
+        return withContext(Dispatchers.IO) {
+            mEstablishmentModel = DataProvider.call().getEstablishments(mLocation.first, mLocation.second)
+            val listEstablishment: LinkedList<Establishment> = LinkedList()
+            mEstablishmentModel.list.forEach { me ->
+                listEstablishment.add(me.establishment)
+            }
+            listEstablishment
         }
     }
 
-    fun getEstablishments() : Observable<List<Establishment>> {
+    suspend fun getRestaurantDetails(resId: Int) : RestaurantInfo {
 
-        return Observable.create {
-
-            if(this::mEstablishmentModel.isInitialized && mEstablishmentModel.list.isEmpty()) {
-                val listEstablishment: LinkedList<Establishment> = LinkedList()
-                mEstablishmentModel.list.forEach { me ->
-                    listEstablishment.add(me.establishment)
-                }
-                it.onNext(listEstablishment)
-                it.onComplete()
-                return@create
-            }
-
-            DataProvider.call().getEstablishments(mLocation.first, mLocation.second)
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<EstablishmentModel>() {
-                    override fun onNext(t: EstablishmentModel?) {
-                        mEstablishmentModel = t ?: EstablishmentModel(LinkedList())
-                        val listEstablishment: LinkedList<Establishment> = LinkedList()
-                        mEstablishmentModel.list.forEach { me ->
-                            listEstablishment.add(me.establishment)
-                        }
-                        it.onNext(listEstablishment)
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
-        }
-    }
-
-    fun getRestaurantDetails(resId: Int) : Observable<RestaurantInfo> {
-
-        return Observable.create {
-
+        return withContext(Dispatchers.IO) {
             DataProvider.call().getRestaurantDetails(resId)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<RestaurantInfo>() {
-                    override fun onNext(t: RestaurantInfo?) {
-                        it.onNext(t)
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
         }
     }
 
-    fun getReviews(resId: Int) : Observable<ReviewModel> {
+    suspend fun getReviews(resId: Int) : ReviewModel {
 
-        return Observable.create {
-
+        return withContext(Dispatchers.IO) {
             DataProvider.call().getReviews(resId)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<ReviewModel>() {
-                    override fun onNext(t: ReviewModel?) {
-                        it.onNext(t ?: ReviewModel(0, LinkedList()))
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        it.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        it.onComplete()
-                    }
-                })
         }
     }
 
-    fun searchByCollectionId(collectionId: Int) : Observable<SearchModel?> {
+    suspend fun searchByCollectionId(collectionId: Int) : SearchModel {
 
-        return Observable.create {
-
-            handleSearchObservable(DataProvider.call().searchByCollectionId(
-                mLocation.first, mLocation.second, collectionId), it)
+        return withContext(Dispatchers.IO) {
+            DataProvider.call().searchByCollectionId(mLocation.first, mLocation.second, collectionId)
         }
     }
 
-    fun searchByCategoryId(category: CategoryEnum) : Observable<SearchModel?> {
+    suspend fun searchByCategoryId(category: CategoryEnum) : SearchModel {
 
-        return Observable.create {
-
-            handleSearchObservable(DataProvider.call().searchByCategoryId(
-                mLocation.first, mLocation.second, category.ordinal), it)
+        return withContext(Dispatchers.IO) {
+            DataProvider.call().searchByCategoryId(mLocation.first, mLocation.second, category.ordinal)
         }
     }
 
-    fun searchByCuisineId(cuisineId: String) : Observable<SearchModel?> {
+    suspend fun searchByCuisineId(cuisineId: String) : SearchModel {
 
-        return Observable.create {
-
-            handleSearchObservable(DataProvider.call().searchByCuisineId(
-                    mLocation.first, mLocation.second, cuisineId), it)
+        return withContext(Dispatchers.IO) {
+            DataProvider.call().searchByCuisineId(mLocation.first, mLocation.second, cuisineId)
         }
     }
 
-    fun search(query: String) : Observable<SearchModel?> {
+    suspend fun search(query: String) : SearchModel {
 
-        return Observable.create {
-
-            handleSearchObservable(DataProvider.call().search(
-                    mLocation.first, mLocation.second, query), it)
+        return withContext(Dispatchers.IO) {
+            DataProvider.call().search(mLocation.first, mLocation.second, query)
         }
-    }
-
-    private fun handleSearchObservable(observable: Observable<SearchModel>,
-                                       emitter: ObservableEmitter<SearchModel?>) {
-
-        observable.observeOn(Schedulers.io())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object : DisposableObserver<SearchModel>() {
-                override fun onNext(t: SearchModel?) {
-                    emitter.onNext(t)
-                }
-
-                override fun onError(e: Throwable?) {
-                    emitter.onError(e)
-                }
-
-                override fun onComplete() {
-                    emitter.onComplete()
-                }
-            })
     }
 }

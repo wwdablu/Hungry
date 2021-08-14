@@ -5,11 +5,8 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.*
+import timber.log.Timber
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -44,28 +41,22 @@ object RestaurantInfoUtil {
         }
 
         else {
-            getPhotos(restaurant)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object: DisposableObserver<List<String>>() {
-                    override fun onNext(t: List<String>?) {
 
-                        if(t == null || t.isEmpty()) {
-                            imageView.setImageResource(R.drawable.default_card_bg)
-                            return
-                        }
+            val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+                Timber.e(throwable)
+                imageView.setImageResource(R.drawable.default_card_bg)
+            }
 
-                        loadImageIntoView(t[0], imageView)
-                    }
-
-                    override fun onError(e: Throwable?) {
+            CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+                val photos = getPhotos(restaurant)
+                withContext(Dispatchers.Main) {
+                    if(photos.size > 1) {
+                        loadImageIntoView(photos[0], imageView)
+                    } else {
                         imageView.setImageResource(R.drawable.default_card_bg)
                     }
-
-                    override fun onComplete() {
-                        //
-                    }
-                })
+                }
+            }
         }
     }
 
@@ -77,30 +68,23 @@ object RestaurantInfoUtil {
             .into(imageView)
     }
 
-    fun getPhotos(restaurant: RestaurantInfo) : Observable<List<String>> {
+    suspend fun getPhotos(restaurant: RestaurantInfo) : List<String> {
 
-        return Observable.create(ObservableOnSubscribe<List<String>> {
-
+        return withContext(Dispatchers.IO) {
             val photoList: LinkedList<String> = LinkedList()
             val photoUrl: String = restaurant.photosUrl
 
-            if (photoUrl.isEmpty() || photoUrl.isBlank()) {
-                it.onNext(photoList)
-                it.onComplete()
-                return@ObservableOnSubscribe
+            if (photoUrl.isNotEmpty() || photoUrl.isNotBlank()) {
+                extractPhotoUrls(photoUrl, photoList)
             }
 
-            extractPhotoUrls(photoUrl, photoList)
-
-            it.onNext(photoList)
-            it.onComplete()
-
-        }).subscribeOn(Schedulers.io())
+            photoList
+        }
     }
 
     private fun extractPhotoUrls(photoUrl: String, possibleImageUrl: LinkedList<String>) {
 
-        val url: URL = URL(photoUrl)
+        val url = URL(photoUrl)
         val streamReader = BufferedReader(InputStreamReader(url.openStream()))
 
         var readLine: String? = streamReader.readLine()

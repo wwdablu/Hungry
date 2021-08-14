@@ -9,9 +9,10 @@ import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
 import com.soumya.wwdablu.hungry.network.model.categories.Categories
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 
@@ -104,21 +105,17 @@ class DashboardBottomNaviView : BottomNavigationView {
 
     private fun fetchCategories() {
 
-        HungryRepo.getCategories()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<List<Categories>>() {
-                override fun onNext(t: List<Categories>?) {
-                    mCategoriesList = t ?: LinkedList()
-                }
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+        }
 
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                }
-
-                override fun onComplete() {
-                    prepareMenu()
-                }
-            })
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            mCategoriesList = HungryRepo.getCategories()
+            val s = mCategoriesList.size
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch {
+                prepareMenu()
+            }
+        }
     }
 }

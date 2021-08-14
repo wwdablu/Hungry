@@ -15,47 +15,47 @@ import retrofit2.http.Query
 interface ZomatoAPI {
 
     @GET("/api/v2.1/categories")
-    fun getCategories() : Observable<CategoriesModel>
+    suspend fun getCategories() : CategoriesModel
 
     @GET("/api/v2.1/collections")
-    fun getCollections(@Query("lat") lat: String,
-                       @Query("lon") lon: String) : Observable<CollectionModel>
+    suspend fun getCollections(@Query("lat") lat: String,
+                       @Query("lon") lon: String) : CollectionModel
 
     @GET("/api/v2.1/cities")
-    fun getCity(@Query("lat") lat: String,
-                @Query("lon") lon: String) : Observable<CityModel>
+    suspend fun getCity(@Query("lat") lat: String,
+                @Query("lon") lon: String) : CityModel
 
     @GET("/api/v2.1/cuisines")
-    fun getCuisines(@Query("lat") lat: String,
-                    @Query("lon") lon: String) : Observable<CuisineModel>
+    suspend fun getCuisines(@Query("lat") lat: String,
+                    @Query("lon") lon: String) : CuisineModel
 
     @GET("/api/v2.1/establishments")
-    fun getEstablishments(@Query("lat") lat: String,
-                          @Query("lon") lon: String) : Observable<EstablishmentModel>
+    suspend fun getEstablishments(@Query("lat") lat: String,
+                          @Query("lon") lon: String) : EstablishmentModel
 
     @GET("/api/v2.1/search")
-    fun searchByCollectionId(@Query("lat") lat: String,
+    suspend fun searchByCollectionId(@Query("lat") lat: String,
                              @Query("lon") lon: String,
-                             @Query("collection_id") collectionId: Int) : Observable<SearchModel>
+                             @Query("collection_id") collectionId: Int) : SearchModel
 
     @GET("/api/v2.1/search")
-    fun searchByCategoryId(@Query("lat") lat: String,
+    suspend fun searchByCategoryId(@Query("lat") lat: String,
                            @Query("lon") lon: String,
-                           @Query("category") category: Int) : Observable<SearchModel>
+                           @Query("category") category: Int) : SearchModel
 
     @GET("/api/v2.1/search")
-    fun searchByCuisineId(@Query("lat") lat: String,
+    suspend fun searchByCuisineId(@Query("lat") lat: String,
                            @Query("lon") lon: String,
-                           @Query("cuisines") cuisines: String) : Observable<SearchModel>
+                           @Query("cuisines") cuisines: String) : SearchModel
 
     @GET("/api/v2.1/search")
-    fun search(@Query("lat") lat: String,
+    suspend fun search(@Query("lat") lat: String,
                @Query("lon") lon: String,
-               @Query("q") query: String) : Observable<SearchModel>
+               @Query("q") query: String) : SearchModel
 
     @GET("/api/v2.1/restaurant")
-    fun getRestaurantDetails(@Query("res_id") resId: Int) : Observable<RestaurantInfo>
+    suspend fun getRestaurantDetails(@Query("res_id") resId: Int) : RestaurantInfo
 
     @GET("/api/v2.1/reviews")
-    fun getReviews(@Query("res_id") resId: Int) : Observable<ReviewModel>
+    suspend fun getReviews(@Query("res_id") resId: Int) : ReviewModel
 }

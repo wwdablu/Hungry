@@ -71,8 +71,6 @@ internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: Re
         }
 
         fun onTouchDown() {
-
-            Timber.e("${mViewBinding.resName.text}")
             mViewBinding.cvRestaurant.shrinkCard()
         }
 

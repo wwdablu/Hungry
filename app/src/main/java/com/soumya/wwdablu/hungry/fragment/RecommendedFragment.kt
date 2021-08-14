@@ -22,9 +22,10 @@ import com.soumya.wwdablu.hungry.network.model.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class RecommendedFragment private constructor() : HungryFragment<FragRecommendedBinding>(),
@@ -63,64 +64,42 @@ class RecommendedFragment private constructor() : HungryFragment<FragRecommended
         return mViewBinding.root
     }
 
+    private val mExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Timber.e(throwable)
+    }
+
     private fun getRecommendation() {
 
-        HungryRepo.searchByCollectionId(1)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<SearchModel>() {
-                override fun onNext(t: SearchModel?) {
-
-                    if(t == null) {
-                        return
-                    }
-
-                    mGenericSearchResultAdapter = GenericSearchResultAdapter(t, this@RecommendedFragment)
+        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
+            val t: SearchModel = HungryRepo.searchByCollectionId(1)
+            mGenericSearchResultAdapter = GenericSearchResultAdapter(t, this@RecommendedFragment)
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch {
+                if(this@RecommendedFragment::mGenericSearchResultAdapter.isInitialized) {
+                    mViewBinding.lotRecommendedLoading.cancelAnimation()
+                    mViewBinding.lotRecommendedLoading.visibility = View.GONE
+                    mViewBinding.rvRecommendedForYou.visibility = View.VISIBLE
+                    mViewBinding.rvRecommendedForYou.adapter = mGenericSearchResultAdapter
                 }
-
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                }
-
-                override fun onComplete() {
-
-                    if(this@RecommendedFragment::mGenericSearchResultAdapter.isInitialized) {
-                        mViewBinding.lotRecommendedLoading.cancelAnimation()
-                        mViewBinding.lotRecommendedLoading.visibility = View.GONE
-                        mViewBinding.rvRecommendedForYou.visibility = View.VISIBLE
-                        mViewBinding.rvRecommendedForYou.adapter = mGenericSearchResultAdapter
-                    }
-                }
-            })
+            }
+        }
     }
 
     private fun getCollection() {
 
-        HungryRepo.getCollections()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<List<CuratedCollection>>() {
-                override fun onNext(t: List<CuratedCollection>?) {
-
-                    if(t != null) {
-                        mCollectionAdapter = CuratedCollectionsAdapter(t, this@RecommendedFragment)
-                    }
+        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
+            val t: List<CuratedCollection> = HungryRepo.getCollections()
+            mCollectionAdapter = CuratedCollectionsAdapter(t, this@RecommendedFragment)
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch {
+                if(this@RecommendedFragment::mCollectionAdapter.isInitialized) {
+                    mViewBinding.lotCollectionLoading.cancelAnimation()
+                    mViewBinding.lotCollectionLoading.visibility = View.GONE
+                    mViewBinding.rvCuratedCollection.visibility = View.VISIBLE
+                    mViewBinding.rvCuratedCollection.adapter = mCollectionAdapter
                 }
-
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                }
-
-                override fun onComplete() {
-
-                    if(this@RecommendedFragment::mCollectionAdapter.isInitialized) {
-                        mViewBinding.lotCollectionLoading.cancelAnimation()
-                        mViewBinding.lotCollectionLoading.visibility = View.GONE
-                        mViewBinding.rvCuratedCollection.visibility = View.VISIBLE
-                        mViewBinding.rvCuratedCollection.adapter = mCollectionAdapter
-                    }
-                }
-            })
+            }
+        }
     }
 
     private val mItemTouchListener: RecyclerView.OnItemTouchListener = object: RecyclerView.OnItemTouchListener {
@@ -144,16 +123,16 @@ class RecommendedFragment private constructor() : HungryFragment<FragRecommended
 
     override fun onRestaurantClicked(restaurant: RestaurantInfo) {
 
-        activity?.runOnUiThread {
-            val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
+        CoroutineScope(Dispatchers.Main).launch {
+            val intent = Intent(context, RestaurantDetailsActivity::class.java)
             intent.putExtra("res_details", restaurant)
             startActivity(intent)
         }
     }
 
     override fun onCollectionClicked(collection: CollectionInfo) {
-        activity?.runOnUiThread {
-            val intent: Intent = Intent(context, CollectionDetailsActivity::class.java)
+        CoroutineScope(Dispatchers.Main).launch {
+            val intent = Intent(context, CollectionDetailsActivity::class.java)
             intent.putExtra("collection_id", collection.id)
             intent.putExtra("collection_info", collection)
             startActivity(intent)

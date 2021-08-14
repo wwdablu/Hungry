@@ -4,11 +4,10 @@ import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import com.soumya.wwdablu.hungry.databinding.ActivityLocationAccessBinding
-import com.soumya.wwdablu.hungry.network.model.cities.City
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LocationAccess : HungryActivity() {
 
@@ -28,27 +27,14 @@ class LocationAccess : HungryActivity() {
 
     override fun onLocationUpdated(location: Location?) {
 
-        HungryRepo.getCity()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<List<City>>() {
-                override fun onNext(t: List<City>?) {
-                    //
-                }
-
-                override fun onError(e: Throwable?) {
-                    //
-                }
-
-                override fun onComplete() {
-                    runOnUiThread {
-                        runOnUiThread {
-                            startActivity(Intent(this@LocationAccess,
-                                    DashboardActivity::class.java))
-                            finish()
-                        }
-                    }
-                }
-            })
+        ioScope.launch(defaultExceptionHandler) {
+            HungryRepo.getCity()
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch(defaultExceptionHandler) {
+                startActivity(Intent(this@LocationAccess,
+                    DashboardActivity::class.java))
+                finish()
+            }
+        }
     }
 }

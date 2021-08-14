@@ -18,9 +18,10 @@ import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class GenericSearchResultFragment private constructor() : HungryFragment<FragSearchResultGenericBinding>(),
@@ -101,46 +102,61 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
         }
     }
 
+    private val mExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Timber.e(throwable)
+    }
+
     private fun getByCategory(categoryEnum: CategoryEnum) {
 
-        HungryRepo.searchByCategoryId(categoryEnum)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: GenericObserver() {
-                override fun onNext(t: SearchModel?) {
-                    if(t != null) {
-                        mSearchModel = t
-                        mGenericSearchResultAdapter = GenericSearchResultAdapter(t, this@GenericSearchResultFragment)
-                    } else {
-                        getByCollectionId(if(mFallbackSearchCriteria.second.isEmptyOrBlank()) 1 else
-                            mFallbackSearchCriteria.second.toInt())
-                    }
-                }
-            })
+        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
+            mSearchModel = HungryRepo.searchByCategoryId(categoryEnum)
+            mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
+//            getByCollectionId(if(mFallbackSearchCriteria.second.isEmptyOrBlank()) 1 else
+//                mFallbackSearchCriteria.second.toInt())
+        }.invokeOnCompletion {
+            onQueryCompletion()
+        }
     }
 
     private fun getByCollectionId(collectionId: Int) {
 
-        HungryRepo.searchByCollectionId(collectionId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(GenericObserver())
+        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
+            mSearchModel = HungryRepo.searchByCollectionId(collectionId)
+            mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
+        }.invokeOnCompletion {
+            onQueryCompletion()
+        }
     }
 
     private fun getByCuisineId(cuisineId: String) {
 
-        HungryRepo.searchByCuisineId(cuisineId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(GenericObserver())
+        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
+            mSearchModel = HungryRepo.searchByCuisineId(cuisineId)
+            mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
+        }.invokeOnCompletion {
+            onQueryCompletion()
+        }
     }
 
     private fun getByQuery(query: String) {
 
-        HungryRepo.search(query)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(GenericObserver())
+        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
+            mSearchModel = HungryRepo.search(query)
+            mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
+        }.invokeOnCompletion {
+            onQueryCompletion()
+        }
+    }
+
+    private fun onQueryCompletion() {
+        CoroutineScope(Dispatchers.Main).launch {
+            if(this@GenericSearchResultFragment::mGenericSearchResultAdapter.isInitialized) {
+                mViewBinding.lotLoading.cancelAnimation()
+                mViewBinding.lotLoading.visibility = View.GONE
+                mViewBinding.rvCatList.visibility = View.VISIBLE
+                mViewBinding.rvCatList.adapter = mGenericSearchResultAdapter
+            }
+        }
     }
 
     private val mItemTouchListener: RecyclerView.OnItemTouchListener = object: RecyclerView.OnItemTouchListener {
@@ -162,31 +178,9 @@ class GenericSearchResultFragment private constructor() : HungryFragment<FragSea
         }
     }
 
-    private open inner class GenericObserver : DisposableObserver<SearchModel>() {
-        override fun onNext(t: SearchModel?) {
-            if(t != null) {
-                mSearchModel = t
-                mGenericSearchResultAdapter = GenericSearchResultAdapter(t, this@GenericSearchResultFragment)
-            }
-        }
-
-        override fun onError(e: Throwable?) {
-            Timber.e(e)
-        }
-
-        override fun onComplete() {
-            if(this@GenericSearchResultFragment::mGenericSearchResultAdapter.isInitialized) {
-                mViewBinding.lotLoading.cancelAnimation()
-                mViewBinding.lotLoading.visibility = View.GONE
-                mViewBinding.rvCatList.visibility = View.VISIBLE
-                mViewBinding.rvCatList.adapter = mGenericSearchResultAdapter
-            }
-        }
-    }
-
     override fun onRestaurantClicked(restaurant: RestaurantInfo) {
 
-        activity?.runOnUiThread {
+        CoroutineScope(Dispatchers.Main).launch {
             val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
             intent.putExtra("res_details", restaurant)
             startActivity(intent)

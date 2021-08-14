@@ -11,9 +11,10 @@ import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.network.model.reviews.ReviewModel
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ReviewFragment private constructor() : HungryFragment<FragResReviewsBinding>() {
@@ -47,34 +48,25 @@ class ReviewFragment private constructor() : HungryFragment<FragResReviewsBindin
 
     private fun getReviews(resId: Int) {
 
-        HungryRepo.getReviews(resId)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<ReviewModel>() {
-                override fun onNext(t: ReviewModel?) {
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+        }
 
-                    if(t != null) {
-                        mReviewModel = t
-                    }
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            mReviewModel = HungryRepo.getReviews(resId)
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch {
+                if(this@ReviewFragment::mReviewModel.isInitialized) {
+
+                    mViewBinding.lotRecommendedLoading.cancelAnimation()
+                    mViewBinding.lotRecommendedLoading.visibility = View.GONE
+                    mViewBinding.rvReviews.visibility = View.VISIBLE
+
+                    mAdapter = ReviewAdapter(mReviewModel)
+                    mViewBinding.rvReviews.adapter = mAdapter
+                    mViewBinding.review = mReviewModel
                 }
-
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                }
-
-                override fun onComplete() {
-
-                    if(this@ReviewFragment::mReviewModel.isInitialized) {
-
-                        mViewBinding.lotRecommendedLoading.cancelAnimation()
-                        mViewBinding.lotRecommendedLoading.visibility = View.GONE
-                        mViewBinding.rvReviews.visibility = View.VISIBLE
-
-                        mAdapter = ReviewAdapter(mReviewModel)
-                        mViewBinding.rvReviews.adapter = mAdapter
-                        mViewBinding.review = mReviewModel
-                    }
-                }
-            })
+            }
+        }
     }
 }
