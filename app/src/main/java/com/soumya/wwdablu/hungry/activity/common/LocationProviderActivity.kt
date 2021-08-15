@@ -53,7 +53,9 @@ abstract class LocationProviderActivity : HungryActivity() {
             PackageManager.PERMISSION_GRANTED -> {
 
                 mLocationProvider.lastLocation.addOnSuccessListener {
-                    onLocationChanged(it)
+                    if(it != null) {
+                        onLocationChanged(it)
+                    }
                 }
             }
             PackageManager.PERMISSION_DENIED -> {

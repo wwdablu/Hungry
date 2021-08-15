@@ -1,5 +1,6 @@
 package com.soumya.wwdablu.hungry.fragment
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,10 @@ abstract class HungryFragment<T : ViewBinding> : Fragment() {
         }
 
         return onCreateViewExt(inflater, container, savedInstanceState)
+    }
+
+    protected fun isScreenInPortrait() : Boolean {
+        return resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     }
 
     protected fun String.isEmptyOrBlank() : Boolean {

@@ -3,6 +3,7 @@ package com.soumya.wwdablu.hungry.utils
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import kotlinx.coroutines.*
@@ -64,6 +65,7 @@ object RestaurantInfoUtil {
 
         Glide.with(imageView.context)
             .load(imageUrl)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
             .placeholder(R.drawable.default_card_bg)
             .into(imageView)
     }

@@ -41,14 +41,24 @@ class GenericSearchResultFragment : HungryFragment<FragSearchResultGenericBindin
 
             val fragment = GenericSearchResultFragment()
 
-            fragment.mPrimarySearchCriteria = Pair(primarySearch, primarySearchParam)
-            fragment.mFallbackSearchCriteria = Pair(fallbackSearch, fallbackSearchParam)
+            val bundle = Bundle()
+            bundle.putInt("primarySearch", primarySearch.ordinal)
+            bundle.putSerializable("primarySearchParam", primarySearchParam)
+            bundle.putInt("fallbackSearch", fallbackSearch.ordinal)
+            bundle.putSerializable("fallbackSearchParam", fallbackSearchParam)
+
+            fragment.arguments = bundle
 
             return fragment
         }
     }
 
     override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        val bundle = arguments
+
+        mPrimarySearchCriteria = Pair(SearchBy.values()[bundle?.getInt("primarySearch") ?: 0], bundle?.getString("primarySearchParam") ?: "")
+        mFallbackSearchCriteria = Pair(SearchBy.values()[bundle?.getInt("fallbackSearch") ?: 0], bundle?.getString("fallbackSearchParam") ?: "")
 
         mViewBinding = FragSearchResultGenericBinding.inflate(inflater, container, false)
 
