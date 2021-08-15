@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.adapter.CollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionsBinding
 import com.soumya.wwdablu.hungry.iface.CollectionItemSelector

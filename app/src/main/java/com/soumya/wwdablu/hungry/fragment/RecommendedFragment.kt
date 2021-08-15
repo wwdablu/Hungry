@@ -28,7 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class RecommendedFragment private constructor() : HungryFragment<FragRecommendedBinding>(),
+class RecommendedFragment : HungryFragment<FragRecommendedBinding>(),
         RestaurantItemSelector, CollectionItemSelector {
 
     private lateinit var mCollectionAdapter: CuratedCollectionsAdapter

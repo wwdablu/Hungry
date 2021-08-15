@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class ReviewFragment private constructor() : HungryFragment<FragResReviewsBinding>() {
+class ReviewFragment : HungryFragment<FragResReviewsBinding>() {
 
     private lateinit var mReviewModel: ReviewModel
     private lateinit var mAdapter: ReviewAdapter

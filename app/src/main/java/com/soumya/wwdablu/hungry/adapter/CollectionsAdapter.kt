@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemCollectionLongBinding
 import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
@@ -12,7 +11,7 @@ import com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.network.model.collections.CuratedCollection
 
 class CollectionsAdapter(list: List<CuratedCollection>, listener: CollectionItemSelector) :
-        RecyclerView.Adapter<CollectionsAdapter.CollectionViewHolder>() {
+            BaseAdapter<CollectionsAdapter.CollectionViewHolder>() {
 
     private val mCollectionList: List<CuratedCollection> = list
     private val mListener: CollectionItemSelector = listener
@@ -40,18 +39,14 @@ class CollectionsAdapter(list: List<CuratedCollection>, listener: CollectionItem
 
         init {
             mViewBinding.root.setOnClickListener {
-                mListener.onCollectionClicked(mCollectionList[adapterPosition].collection)
+                mListener.onCollectionClicked(mCollectionList[bindingAdapterPosition].collection)
             }
         }
 
         fun bind(collection: CollectionInfo) {
 
             mViewBinding.collection = collection
-
-            Glide.with(mViewBinding.ivCollectionImage.context)
-                    .load(collection.imageUrl)
-                    .placeholder(R.drawable.default_card_bg)
-                    .into(mViewBinding.ivCollectionImage)
+            loadImageByUrl(mViewBinding.ivCollectionImage, collection.imageUrl, R.drawable.default_card_bg)
         }
     }
 }

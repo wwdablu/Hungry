@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.MainThread
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.database.HungryDatabase
 import com.soumya.wwdablu.hungry.database.userinfo.UserInfo
 import com.soumya.wwdablu.hungry.databinding.ActivityLoginBinding

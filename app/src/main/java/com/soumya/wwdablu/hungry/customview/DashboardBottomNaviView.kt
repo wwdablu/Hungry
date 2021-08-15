@@ -70,7 +70,7 @@ class DashboardBottomNaviView : BottomNavigationView {
 
     private fun getFoodType() : Pair<CategoryEnum, CategoryEnum?> {
 
-        var hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         return when (hourOfDay) {
 
             in 0..4 -> {
@@ -111,9 +111,8 @@ class DashboardBottomNaviView : BottomNavigationView {
 
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
             mCategoriesList = HungryRepo.getCategories()
-            val s = mCategoriesList.size
         }.invokeOnCompletion {
-            CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.Main).launch(exceptionHandler) {
                 prepareMenu()
             }
         }

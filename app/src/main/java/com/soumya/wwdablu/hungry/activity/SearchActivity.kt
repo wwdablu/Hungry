@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.adapter.SearchAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivitySearchBinding
 import com.soumya.wwdablu.hungry.defines.SearchBy

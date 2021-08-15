@@ -4,12 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.activity.PhotoViewerActivity
 import com.soumya.wwdablu.hungry.databinding.ItemResPhotoBinding
 
-class PhotosAdapter(urlList: List<String>) : RecyclerView.Adapter<PhotosAdapter.PhotosViewModel>() {
+class PhotosAdapter(urlList: List<String>) : BaseAdapter<PhotosAdapter.PhotosViewModel>() {
 
     private val mUrlList: List<String> = urlList
 
@@ -44,10 +43,7 @@ class PhotosAdapter(urlList: List<String>) : RecyclerView.Adapter<PhotosAdapter.
 
         fun bind(url: String) {
 
-            Glide.with(mViewBinding.ivResPhoto.context)
-                    .load(url)
-                    .placeholder(R.drawable.default_card_bg)
-                    .into(mViewBinding.ivResPhoto)
+            loadImageByUrl(mViewBinding.ivResPhoto, url, R.drawable.default_card_bg)
         }
     }
 }

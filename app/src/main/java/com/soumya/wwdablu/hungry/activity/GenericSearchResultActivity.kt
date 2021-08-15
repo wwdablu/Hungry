@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.soumya.wwdablu.hungry.R
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.defines.SearchBy
 import com.soumya.wwdablu.hungry.fragment.GenericSearchResultFragment
 

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.soumya.wwdablu.hungry.databinding.FragProfileBinding
 
-class ProfileFragment private constructor() : HungryFragment<FragProfileBinding>() {
+class ProfileFragment : HungryFragment<FragProfileBinding>() {
 
     companion object {
 

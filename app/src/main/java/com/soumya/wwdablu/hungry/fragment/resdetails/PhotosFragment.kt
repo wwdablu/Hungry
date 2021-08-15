@@ -14,7 +14,7 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.*
 
-class PhotosFragment private constructor() : HungryFragment<FragResPhotoBinding>() {
+class PhotosFragment : HungryFragment<FragResPhotoBinding>() {
 
     private lateinit var mAdapter: PhotosAdapter
     private lateinit var mPhotoUrls: List<String>

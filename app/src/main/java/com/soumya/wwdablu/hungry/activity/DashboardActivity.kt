@@ -32,6 +32,8 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(mViewBinding.root)
     }
 
+    //The EnumMap is not good, needs to be handled
+
     private val navigationItemClickListener: BottomNavigationView.OnNavigationItemSelectedListener
             = BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -63,7 +65,7 @@ class DashboardActivity : AppCompatActivity() {
                 if(catFrag == null) {
                     catFrag = GenericSearchResultFragment.newInstance(SearchBy.Category, catEnum.name,
                             SearchBy.Collection, "1")
-                    mCategoryFragmentMap[catEnum] = catFrag
+                    //mCategoryFragmentMap[catEnum] = catFrag
                 }
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_frag_container, catFrag, GenericSearchResultFragment::class.java.simpleName)

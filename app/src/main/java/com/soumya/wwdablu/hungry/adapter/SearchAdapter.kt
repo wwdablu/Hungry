@@ -17,7 +17,7 @@ import java.util.*
 
 class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
                     resListener: RestaurantItemSelector, cuisineItemSelector: CuisineItemSelector) :
-        RecyclerView.Adapter<SearchAdapter.BaseSearchViewHolder>() {
+        BaseAdapter<SearchAdapter.BaseSearchViewHolder>() {
 
     private val mResListener: RestaurantItemSelector = resListener
     private val mCuisineItemSelector: CuisineItemSelector = cuisineItemSelector

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionDetailsBinding
 import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.adapter.GenericSearchResultAdapter

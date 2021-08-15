@@ -24,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class GenericSearchResultFragment private constructor() : HungryFragment<FragSearchResultGenericBinding>(),
+class GenericSearchResultFragment : HungryFragment<FragSearchResultGenericBinding>(),
         RestaurantItemSelector {
 
     private lateinit var mGenericSearchResultAdapter: GenericSearchResultAdapter

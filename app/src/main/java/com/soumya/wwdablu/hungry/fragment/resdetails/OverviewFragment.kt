@@ -13,7 +13,7 @@ import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 
-class OverviewFragment private constructor() : HungryFragment<FragResOverviewBinding>() {
+class OverviewFragment : HungryFragment<FragResOverviewBinding>() {
 
     private lateinit var mRestaurant: RestaurantInfo
 
