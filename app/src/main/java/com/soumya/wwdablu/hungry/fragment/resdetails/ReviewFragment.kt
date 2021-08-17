@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.adapter.ReviewAdapter
 import com.soumya.wwdablu.hungry.databinding.FragResReviewsBinding
@@ -11,6 +12,7 @@ import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.network.model.reviews.ReviewModel
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.repository.HungryRepo
+import com.soumya.wwdablu.hungry.viewmodel.RestaurantDetailsViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,22 +24,23 @@ class ReviewFragment : HungryFragment<FragResReviewsBinding>() {
     private lateinit var mReviewModel: ReviewModel
     private lateinit var mAdapter: ReviewAdapter
 
+    private lateinit var mViewModel: RestaurantDetailsViewModel
     private lateinit var mRestaurant: RestaurantInfo
 
     companion object {
 
-        fun newInstance(restaurant: RestaurantInfo) : ReviewFragment {
+        fun newInstance() : ReviewFragment {
 
-            val fragment = ReviewFragment()
-            fragment.mRestaurant = restaurant
-
-            return fragment
+            return ReviewFragment()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragResReviewsBinding.inflate(inflater, container, false)
+        mViewModel = ViewModelProvider(requireActivity()).get(RestaurantDetailsViewModel::class.java)
+
+        mRestaurant = mViewModel.getRestaurantInfo()!!
         mViewBinding.resInfo = mRestaurant
 
         mViewBinding.rvReviews.layoutManager = LinearLayoutManager(requireContext())

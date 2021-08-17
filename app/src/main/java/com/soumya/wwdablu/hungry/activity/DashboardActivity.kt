@@ -65,27 +65,25 @@ class DashboardActivity : AppCompatActivity(), DashboardBottomNaviView.Dashboard
         when (it.itemId) {
             CategoryEnum.Recommended.ordinal -> {
 
-                if(mViewModel.bottomIndex.value != CategoryEnum.Recommended.ordinal) {
+                if(mRestoreIndex != CategoryEnum.Recommended.ordinal) {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fl_frag_container, RecommendedFragment.newInstance(), RecommendedFragment::class.java.simpleName)
                         .commitAllowingStateLoss()
-                    mViewModel.setBottomIndex(CategoryEnum.Recommended.ordinal)
                 }
             }
 
             DashboardBottomNaviView.ProfileMenu -> {
 
-                if(mViewModel.bottomIndex.value != DashboardBottomNaviView.ProfileMenu) {
+                if(mRestoreIndex != DashboardBottomNaviView.ProfileMenu) {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fl_frag_container, ProfileFragment.newInstance(), RecommendedFragment::class.java.simpleName)
                         .commitAllowingStateLoss()
-                    mViewModel.setBottomIndex(DashboardBottomNaviView.ProfileMenu)
                 }
             }
 
             else -> {
 
-                if(mViewModel.bottomIndex.value != it.itemId) {
+                if(mRestoreIndex != it.itemId) {
 
                     val catEnum: CategoryEnum = CategoryEnum.values()[it.itemId-1]
                     val catFrag = GenericSearchResultFragment.newInstance(SearchBy.Category, catEnum.name,
@@ -93,7 +91,6 @@ class DashboardActivity : AppCompatActivity(), DashboardBottomNaviView.Dashboard
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fl_frag_container, catFrag, GenericSearchResultFragment::class.java.simpleName)
                         .commitAllowingStateLoss()
-                    mViewModel.setBottomIndex(it.itemId)
                 }
             }
         }
