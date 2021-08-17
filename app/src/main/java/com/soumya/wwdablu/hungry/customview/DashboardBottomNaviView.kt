@@ -18,7 +18,12 @@ import java.util.*
 
 class DashboardBottomNaviView : BottomNavigationView {
 
+    interface DashboardBottomNaviViewCallback {
+        fun onMenuPrepared()
+    }
+
     private lateinit var mCategoriesList: List<Categories>
+    private lateinit var mCallback: DashboardBottomNaviViewCallback
 
     companion object {
         const val ProfileMenu: Int = 99
@@ -36,6 +41,10 @@ class DashboardBottomNaviView : BottomNavigationView {
         fetchCategories()
     }
 
+    fun setCallback(callback: DashboardBottomNaviViewCallback) {
+        mCallback = callback
+    }
+
     private fun prepareMenu() {
 
         val pair: Pair<CategoryEnum, CategoryEnum?> = getFoodType()
@@ -43,8 +52,6 @@ class DashboardBottomNaviView : BottomNavigationView {
         menu.add(Menu.NONE, CategoryEnum.Recommended.ordinal, Menu.NONE, context.getString(R.string.menu_order))
             .setIcon(R.drawable.ic_recommended)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-
-        selectedItemId = CategoryEnum.Recommended.ordinal
 
         for(categories: Categories in mCategoriesList) {
 
@@ -66,6 +73,10 @@ class DashboardBottomNaviView : BottomNavigationView {
         menu.add(Menu.NONE, ProfileMenu, Menu.NONE, context.getString(R.string.menu_profile))
             .setIcon(R.drawable.ic_profile)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
+        if(this::mCallback.isInitialized) {
+            mCallback.onMenuPrepared()
+        }
     }
 
     private fun getFoodType() : Pair<CategoryEnum, CategoryEnum?> {

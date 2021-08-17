@@ -15,7 +15,7 @@ class ProfileFragment : HungryFragment<FragProfileBinding>() {
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragProfileBinding.inflate(inflater, container, false)
 

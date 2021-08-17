@@ -30,7 +30,7 @@ class PhotosFragment : HungryFragment<FragResPhotoBinding>() {
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragResPhotoBinding.inflate(inflater, container, false)
         mViewBinding.rvPhotos.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

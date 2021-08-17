@@ -49,7 +49,7 @@ class SplashScreen : LocationProviderActivity() {
     }
 
     private suspend fun proceed() {
-        val user: UserInfo? = HungryDatabase.getDB(this@SplashScreen)
+        val user: UserInfo? = HungryDatabase.getDB(applicationContext)
                 .UserInfoDao().getLoggedUser()
 
         //Just to show the fancy Splash screen

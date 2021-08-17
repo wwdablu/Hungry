@@ -41,7 +41,7 @@ class RecommendedFragment : HungryFragment<FragRecommendedBinding>(),
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewModel = ViewModelProvider(requireActivity()).get(RecommendedViewModel::class.java)
 

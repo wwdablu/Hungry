@@ -28,7 +28,7 @@ class OverviewFragment : HungryFragment<FragResOverviewBinding>() {
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragResOverviewBinding.inflate(inflater, container, false)
         mViewBinding.resInfo = mRestaurant

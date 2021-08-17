@@ -2,8 +2,6 @@ package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
-import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumya.wwdablu.hungry.activity.common.HungryActivity
@@ -16,6 +14,7 @@ import com.soumya.wwdablu.hungry.network.model.cuisine.Cuisine
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -34,10 +33,13 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSele
 
         mViewBinding.rvSearchResults.layoutManager = LinearLayoutManager(this)
 
-        mViewBinding.etSearch.setOnEditorActionListener(mActionListener)
         mViewBinding.etSearch.doAfterTextChanged {
             mainScope.launch(defaultExceptionHandler) {
-                search(mViewBinding.etSearch.text.toString())
+                val mSearchString = mViewBinding.etSearch.text.toString()
+                delay(1000)
+                if(mSearchString.contentEquals(mViewBinding.etSearch.text.toString())) {
+                    search(mViewBinding.etSearch.text.toString())
+                }
             }
         }
         hideKeyboard()
@@ -73,21 +75,6 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSele
             mViewBinding.rvSearchResults.adapter = mAdapter
         } else {
             mAdapter.setSearchResults(mCuisineList, mSearchModel)
-        }
-    }
-
-    private val mActionListener: TextView.OnEditorActionListener = object: TextView.OnEditorActionListener {
-        override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-
-            hideKeyboard()
-
-            val content: String = mViewBinding.etSearch.text.toString()
-            if(content.isEmpty() || content.isBlank()) {
-                return true
-            }
-
-            search(content)
-            return true
         }
     }
 

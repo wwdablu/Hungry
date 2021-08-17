@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.soumya.wwdablu.hungry.activity.RestaurantDetailsActivity
@@ -18,6 +20,7 @@ import com.soumya.wwdablu.hungry.iface.RestaurantItemSelector
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
+import com.soumya.wwdablu.hungry.viewmodel.GenericSearchResultViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +32,7 @@ class GenericSearchResultFragment : HungryFragment<FragSearchResultGenericBindin
 
     private lateinit var mGenericSearchResultAdapter: GenericSearchResultAdapter
     private lateinit var mSearchModel: SearchModel
+    private lateinit var mViewModel: GenericSearchResultViewModel
 
     private lateinit var mPrimarySearchCriteria: Pair<SearchBy, String>
     private lateinit var mFallbackSearchCriteria: Pair<SearchBy, String>
@@ -53,16 +57,19 @@ class GenericSearchResultFragment : HungryFragment<FragSearchResultGenericBindin
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         val bundle = arguments
 
         mPrimarySearchCriteria = Pair(SearchBy.values()[bundle?.getInt("primarySearch") ?: 0], bundle?.getString("primarySearchParam") ?: "")
         mFallbackSearchCriteria = Pair(SearchBy.values()[bundle?.getInt("fallbackSearch") ?: 0], bundle?.getString("fallbackSearchParam") ?: "")
 
+        mViewModel = ViewModelProvider(requireActivity()).get(GenericSearchResultViewModel::class.java)
+
         mViewBinding = FragSearchResultGenericBinding.inflate(inflater, container, false)
 
-        mViewBinding.rvCatList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val spanCount = if (isScreenInPortrait()) 1 else 2
+        mViewBinding.rvCatList.layoutManager = GridLayoutManager(context, spanCount)
         mViewBinding.rvCatList.addOnItemTouchListener(mItemTouchListener)
 
         if(this::mSearchModel.isInitialized) {
@@ -118,44 +125,38 @@ class GenericSearchResultFragment : HungryFragment<FragSearchResultGenericBindin
 
     private fun getByCategory(categoryEnum: CategoryEnum) {
 
-        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
-            mSearchModel = HungryRepo.searchByCategoryId(categoryEnum)
+        mViewModel.getByCategory(categoryEnum).observe(this, {
+            mSearchModel = it
             mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
-//            getByCollectionId(if(mFallbackSearchCriteria.second.isEmptyOrBlank()) 1 else
-//                mFallbackSearchCriteria.second.toInt())
-        }.invokeOnCompletion {
             onQueryCompletion()
-        }
+        })
     }
 
     private fun getByCollectionId(collectionId: Int) {
 
-        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
-            mSearchModel = HungryRepo.searchByCollectionId(collectionId)
+        mViewModel.getByCollectionId(collectionId).observe(this, {
+            mSearchModel = it
             mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
-        }.invokeOnCompletion {
             onQueryCompletion()
-        }
+        })
     }
 
     private fun getByCuisineId(cuisineId: String) {
 
-        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
-            mSearchModel = HungryRepo.searchByCuisineId(cuisineId)
+        mViewModel.getByCuisineId(cuisineId).observe(this, {
+            mSearchModel = it
             mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
-        }.invokeOnCompletion {
             onQueryCompletion()
-        }
+        })
     }
 
     private fun getByQuery(query: String) {
 
-        CoroutineScope(Dispatchers.IO).launch(mExceptionHandler) {
-            mSearchModel = HungryRepo.search(query)
+        mViewModel.getByQuery(query).observe(this, {
+            mSearchModel = it
             mGenericSearchResultAdapter = GenericSearchResultAdapter(mSearchModel, this@GenericSearchResultFragment)
-        }.invokeOnCompletion {
             onQueryCompletion()
-        }
+        })
     }
 
     private fun onQueryCompletion() {
@@ -190,10 +191,8 @@ class GenericSearchResultFragment : HungryFragment<FragSearchResultGenericBindin
 
     override fun onRestaurantClicked(restaurant: RestaurantInfo) {
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val intent: Intent = Intent(context, RestaurantDetailsActivity::class.java)
-            intent.putExtra("res_details", restaurant)
-            startActivity(intent)
-        }
+        val intent = Intent(context, RestaurantDetailsActivity::class.java)
+        intent.putExtra("res_details", restaurant)
+        startActivity(intent)
     }
 }
