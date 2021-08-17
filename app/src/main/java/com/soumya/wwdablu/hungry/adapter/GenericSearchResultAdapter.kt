@@ -15,7 +15,7 @@ import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
 import timber.log.Timber
 
 internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: RestaurantItemSelector) :
-        RecyclerView.Adapter<GenericSearchResultAdapter.GenericSearchViewHolder>() {
+        BaseAdapter<GenericSearchResultAdapter.GenericSearchViewHolder>() {
 
     private val mSearchModel: SearchModel = searchModel
     private val mListener: RestaurantItemSelector = listener
@@ -71,8 +71,6 @@ internal class GenericSearchResultAdapter(searchModel: SearchModel, listener: Re
         }
 
         fun onTouchDown() {
-
-            Timber.e("${mViewBinding.resName.text}")
             mViewBinding.cvRestaurant.shrinkCard()
         }
 

@@ -1,16 +1,14 @@
 package com.soumya.wwdablu.hungry.activity
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.databinding.ActivityPhotoViewerBinding
 
-class PhotoViewerActivity : AppCompatActivity() {
+class PhotoViewerActivity : HungryActivity() {
 
     private lateinit var mViewBinding: ActivityPhotoViewerBinding
     private var mList: ArrayList<String>? = null
@@ -29,10 +27,7 @@ class PhotoViewerActivity : AppCompatActivity() {
             return
         }
 
-        Glide.with(mViewBinding.ivImage)
-            .load(mList!![mIndex])
-            .placeholder(R.drawable.default_card_bg)
-            .into(mViewBinding.ivImage)
+        loadImageIntoImageView(mList!![mIndex], mViewBinding.ivImage)
 
         mViewBinding.btnNext.setOnClickListener {
 

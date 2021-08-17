@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.soumya.wwdablu.hungry.databinding.FragProfileBinding
 
-class ProfileFragment private constructor() : HungryFragment<FragProfileBinding>() {
+class ProfileFragment : HungryFragment<FragProfileBinding>() {
 
     companion object {
 
@@ -15,7 +15,7 @@ class ProfileFragment private constructor() : HungryFragment<FragProfileBinding>
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragProfileBinding.inflate(inflater, container, false)
 

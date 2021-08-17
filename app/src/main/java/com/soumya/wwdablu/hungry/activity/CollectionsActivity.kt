@@ -4,15 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.adapter.CollectionsAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivityCollectionsBinding
 import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
 import com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.network.model.collections.CuratedCollection
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class CollectionsActivity : HungryActivity(), CollectionItemSelector {
@@ -33,37 +33,29 @@ class CollectionsActivity : HungryActivity(), CollectionItemSelector {
 
     private fun getCollection() {
 
-        HungryRepo.getCollections()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<List<CuratedCollection>>() {
-                override fun onNext(t: List<CuratedCollection>?) {
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+            finish()
+        }
 
-                    if(t != null) {
-                        mAdapter = CollectionsAdapter(t, this@CollectionsActivity)
-                    }
+        ioScope.launch(exceptionHandler) {
+            val t: List<CuratedCollection> = HungryRepo.getCollections()
+            mAdapter = CollectionsAdapter(t, this@CollectionsActivity)
+        }.invokeOnCompletion {
+            mainScope.launch {
+                if(this@CollectionsActivity::mAdapter.isInitialized) {
+                    mViewBinding.lotLoading.cancelAnimation()
+                    mViewBinding.lotLoading.visibility = View.GONE
+                    mViewBinding.rvCollections.visibility = View.VISIBLE
+                    mViewBinding.rvCollections.adapter = mAdapter
                 }
-
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                    finish()
-                }
-
-                override fun onComplete() {
-
-                    if(this@CollectionsActivity::mAdapter.isInitialized) {
-                        mViewBinding.lotLoading.cancelAnimation()
-                        mViewBinding.lotLoading.visibility = View.GONE
-                        mViewBinding.rvCollections.visibility = View.VISIBLE
-                        mViewBinding.rvCollections.adapter = mAdapter
-                    }
-                }
-            })
+            }
+        }
     }
 
     override fun onCollectionClicked(collection: CollectionInfo) {
-        runOnUiThread {
-            val intent: Intent = Intent(this, CollectionDetailsActivity::class.java)
+        mainScope.launch {
+            val intent: Intent = Intent(this@CollectionsActivity, CollectionDetailsActivity::class.java)
             intent.putExtra("collection_id", collection.id)
             intent.putExtra("collection_info", collection)
             startActivity(intent)

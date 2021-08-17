@@ -4,13 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.navigation.NavigationBarView
 import com.soumya.wwdablu.hungry.customview.RestaurantDetailsBottomNaviView
 import com.soumya.wwdablu.hungry.databinding.ActivityRestaurantDetailsBinding
 import com.soumya.wwdablu.hungry.fragment.resdetails.OverviewFragment
 import com.soumya.wwdablu.hungry.fragment.resdetails.PhotosFragment
 import com.soumya.wwdablu.hungry.fragment.resdetails.ReviewFragment
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
+import com.soumya.wwdablu.hungry.viewmodel.RestaurantDetailsViewModel
 import java.util.*
 
 class RestaurantDetailsActivity : AppCompatActivity() {
@@ -18,18 +20,26 @@ class RestaurantDetailsActivity : AppCompatActivity() {
     private lateinit var mViewBinding: ActivityRestaurantDetailsBinding
     private lateinit var mRestaurant: RestaurantInfo
 
-    private val mFragments: EnumMap<RestaurantDetailsBottomNaviView.MenuItems, Fragment> = EnumMap(
-            RestaurantDetailsBottomNaviView.MenuItems::class.java)
+    private var mRestoreIndex: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mRestoreIndex = savedInstanceState?.getInt("index", 0) ?: 0
+
+        val restaurantDetailsViewModel = ViewModelProvider(this).get(RestaurantDetailsViewModel::class.java)
+
         mViewBinding = ActivityRestaurantDetailsBinding.inflate(layoutInflater)
 
-        mViewBinding.bnvBottomMenu.setOnNavigationItemSelectedListener(navigationItemClickListener)
+        mViewBinding.bnvBottomMenu.setOnItemSelectedListener(navigationItemClickListener)
         mViewBinding.bnvBottomMenu.visibility = View.GONE
 
-        val resInfo: RestaurantInfo? = intent.getParcelableExtra("res_details")
+        var resInfo: RestaurantInfo? = intent.getParcelableExtra("res_details")
+        if(resInfo != null && restaurantDetailsViewModel.getRestaurantInfo() == null) {
+            restaurantDetailsViewModel.setRestaurantInfo(resInfo)
+        } else if (resInfo == null && restaurantDetailsViewModel.getRestaurantInfo() != null) {
+            resInfo = restaurantDetailsViewModel.getRestaurantInfo()
+        }
 
         if(resInfo != null) {
 
@@ -40,16 +50,23 @@ class RestaurantDetailsActivity : AppCompatActivity() {
                     .MenuItems.Overview.ordinal
 
             setContentView(mViewBinding.root)
+
+            mViewBinding.bnvBottomMenu.selectedItemId = mRestoreIndex
         } else {
             finish()
         }
     }
 
-    private val navigationItemClickListener: BottomNavigationView.OnNavigationItemSelectedListener
-            = BottomNavigationView.OnNavigationItemSelectedListener {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("index", mViewBinding.bnvBottomMenu.selectedItemId)
+    }
+
+    private val navigationItemClickListener: NavigationBarView.OnItemSelectedListener
+            = NavigationBarView.OnItemSelectedListener {
 
         if(!this::mRestaurant.isInitialized) {
-            return@OnNavigationItemSelectedListener true
+            return@OnItemSelectedListener true
         }
 
         val menuItem: RestaurantDetailsBottomNaviView.MenuItems = RestaurantDetailsBottomNaviView.MenuItems
@@ -58,30 +75,26 @@ class RestaurantDetailsActivity : AppCompatActivity() {
         val useFragment: Fragment = when (menuItem) {
 
             RestaurantDetailsBottomNaviView.MenuItems.Overview -> {
-                mFragments[menuItem] ?: OverviewFragment.newInstance(mRestaurant)
+                OverviewFragment.newInstance()
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Menu -> {
-                mFragments[menuItem] ?: PhotosFragment.newInstance(mRestaurant)
+                PhotosFragment.newInstance()
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Photos -> {
-                mFragments[menuItem] ?: PhotosFragment.newInstance(mRestaurant)
+                PhotosFragment.newInstance()
             }
 
             RestaurantDetailsBottomNaviView.MenuItems.Reviews -> {
-                mFragments[menuItem] ?: ReviewFragment.newInstance(mRestaurant)
+                ReviewFragment.newInstance()
             }
-        }
-
-        if(!mFragments.containsKey(menuItem)) {
-            mFragments[menuItem] = useFragment
         }
 
         supportFragmentManager.beginTransaction()
                 .replace(mViewBinding.flFragContainer.id, useFragment, useFragment::class.java.simpleName)
                 .commitAllowingStateLoss()
 
-        return@OnNavigationItemSelectedListener true
+        return@OnItemSelectedListener true
     }
 }

@@ -2,10 +2,9 @@ package com.soumya.wwdablu.hungry.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
-import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumya.wwdablu.hungry.activity.common.HungryActivity
 import com.soumya.wwdablu.hungry.adapter.SearchAdapter
 import com.soumya.wwdablu.hungry.databinding.ActivitySearchBinding
 import com.soumya.wwdablu.hungry.defines.SearchBy
@@ -15,9 +14,8 @@ import com.soumya.wwdablu.hungry.network.model.cuisine.Cuisine
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.network.model.search.SearchModel
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSelector {
@@ -35,9 +33,14 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSele
 
         mViewBinding.rvSearchResults.layoutManager = LinearLayoutManager(this)
 
-        mViewBinding.etSearch.setOnEditorActionListener(mActionListener)
         mViewBinding.etSearch.doAfterTextChanged {
-            postRunnableOnMain(mSearchRunnable, 500, true)
+            mainScope.launch(defaultExceptionHandler) {
+                val mSearchString = mViewBinding.etSearch.text.toString()
+                delay(1000)
+                if(mSearchString.contentEquals(mViewBinding.etSearch.text.toString())) {
+                    search(mViewBinding.etSearch.text.toString())
+                }
+            }
         }
         hideKeyboard()
 
@@ -53,27 +56,14 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSele
             return
         }
 
-        HungryRepo.getCuisine().flatMap {
-            mCuisineList.clear()
-            mCuisineList.addAll(it.filter { me ->
-                me.cuisineName.contains(content)
-            })
-            HungryRepo.search(content)
-        }.observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<SearchModel?>() {
-                override fun onNext(t: SearchModel?) {
-                    mSearchModel = t
-                }
-
-                override fun onError(e: Throwable?) {
-                    //
-                }
-
-                override fun onComplete() {
-                    updateSearchAdapter()
-                }
-            })
+        ioScope.launch(defaultExceptionHandler) {
+            mCuisineList = HungryRepo.getCuisine() as LinkedList
+            mSearchModel = HungryRepo.search(content)
+        }.invokeOnCompletion {
+            mainScope.launch(defaultExceptionHandler) {
+                updateSearchAdapter()
+            }
+        }
     }
 
     private fun updateSearchAdapter() {
@@ -88,27 +78,8 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSele
         }
     }
 
-    private val mSearchRunnable: Runnable = Runnable {
-        search(mViewBinding.etSearch.text.toString())
-    }
-
-    private val mActionListener: TextView.OnEditorActionListener = object: TextView.OnEditorActionListener {
-        override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-
-            hideKeyboard()
-
-            val content: String = mViewBinding.etSearch.text.toString()
-            if(content.isEmpty() || content.isBlank()) {
-                return true
-            }
-
-            search(content)
-            return true
-        }
-    }
-
     override fun onRestaurantClicked(restaurant: RestaurantInfo) {
-        runOnUiThread {
+        mainScope.launch(defaultExceptionHandler) {
             val intent: Intent = Intent(this@SearchActivity, RestaurantDetailsActivity::class.java)
             intent.putExtra("res_details", restaurant)
             startActivity(intent)
@@ -116,9 +87,9 @@ class SearchActivity : HungryActivity(), RestaurantItemSelector, CuisineItemSele
     }
 
     override fun onCuisineClicked(cuisine: Cuisine) {
-        runOnUiThread {
+        mainScope.launch(defaultExceptionHandler) {
             val intent: Intent = GenericSearchResultActivity.createLaunchIntent(this@SearchActivity,
-                    SearchBy.Cuisine, cuisine.cuisineId)
+                SearchBy.Cuisine, cuisine.cuisineId)
             startActivity(intent)
         }
     }

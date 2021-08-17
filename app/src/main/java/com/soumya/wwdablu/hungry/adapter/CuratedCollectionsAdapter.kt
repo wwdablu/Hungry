@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemCuratedCollectionBinding
 import com.soumya.wwdablu.hungry.iface.CollectionItemSelector
@@ -12,7 +11,7 @@ import com.soumya.wwdablu.hungry.network.model.collections.CollectionInfo
 import com.soumya.wwdablu.hungry.network.model.collections.CuratedCollection
 
 class CuratedCollectionsAdapter(list: List<CuratedCollection>, listener: CollectionItemSelector) :
-        RecyclerView.Adapter<CuratedCollectionsAdapter.CollectionViewHolder>() {
+        BaseAdapter<CuratedCollectionsAdapter.CollectionViewHolder>() {
 
     private val MAX_COLLECTION_CARDS: Int = 6
 
@@ -21,10 +20,8 @@ class CuratedCollectionsAdapter(list: List<CuratedCollection>, listener: Collect
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionViewHolder {
 
-        val viewBinding: ItemCuratedCollectionBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context), R.layout.item_curated_collection, parent, false)
-
-        return CollectionViewHolder(viewBinding)
+        return CollectionViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+            R.layout.item_curated_collection, parent, false))
     }
 
     override fun onBindViewHolder(holder: CollectionViewHolder, position: Int) {
@@ -53,11 +50,7 @@ class CuratedCollectionsAdapter(list: List<CuratedCollection>, listener: Collect
         fun bind(collectionInfo: CollectionInfo) {
 
             mViewBinding.collection = collectionInfo
-
-            Glide.with(mViewBinding.ivCollectionImage.context)
-                    .load(collectionInfo.imageUrl)
-                    .placeholder(R.drawable.default_card_bg)
-                    .into(mViewBinding.ivCollectionImage)
+            loadImageByUrl(mViewBinding.ivCollectionImage, collectionInfo.imageUrl, R.drawable.default_card_bg)
         }
     }
 }

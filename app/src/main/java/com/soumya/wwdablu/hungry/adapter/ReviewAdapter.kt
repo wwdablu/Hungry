@@ -3,13 +3,12 @@ package com.soumya.wwdablu.hungry.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.ItemReviewInfoBinding
 import com.soumya.wwdablu.hungry.network.model.reviews.Review
 import com.soumya.wwdablu.hungry.network.model.reviews.ReviewModel
 
-class ReviewAdapter(reviewModel: ReviewModel) : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
+class ReviewAdapter(reviewModel: ReviewModel) : BaseAdapter<ReviewAdapter.ReviewViewHolder>() {
 
     private val mReviewModel: ReviewModel = reviewModel
 
@@ -33,11 +32,7 @@ class ReviewAdapter(reviewModel: ReviewModel) : RecyclerView.Adapter<ReviewAdapt
 
         fun bind(review: Review) {
             mViewBinding.review = review
-
-            Glide.with(mViewBinding.ivUserImage.context)
-                .load(review.user.profileImage)
-                .placeholder(R.mipmap.ic_launcher_round)
-                .into(mViewBinding.ivUserImage)
+            loadImageByUrl(mViewBinding.ivUserImage, review.user.profileImage, R.drawable.default_card_bg)
         }
     }
 }

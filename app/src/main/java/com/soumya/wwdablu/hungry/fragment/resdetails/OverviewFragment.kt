@@ -7,30 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.ViewModelProvider
 import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.databinding.FragResOverviewBinding
 import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
+import com.soumya.wwdablu.hungry.viewmodel.RestaurantDetailsViewModel
 
-class OverviewFragment private constructor() : HungryFragment<FragResOverviewBinding>() {
+class OverviewFragment : HungryFragment<FragResOverviewBinding>() {
 
     private lateinit var mRestaurant: RestaurantInfo
+    private lateinit var mViewModel: RestaurantDetailsViewModel
 
     companion object {
 
-        fun newInstance(restaurant: RestaurantInfo) : OverviewFragment {
-
-            val fragment = OverviewFragment()
-            fragment.mRestaurant = restaurant
-
-            return fragment
+        fun newInstance(): OverviewFragment {
+            return OverviewFragment()
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragResOverviewBinding.inflate(inflater, container, false)
+        mViewModel = ViewModelProvider(requireActivity()).get(RestaurantDetailsViewModel::class.java)
+
+        mRestaurant = mViewModel.getRestaurantInfo()!!
         mViewBinding.resInfo = mRestaurant
 
         populateOtherInfo(mViewBinding.root.context)

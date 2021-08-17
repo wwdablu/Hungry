@@ -4,10 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MotionEvent
 import androidx.cardview.widget.CardView
-import kotlin.math.abs
-
 
 class RestaurantCard : CardView {
 

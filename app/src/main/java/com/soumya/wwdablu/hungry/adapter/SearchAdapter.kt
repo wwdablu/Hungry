@@ -17,7 +17,7 @@ import java.util.*
 
 class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
                     resListener: RestaurantItemSelector, cuisineItemSelector: CuisineItemSelector) :
-        RecyclerView.Adapter<SearchAdapter.BaseSearchViewHolder>() {
+        BaseAdapter<SearchAdapter.BaseSearchViewHolder>() {
 
     private val mResListener: RestaurantItemSelector = resListener
     private val mCuisineItemSelector: CuisineItemSelector = cuisineItemSelector
@@ -88,7 +88,7 @@ class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
 
         init {
             mViewBinding.root.setOnClickListener {
-                mCuisineItemSelector.onCuisineClicked(mCuisineList[adapterPosition])
+                mCuisineItemSelector.onCuisineClicked(mCuisineList[bindingAdapterPosition])
             }
         }
 
@@ -119,7 +119,7 @@ class SearchAdapter(cuisineList: List<Cuisine>, searchModel: SearchModel,
         }
 
         private fun getRestaurant() : RestaurantInfo? {
-            val index = adapterPosition - mCuisineList.size - 1
+            val index = bindingAdapterPosition - mCuisineList.size - 1
             return mSearchModel?.restaurants?.get(index)?.restaurant
         }
     }

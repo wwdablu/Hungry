@@ -4,67 +4,59 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.soumya.wwdablu.hungry.adapter.PhotosAdapter
 import com.soumya.wwdablu.hungry.databinding.FragResPhotoBinding
 import com.soumya.wwdablu.hungry.fragment.HungryFragment
 import com.soumya.wwdablu.hungry.network.model.search.RestaurantInfo
 import com.soumya.wwdablu.hungry.utils.RestaurantInfoUtil
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.soumya.wwdablu.hungry.viewmodel.RestaurantDetailsViewModel
+import kotlinx.coroutines.*
 import timber.log.Timber
+import java.util.*
 
-class PhotosFragment private constructor() : HungryFragment<FragResPhotoBinding>() {
+class PhotosFragment : HungryFragment<FragResPhotoBinding>() {
 
     private lateinit var mAdapter: PhotosAdapter
     private lateinit var mPhotoUrls: List<String>
 
+    private lateinit var mViewModel: RestaurantDetailsViewModel
+
     companion object {
 
-        fun newInstance(restaurant: RestaurantInfo) : PhotosFragment {
+        fun newInstance() : PhotosFragment {
 
-            val fragment = PhotosFragment()
-            fragment.getPhotos(restaurant)
-
-            return fragment
+            return PhotosFragment()
         }
     }
 
-    override fun onCreateViewExt(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         mViewBinding = FragResPhotoBinding.inflate(inflater, container, false)
         mViewBinding.rvPhotos.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        mViewModel = ViewModelProvider(requireActivity()).get(RestaurantDetailsViewModel::class.java)
+        getPhotos(mViewModel.getRestaurantInfo()!!)
 
         return mViewBinding.root
     }
 
     private fun getPhotos(restaurant: RestaurantInfo) {
 
-        RestaurantInfoUtil.getPhotos(restaurant)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<List<String>>() {
-                override fun onNext(t: List<String>?) {
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+        }
 
-                    if(t == null) {
-                        return
-                    }
-
-                    mPhotoUrls = t
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            mPhotoUrls = RestaurantInfoUtil.getPhotos(restaurant)
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch(exceptionHandler) {
+                if(this@PhotosFragment::mPhotoUrls.isInitialized) {
+                    mAdapter = PhotosAdapter(mPhotoUrls)
+                    mViewBinding.rvPhotos.adapter = mAdapter
                 }
-
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                }
-
-                override fun onComplete() {
-
-                    if(this@PhotosFragment::mPhotoUrls.isInitialized) {
-                        mAdapter = PhotosAdapter(mPhotoUrls)
-                        mViewBinding.rvPhotos.adapter = mAdapter
-                    }
-                }
-            })
+            }
+        }
     }
 }

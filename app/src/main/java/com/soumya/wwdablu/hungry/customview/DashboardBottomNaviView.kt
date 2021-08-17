@@ -9,15 +9,21 @@ import com.soumya.wwdablu.hungry.R
 import com.soumya.wwdablu.hungry.defines.CategoryEnum
 import com.soumya.wwdablu.hungry.network.model.categories.Categories
 import com.soumya.wwdablu.hungry.repository.HungryRepo
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 
 class DashboardBottomNaviView : BottomNavigationView {
 
+    interface DashboardBottomNaviViewCallback {
+        fun onMenuPrepared()
+    }
+
     private lateinit var mCategoriesList: List<Categories>
+    private lateinit var mCallback: DashboardBottomNaviViewCallback
 
     companion object {
         const val ProfileMenu: Int = 99
@@ -35,6 +41,10 @@ class DashboardBottomNaviView : BottomNavigationView {
         fetchCategories()
     }
 
+    fun setCallback(callback: DashboardBottomNaviViewCallback) {
+        mCallback = callback
+    }
+
     private fun prepareMenu() {
 
         val pair: Pair<CategoryEnum, CategoryEnum?> = getFoodType()
@@ -42,8 +52,6 @@ class DashboardBottomNaviView : BottomNavigationView {
         menu.add(Menu.NONE, CategoryEnum.Recommended.ordinal, Menu.NONE, context.getString(R.string.menu_order))
             .setIcon(R.drawable.ic_recommended)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-
-        selectedItemId = CategoryEnum.Recommended.ordinal
 
         for(categories: Categories in mCategoriesList) {
 
@@ -65,11 +73,15 @@ class DashboardBottomNaviView : BottomNavigationView {
         menu.add(Menu.NONE, ProfileMenu, Menu.NONE, context.getString(R.string.menu_profile))
             .setIcon(R.drawable.ic_profile)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
+        if(this::mCallback.isInitialized) {
+            mCallback.onMenuPrepared()
+        }
     }
 
     private fun getFoodType() : Pair<CategoryEnum, CategoryEnum?> {
 
-        var hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         return when (hourOfDay) {
 
             in 0..4 -> {
@@ -104,21 +116,16 @@ class DashboardBottomNaviView : BottomNavigationView {
 
     private fun fetchCategories() {
 
-        HungryRepo.getCategories()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribeWith(object: DisposableObserver<List<Categories>>() {
-                override fun onNext(t: List<Categories>?) {
-                    mCategoriesList = t ?: LinkedList()
-                }
+        val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Timber.e(throwable)
+        }
 
-                override fun onError(e: Throwable?) {
-                    Timber.e(e)
-                }
-
-                override fun onComplete() {
-                    prepareMenu()
-                }
-            })
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            mCategoriesList = HungryRepo.getCategories()
+        }.invokeOnCompletion {
+            CoroutineScope(Dispatchers.Main).launch(exceptionHandler) {
+                prepareMenu()
+            }
+        }
     }
 }
