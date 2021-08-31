@@ -44,7 +44,7 @@ class ReviewFragment : HungryFragment<FragResReviewsBinding>() {
         mViewBinding.resInfo = mRestaurant
 
         mViewBinding.rvReviews.layoutManager = LinearLayoutManager(requireContext())
-        getReviews(mRestaurant.r.resId)
+        //getReviews(mRestaurant.r.resId)
 
         return mViewBinding.root
     }
