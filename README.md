@@ -1,17 +1,27 @@
 # Hungry
 
-Upgrading the application to Kotlin and matching the UI as of Zomato release in Dec, 2020
-Most of the major changes are done. Few minor updates are still pending. Will update it while testing the application more.
+Upgrading the application to Kotlin and matching the UI as of Zomato release in Dec, 2020 for Android.  
+  
+**__Description:__**  
+The objective of the development of this application was to try and implement the UI of Zomato (Dec, 2020 release) using the API provided by Zomato. Not all the APIs are implemented but a major of them are. It uses FusedLocation to display the list of restaurants. We have tried to follow the MVVM approach using Kotlin and Coroutines too.  
+Recently the Zomato API has been locked, but existing API keys are working. Review API is no longer working and hence it has been commented out.
 
 **__Libraries used during development:__**  
 
 * Recycler View  
 * Card View
 * Retrofit  
-* RxJava
+* Coroutines
 * Glide
 * Room
 * Timber
+* Lottie
+* Leak Canary
+* PhoneInputExt ([Custom Library](https://github.com/wwdablu/PhoneInputExt))  
+
+  
+**__Implementation Result:__**  
+![GIF](https://github.com/wwdablu/Hungry/blob/master/screenshot/Hungry_v3.1.0.gif)
 
 **__Asset Credits:__**
 
